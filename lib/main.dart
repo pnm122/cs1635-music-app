@@ -7,14 +7,83 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  
+  final bgColor = const Color.fromARGB(255, 19, 26, 44);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Welcome to Flutter',
-      home: SongList(),
+      home: HomePage(),
+
       theme: ThemeData (
-        textTheme: GoogleFonts.robotoFlexTextTheme(),
+        scaffoldBackgroundColor: bgColor,
+        
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.indigo,
+          primaryColorDark: Colors.indigo[700],
+          accentColor: const Color.fromARGB(255, 241, 247, 255),
+          cardColor: const Color.fromARGB(25, 255, 255, 255),
+          backgroundColor: bgColor,
+          errorColor: const Color.fromARGB(255, 214, 46, 46),
+          brightness: Brightness.light,
+        ),
+
+        textTheme: Theme.of(context).textTheme.apply(fontFamily: "Nunito", bodyColor: Colors.white, displayColor: Colors.white),
+
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final sidePadding = 16.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 75,
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+
+          title: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(99),
+              ),
+              filled: true,
+              fillColor: Theme.of(context).colorScheme.surface,
+              hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color:Colors.white),
+              prefixIcon: const Icon(Icons.search, color:Colors.white),
+              hintText: 'Search for a song or profile...',
+
+              enabled: false,
+            ),
+          ),
+
+          bottom: TabBar(
+            unselectedLabelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.grey[300]),
+            labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+            tabs: const <Widget>[
+              Tab(
+                child: Text("Popular"),
+              ),
+              Tab(
+                child: Text("Following"),
+              ),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: <Widget>[
+            Center(child: Text("Tab 1")),
+            Center(child: Text("Tab 2")),
+          ],
+        ),
       ),
     );
   }
@@ -106,7 +175,7 @@ class _SongListState extends State<SongList> {
               ],
             ),
           );
-        },
+        }
       );
     }
   }
