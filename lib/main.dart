@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+const sectionPadding = 16.0; // padding around each section
+const postPadding = 16.0; // padding on the inside of each post
+const defaultBorderRadius = 10.0; // border radius of outline of each post
+const postSectionMargin = 10.0; // Margin between poster, content, and interactions on a post
+const postGap = 32.0; // Extra margin between posts
+
+
+/**
+ * 
+ * 
+ * LOOK AT TUTORIAL TO SEE HOW TO ADD TO FAVORITES
+ * 
+ * 
+ */
+
 
 void main() {
   runApp(const MyApp());
@@ -18,14 +33,25 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData (
         scaffoldBackgroundColor: bgColor,
-        
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.indigo,
-          primaryColorDark: Colors.indigo[700],
-          accentColor: const Color.fromARGB(255, 241, 247, 255),
-          cardColor: const Color.fromARGB(25, 255, 255, 255),
-          backgroundColor: bgColor,
-          errorColor: const Color.fromARGB(255, 214, 46, 46),
+
+        colorScheme: ColorScheme( 
+          primary: Colors.white,
+          onPrimary: Colors.black,
+
+          secondary: const Color.fromARGB(180, 255, 255, 255),
+          onSecondary: Colors.black,
+
+          background: bgColor,
+          onBackground: Colors.white,
+
+          error: const Color.fromARGB(255, 214, 46, 46),
+          onError: Colors.white,
+ 
+          surface: const Color.fromARGB(18, 255, 255, 255),
+          onSurface:Colors.white,
+
+          outline: Colors.indigo[400],
+          
           brightness: Brightness.light,
         ),
 
@@ -37,8 +63,6 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final sidePadding = 16.0;
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -48,15 +72,19 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 75,
           shadowColor: Colors.transparent,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).colorScheme.background,
 
+          // Search Bar
           title: TextField(
+
             decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(0.0),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(99),
+                borderRadius: BorderRadius.circular(defaultBorderRadius),
               ),
               filled: true,
-              fillColor: Theme.of(context).colorScheme.surface,
+              fillColor: Colors.black26,
+              
               hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color:Colors.white),
               prefixIcon: const Icon(Icons.search, color:Colors.white),
               hintText: 'Search for a song or profile...',
@@ -65,9 +93,11 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
+          // Tabs between popular and following pages
           bottom: TabBar(
-            unselectedLabelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.grey[300]),
-            labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+            unselectedLabelStyle: Theme.of(context).textTheme.labelLarge,
+            labelStyle: Theme.of(context).textTheme.labelLarge,
+            indicatorColor: Theme.of(context).colorScheme.outline,
             tabs: const <Widget>[
               Tab(
                 child: Text("Popular"),
@@ -78,13 +108,155 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
-            Center(child: Text("Tab 1")),
-            Center(child: Text("Tab 2")),
+            // Popular
+            PostView(),
+
+            // Following
+            PostView(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class PostView extends StatefulWidget {
+  @override
+  State<PostView> createState() => _PostViewState();
+}
+
+class _PostViewState extends State<PostView> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      // padding around the entire list
+      padding: const EdgeInsets.all(sectionPadding),
+
+      itemBuilder: (context, i) {
+        // extra space between each post
+        if(i.isOdd) return const SizedBox(height:postGap);
+
+        // Text Post
+        // TODO: Turn this into its own widget
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Poster
+              // TODO: Turn this into its own widget
+              Row(
+                children: <Widget>[
+                  // Profile
+                  TextButton(
+                    style: ButtonStyle(
+                      // MaterialStateProperty.all means to use that style for all states of the button
+                      foregroundColor:MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
+                      textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelLarge),
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    ),
+                    // TODO: Take a user to the profile when they press this button
+                    onPressed: null, 
+
+                    // TODO: Repalce icon with profile image
+                    child: Row(
+                      children: const <Widget>[
+                        Icon(Icons.account_circle), 
+                        SizedBox(width: 5),
+                        Text("User Name"),
+                      ]
+                    ),  
+                  ),
+
+                  const SizedBox(width: 5),
+
+                  // Following button
+                  OutlinedButton(
+                    style: ButtonStyle(
+                      // MaterialStateProperty.all means to use that style for all states of the button
+                      foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
+                      side: MaterialStateProperty.all(
+                        BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 1,
+                        ),
+                      ),
+                      textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                    ),
+                    // TODO: Follow this user when this button is pressed
+                    onPressed: null,
+                    child: const Text("Follow"),
+                  ),
+                ],
+              ),
+
+              // Padding between elements
+              const SizedBox(height: postSectionMargin),
+
+              // Content (Text Post)
+              Container(
+                padding: const EdgeInsets.all(postPadding),
+                decoration: BoxDecoration(
+                  //border: Border.all(color: Colors.white24),
+                  borderRadius: BorderRadius.circular(defaultBorderRadius),
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+                child: Text(
+                  "nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim",
+                  style: TextStyle(color: Theme.of(context).colorScheme.secondary)
+                  )
+              ),
+
+              // Padding between elements
+              const SizedBox(height: postSectionMargin),
+
+              // Interaction icons
+              Row(
+                children: <Widget>[
+                  // Favorite button
+                  // TODO: Update favorited posts and icon state if clicked
+                  // TODO: Initial icon state based on if the user already liked the post or not
+                  Column(
+                    children: <Widget>[
+                      const IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: BoxConstraints(),
+                        isSelected: false,
+                        onPressed: null,
+                        icon: Icon(Icons.favorite_outline, color: Colors.white),
+                      ),
+                      Text(
+                        "175",
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(fontFamily: "Nunito"),
+                      ),
+                    ],
+                  ),
+
+                  // Gap between icons
+                  const SizedBox(width: 8),
+
+                  // Comment button
+                  // TODO: Take you to the post's comment page when clicked
+                  Column(
+                    children: <Widget>[
+                      const IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: BoxConstraints(),
+                        onPressed: null,
+                        icon: Icon(Icons.comment, color: Colors.white),
+                      ),
+                      Text(
+                        "83",
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(fontFamily: "Nunito"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+        );
+      }
     );
   }
 }
@@ -100,7 +272,7 @@ class _SongListState extends State<SongList> {
     Widget build(BuildContext context) {
       return ListView.builder(
         // padding around the entire list
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(sectionPadding),
         itemBuilder: /*1*/ (context, i) {
           // margin between list items
           if (i.isOdd) return const Divider();
