@@ -7,6 +7,6 @@ class User extends Creator {
   List<User> following;
   List<Post> posts;
 
-  User({required this.followers, required this.following, required this.posts}) : super(name: '');
+  User({required this.followers, required this.following, required this.posts, required super.name});
 
 }

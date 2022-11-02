@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/viewmodels/homepage_view_model.dart';
 import 'widgets/bottom_navigation_bar_widget.dart';
+import 'package:provider/provider.dart';
 
 /**
  * 
@@ -11,7 +13,11 @@ import 'widgets/bottom_navigation_bar_widget.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<HomepageViewModel>(
+    child: const MyApp(),
+    create: (_) => HomepageViewModel(),
+  ));
+  //runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
