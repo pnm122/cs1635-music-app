@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/global_styles.dart';
+// import 'package:test_app/global_styles.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
@@ -16,36 +16,35 @@ class CustomVideoPlayer extends StatefulWidget {
 }
 
 class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
-  late ChewieController _chewieController; // IDK if I should use late but it makes the error messages go away!
+  late ChewieController
+      _chewieController; // IDK if I should use late but it makes the error messages go away!
 
   @override
   void initState() {
     super.initState();
 
     _chewieController = ChewieController(
-      videoPlayerController: widget.videoPlayerController,
-      aspectRatio: 3 / 4,
+        videoPlayerController: widget.videoPlayerController,
+        aspectRatio: 3 / 4,
 
-      // Display first frame of video when loaded
-      autoInitialize: true,
-      looping: true,
-      autoPlay:true,
-      showControlsOnInitialize: false,
+        // Display first frame of video when loaded
+        autoInitialize: true,
+        looping: true,
+        autoPlay: true,
+        showControlsOnInitialize: false,
 
-      // Error message to display if the video isn't working
-      errorBuilder: (context, errorMessage) {
-        return Center(
-          child: Column(
-            children: const <Widget>[
+        // Error message to display if the video isn't working
+        errorBuilder: (context, errorMessage) {
+          return Center(
+            child: Column(children: const <Widget>[
               Icon(Icons.error_outline, size: 48),
               Text("This video is unavailable"),
-            ]
-          ),
-        );
-      }
-    );
+            ]),
+          );
+        });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Chewie(
       controller: _chewieController,
@@ -60,4 +59,3 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
     _chewieController.dispose();
   }
 }
-

@@ -18,7 +18,6 @@ class HomePage extends StatelessWidget {
 
           // Search Bar
           title: TextField(
-
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(0.0),
               border: OutlineInputBorder(
@@ -26,11 +25,12 @@ class HomePage extends StatelessWidget {
               ),
               filled: true,
               fillColor: Colors.black26,
-
-              hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color:Colors.white),
-              prefixIcon: const Icon(Icons.search, color:Colors.white),
+              hintStyle: Theme.of(context)
+                  .textTheme
+                  .labelLarge
+                  ?.copyWith(color: Colors.white),
+              prefixIcon: const Icon(Icons.search, color: Colors.white),
               hintText: 'Search for a song or profile...',
-
               enabled: false,
             ),
           ),
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
             // Popular
             PostView(),
@@ -63,6 +63,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
-

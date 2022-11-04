@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/global_styles.dart';
+// import 'package:test_app/global_styles.dart';
 
 class UploadPage extends StatelessWidget {
   const UploadPage({super.key});

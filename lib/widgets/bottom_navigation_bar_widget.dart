@@ -15,10 +15,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
 
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    UploadPage(),
-    ProfilePage(),
+  final List<Widget> _widgetOptions = <Widget>[
+    const HomePage(),
+    const UploadPage(),
+    const ProfilePage(),
   ];
 
   @override
