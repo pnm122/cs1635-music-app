@@ -13,11 +13,11 @@ import 'package:provider/provider.dart';
 
 
 void main() {
-  runApp(ChangeNotifierProvider<HomepageViewModel>(
-    child: const MyApp(),
-    create: (_) => HomepageViewModel(),
-  ));
-  //runApp(const MyApp());
+  // runApp(ChangeNotifierProvider<HomepageViewModel>(
+  //   child: const MyApp(),
+  //   create: (_) => HomepageViewModel(),
+  // ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +30,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Music App',
       // home: HomePage(),
-      home: BottomNavigationBarWidget(),
+      home: (ChangeNotifierProvider<HomepageViewModel>(
+          child: const BottomNavigationBarWidget(),
+          create: (_) => HomepageViewModel(),
+        )),
 
       theme: ThemeData (
         scaffoldBackgroundColor: bgColor,

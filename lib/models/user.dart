@@ -1,12 +1,20 @@
 import 'package:test_app/models/creator.dart';
 import 'package:test_app/models/post.dart';
+import 'package:test_app/models/profile.dart';
 
 class User extends Creator {
 
-  List<User> followers;
-  List<User> following;
-  List<Post> posts;
+  final List<User> followers;
+  final List<User> following;
+  final Profile profile;
+  final List<Post> posts;
 
-  User({required this.followers, required this.following, required this.posts, required super.name});
+  User({this.followers = const [],
+    this.following = const [],
+    required this.profile,
+    this.posts = const [],
+    required super.name,
+    required super.image
+  });
 
 }
