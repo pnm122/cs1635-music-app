@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PostInteraction extends StatelessWidget {
-
+  const PostInteraction({super.key});
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       children: <Widget>[
         // Favorite button
         // TODO: Update favorited posts and icon state if clicked
@@ -21,7 +20,10 @@ class PostInteraction extends StatelessWidget {
             ),
             Text(
               "175",
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(fontFamily: "Nunito"),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.copyWith(fontFamily: "Nunito"),
             ),
           ],
         ),
@@ -41,7 +43,10 @@ class PostInteraction extends StatelessWidget {
             ),
             Text(
               "83",
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(fontFamily: "Nunito"),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.copyWith(fontFamily: "Nunito"),
             ),
           ],
         ),
