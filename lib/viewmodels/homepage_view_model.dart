@@ -7,42 +7,53 @@ import '../models/text_post.dart';
 import '../models/user.dart';
 import '../models/artist.dart';
 
+// GROWABLE MUST BE TRUE OTHERWISE LISTS CANNOT HAVE ANY ITEMS
+
+User currentUser = User(
+  name: "Default User",
+  followers: List.empty(growable: true),
+  following: List.empty(growable: true),
+  posts: List.empty(growable: true),
+  image: "",
+  profile: Profile(),
+);
+
 List<Post> initialData = List.from(
     [
       TextPost(
-          likedBy: List.empty(),
+          likedBy: [currentUser],
           poster:
           User(
               name: "Kris Martin",
-              followers: List.empty(),
-              following: List.empty(),
-              posts: List.empty(),
+              followers: List.empty(growable: true),
+              following: List.empty(growable: true),
+              posts: List.empty(growable: true),
               image: "",
               profile: Profile()
           ),
           text: "Look at the stars, look how they shine for you", createdTime: DateTime.now()
       ),
       TextPost(
-          likedBy: List.empty(),
+          likedBy: List.empty(growable: true),
           poster:
           User(
               name: "Billy Goat",
-              followers: List.empty(),
-              following: List.empty(),
-              posts: List.empty(),
+              followers: List.empty(growable: true),
+              following: List.empty(growable: true),
+              posts: List.empty(growable: true),
               image: "",
               profile: Profile()
           ),
           text: "Bebop", createdTime: DateTime.now()
       ),
       MediaPost(
-          likedBy: List.empty(),
+          likedBy: List.empty(growable: true),
           poster:
           User(
               name: "Sean Dyche",
-              followers: List.empty(),
-              following: List.empty(),
-              posts: List.empty(),
+              followers: List.empty(growable: true),
+              following: List.empty(growable: true),
+              posts: List.empty(growable: true),
               image: "",
               profile: Profile()
           ),
@@ -63,4 +74,12 @@ class HomepageViewModel with ChangeNotifier {
 
   List<Post> get popularPosts => _popularPosts;
 
+  // TODO: Add and remove from user's favorites list
+  void likePost(Post post) {
+    if(post.likedBy.contains(currentUser)) {
+      post.likedBy.remove(currentUser); 
+    } else { 
+      post.likedBy.add(currentUser);
+    }
+  }
 }

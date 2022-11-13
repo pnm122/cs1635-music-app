@@ -30,11 +30,10 @@ class _PostViewState extends State<PostView> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // extra space between each post
-              if (i.isOdd) const SizedBox(height: postGap),
-
               // Poster
-              const PosterInfo(),
+              const PosterInfo(
+                //post: postList[i],
+              ),
 
               // Padding between elements
               const SizedBox(height: postSectionMargin),
@@ -48,7 +47,12 @@ class _PostViewState extends State<PostView> {
               const SizedBox(height: postSectionMargin),
 
               // Interaction icons
-              const PostInteraction(),
+              PostInteraction(
+                post: postList[i],
+              ),
+
+              // extra space between each post
+              const SizedBox(height: postGap),
             ],
           );
         });

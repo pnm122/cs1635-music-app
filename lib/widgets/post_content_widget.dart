@@ -12,20 +12,23 @@ class PostContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(postPadding),
+      // Fill width
+      width: double.infinity,
       decoration: BoxDecoration(
         //border: Border.all(color: Colors.white24),
         borderRadius: BorderRadius.circular(defaultBorderRadius),
         color: Theme.of(context).colorScheme.surface,
       ),
 
-      // TODO: Decide post style based on where we're pulling post info from
+      // padding on text posts only
+      padding: post is TextPost ? const EdgeInsets.all(postPadding) : const EdgeInsets.all(0),
+
       child: post is TextPost
-          ? Text(post.text,
-              style: TextStyle(color: Theme.of(context).colorScheme.secondary))
-          : CustomVideoPlayer(
-              videoPlayerController: VideoPlayerController.network(post.href),
-            ),
+        ? Text(post.text,
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary))
+        : CustomVideoPlayer(
+            videoPlayerController: VideoPlayerController.network(post.href),
+          ),
     );
   }
 }

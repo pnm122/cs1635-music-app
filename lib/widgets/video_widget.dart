@@ -25,7 +25,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
     _chewieController = ChewieController(
         videoPlayerController: widget.videoPlayerController,
-        aspectRatio: 3 / 4,
+        aspectRatio: 1,
 
         // Display first frame of video when loaded
         autoInitialize: true,
@@ -36,9 +36,11 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         // Error message to display if the video isn't working
         errorBuilder: (context, errorMessage) {
           return Center(
-            child: Column(children: const <Widget>[
-              Icon(Icons.error_outline, size: 48),
-              Text("This video is unavailable"),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.primary),
+                const Text("This video is unavailable"),
             ]),
           );
         });

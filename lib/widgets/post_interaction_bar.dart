@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import '../viewmodels/homepage_view_model.dart';
+import 'package:provider/provider.dart';
 
-class PostInteraction extends StatelessWidget {
-  const PostInteraction({super.key});
+class PostInteraction extends StatefulWidget {
+  const PostInteraction({super.key, required this.post});
+  final dynamic post;
+
+  State<PostInteraction> createState() => _PostInteractionState();
+}
+
+class _PostInteractionState extends State<PostInteraction> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -11,12 +19,15 @@ class PostInteraction extends StatelessWidget {
         // TODO: Initial icon state based on if the user already liked the post or not
         Column(
           children: <Widget>[
-            const IconButton(
+            IconButton(
               padding: EdgeInsets.zero,
-              constraints: BoxConstraints(),
+              constraints: const BoxConstraints(),
               isSelected: false,
-              onPressed: null,
-              icon: Icon(Icons.favorite_outline, color: Colors.white),
+              // TODO: Can we use a context.watch to achieve this somehow?
+              onPressed: () { setState((){context.read<HomepageViewModel>().likePost(widget.post);}); },
+              icon: widget.post.likedBy.contains(currentUser)
+                ? const Icon(Icons.favorite, color: Colors.red)
+                : const Icon(Icons.favorite_outline, color: Colors.white)
             ),
             Text(
               "175",
