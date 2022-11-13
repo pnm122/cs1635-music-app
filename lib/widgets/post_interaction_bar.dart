@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../viewmodels/homepage_view_model.dart';
+import '../widgets/comments_widget.dart';
 import 'package:provider/provider.dart';
 
 class PostInteraction extends StatefulWidget {
@@ -30,7 +31,7 @@ class _PostInteractionState extends State<PostInteraction> {
                 : const Icon(Icons.favorite_outline, color: Colors.white)
             ),
             Text(
-              "175",
+              widget.post.likedBy.length.toString(),
               style: Theme.of(context)
                   .textTheme
                   .labelSmall
@@ -46,11 +47,17 @@ class _PostInteractionState extends State<PostInteraction> {
         // TODO: Take you to the post's comment page when clicked
         Column(
           children: <Widget>[
-            const IconButton(
+            IconButton(
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(),
-              onPressed: null,
-              icon: Icon(Icons.comment, color: Colors.white),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Comments(post: widget.post)
+                  ),
+                );
+              },
+              icon: const Icon(Icons.comment, color: Colors.white),
             ),
             Text(
               "83",

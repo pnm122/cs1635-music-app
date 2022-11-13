@@ -34,10 +34,11 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
         scaffoldBackgroundColor: bgColor,
+        disabledColor: Colors.transparent, // get rid of text box outline (temporary?)
         colorScheme: ColorScheme(
-          primary: Colors.white,
+          primary: Colors.white, // go-to text color
           onPrimary: Colors.black,
-          secondary: const Color.fromARGB(180, 255, 255, 255),
+          secondary: const Color.fromARGB(180, 255, 255, 255), // post text
           onSecondary: Colors.black,
           background: bgColor,
           onBackground: Colors.white,
@@ -46,12 +47,13 @@ class MyApp extends StatelessWidget {
           surface: const Color.fromARGB(18, 255, 255, 255),
           onSurface: Colors.white,
           outline: Colors.indigo[400],
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
         ),
         textTheme: Theme.of(context).textTheme.apply(
-            fontFamily: "Nunito",
-            bodyColor: Colors.white,
-            displayColor: Colors.white),
+          fontFamily: "Nunito",
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ),
       ),
     );
   }

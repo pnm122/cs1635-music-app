@@ -14,17 +14,19 @@ class _CommentsState extends State<Comments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        shadowColor: Colors.transparent,
         backgroundColor: Theme.of(context).colorScheme.background,
+        centerTitle: true,
 
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          onPressed: null, // TODO: pop off view
+          onPressed: () {
+            Navigator.pop(context);
+          }
         ),
 
         title: Text(
           "Comments",
-          style: Theme.of(context).textTheme.displayMedium,
+          style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight:FontWeight.bold),
         ),
       ),
     );
