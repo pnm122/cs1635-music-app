@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';
 import 'homepage_widget.dart';
 import 'upload_page_widget.dart';
-import 'profile_page_widget.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   const BottomNavigationBarWidget({super.key});
@@ -18,7 +18,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const UploadPage(),
-    const ProfilePage(),
+    const UserProfilePage(),
   ];
 
   @override
