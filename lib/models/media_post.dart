@@ -6,7 +6,7 @@ class MediaPost extends Post {
   final String href;
   final Song song;
 
-  MediaPost({required super.poster,
+  MediaPost({required super.posterUsername,
     required super.likedBy,
     required super.text,
     required this.href,

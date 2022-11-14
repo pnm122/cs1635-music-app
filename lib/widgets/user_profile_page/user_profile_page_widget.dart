@@ -16,6 +16,7 @@ class _UserProfilePage extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
 
+    var viewModel = context.watch<UserProfilePageViewModel>();
     final User user = context.watch<UserProfilePageViewModel>().user;
     final String followersCnt = context.watch<UserProfilePageViewModel>().followersCnt;
     final String followingCnt = context.watch<UserProfilePageViewModel>().followingCnt;
@@ -105,7 +106,7 @@ class _UserProfilePage extends State<UserProfilePage> {
               Text("Post"),
 
               // Listening
-              UserProfileListeningPage(user: user,),
+              UserProfileListeningPage(viewModel: viewModel,),
             ],
           ),
       )

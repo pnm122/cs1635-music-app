@@ -6,11 +6,14 @@ import '../../models/user.dart';
 import '../../viewmodels/user_profile_page_view_model.dart';
 
 class UserProfileListeningPage extends StatelessWidget {
-  final User user;
+  final UserProfilePageViewModel viewModel;
 
-  const UserProfileListeningPage({super.key, required this.user});
+  const UserProfileListeningPage({super.key, required this.viewModel});
   @override
   Widget build(BuildContext context) {
+
+    var user = viewModel.user;
+
     return(Column(
       children: [
         SizedBox(height: 10,),
@@ -38,7 +41,7 @@ class UserProfileListeningPage extends StatelessWidget {
                 ),
                 Image(
                   height: 100,
-                  image: NetworkImage(user.profile.favoriteSong == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteSong!.album.art),
+                  image: NetworkImage(user.profile.favoriteSong == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteSong!.albumName),    // TODO fix
                 ),
                 RichText(text: TextSpan(
                     children: [
@@ -94,7 +97,7 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.artist.name
+                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.name   // TODO fix name so it shows artist name not album name
                       )
                     ]
                 )),
