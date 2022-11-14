@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/viewmodels/comments_page_view_model.dart';
 import '../viewmodels/homepage_view_model.dart';
 import '../widgets/comments_widget.dart';
 import 'package:provider/provider.dart';
@@ -53,14 +54,17 @@ class _PostInteractionState extends State<PostInteraction> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Comments(post: widget.post)
+                    builder: (context) => (ChangeNotifierProvider<CommentsPageViewModel>(
+                      child: Comments(post: widget.post),
+                      create: (_) => CommentsPageViewModel(),
+                    )),
                   ),
                 );
               },
               icon: const Icon(Icons.comment, color: Colors.white),
             ),
             Text(
-              "83",
+              widget.post.comments.length.toString(),
               style: Theme.of(context)
                   .textTheme
                   .labelSmall

@@ -25,7 +25,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
     _chewieController = ChewieController(
         videoPlayerController: widget.videoPlayerController,
-        aspectRatio: 1,
+        aspectRatio: 3 / 4,
 
         // Display first frame of video when loaded
         autoInitialize: true,

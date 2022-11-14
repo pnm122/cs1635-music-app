@@ -4,7 +4,7 @@ import 'package:test_app/models/user.dart';
 abstract class Post {
   final User poster;
   final List<User> likedBy;
-  final List<Comment> comments;
+  List<Comment> comments;
   String text;
   bool isPinned;
   final DateTime createdTime;

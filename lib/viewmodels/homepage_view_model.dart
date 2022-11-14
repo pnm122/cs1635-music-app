@@ -31,7 +31,8 @@ List<Post> initialData = List.from(
               image: "",
               profile: Profile()
           ),
-          text: "Look at the stars, look how they shine for you", createdTime: DateTime.now()
+          text: "Look at the stars, look how they shine for you", createdTime: DateTime.now(),
+
       ),
       TextPost(
           likedBy: List.empty(growable: true),
@@ -74,7 +75,6 @@ class HomepageViewModel with ChangeNotifier {
 
   List<Post> get popularPosts => _popularPosts;
 
-  // TODO: Add and remove from user's favorites list
   void likePost(Post post) {
     if(post.likedBy.contains(currentUser)) {
       post.likedBy.remove(currentUser); 
