@@ -29,10 +29,24 @@ class _CommentsState extends State<Comments> {
   // Add a comment to the related post from the current user with the text entered into the TextField
   // Notify UI that the state has changed
   // Clear the text from the TextField
-  updateComments() {
+  createComment() {
     setState((){context.read<CommentsPageViewModel>().comment(widget.post, myController.text);});
     myController.clear();
   }
+
+  deleteComment(c) {
+    setState((){context.read<CommentsPageViewModel>().delete(widget.post, c);});
+  }
+
+  createReply() {
+    setState((){context.read<CommentsPageViewModel>().reply(replyingTo, myController.text);});
+    myController.clear();
+  }
+
+  // TODO: deleteReply
+
+  bool replying = false;
+  dynamic replyingTo;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +70,11 @@ class _CommentsState extends State<Comments> {
         // Each item is a comment + any replies
         itemBuilder:(context, i) {
           dynamic c = widget.post.comments[i];
+
+          // Container for comment + replies
           return Column(
             children: [
+              // Main comment
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[ 
@@ -99,7 +116,8 @@ class _CommentsState extends State<Comments> {
                                   iconSize: smallIconSize,
                                   isSelected: false,
                                   // TODO: Can we use a context.watch to achieve this somehow?
-                                  onPressed: () { setState((){context.read<CommentsPageViewModel>().like(widget.post.comments[i]);}); },
+                                  onPressed: () { 
+                                    setState((){context.read<CommentsPageViewModel>().like(widget.post.comments[i]);}); },
                                   icon: c.likedBy.contains(currentUser)
                                     ? const Icon(Icons.favorite, color: Colors.red)
                                     : const Icon(Icons.favorite_outline, color: Colors.white)
@@ -122,7 +140,47 @@ class _CommentsState extends State<Comments> {
                               ),
                   
                               // TODO: Replying
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(
+                                  () { 
+                                    replying = true;
+                                    replyingTo = c;
+                                  }
+                                );
+                              },
+                            ),
+
+                            // Allow deleting if the commenter is the current user
+                            if(identical(c.commenter, currentUser)) TextButton(
+                              child: Text(
+                                "Delete",
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+
+                              onPressed: () { 
+                                // Confirm that the user wants to delete this comment
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    backgroundColor: Theme.of(context).colorScheme.background,
+
+                                    title: const Text("Are you sure you want to delete this comment?"),
+                                    actions: [
+                                      IconButton(
+                                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                                        icon: const Icon(Icons.close, color: Colors.red),
+                                      ),
+                                      IconButton(
+                                        onPressed: () { 
+                                          deleteComment(c);
+                                          Navigator.pop(context, 'OK'); 
+                                        },
+                                        icon: const Icon(Icons.check, color: Colors.green),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         )
@@ -133,8 +191,6 @@ class _CommentsState extends State<Comments> {
 
                 // TODO: CHILD COMMENTS
 
-                // TODO: DELETE COMMENT OPTION IF IT'S YOURS
-
               ),
 
               const SizedBox(height: sectionPadding),
@@ -142,6 +198,26 @@ class _CommentsState extends State<Comments> {
           );
         },
       ),
+      
+      // Tell the user that they're replying to a comment if they are
+      bottomSheet: replying ? Container(
+        color: Theme.of(context).colorScheme.onBackground,
+        padding: const EdgeInsets.symmetric(horizontal: sectionPadding, vertical: 4.0),
+
+        child: Row(
+          children: <Widget>[
+            Expanded(child: Text(
+              "Replying to ${replyingTo.commenter.name}:",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
+            )),
+
+            IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () { setState((){replying = false;}); },
+            ),
+          ],
+        ),
+      ) : null,
 
       // Comment creating text field and button
       bottomNavigationBar: Container(
@@ -200,7 +276,12 @@ class _CommentsState extends State<Comments> {
               // Add the comment to the post if the user has entered text
               onPressed: (){ 
                 if(myController.text.isNotEmpty) { 
-                  updateComments(); 
+                  if(replying) {
+                    replying = false;
+                    createReply();
+                  } else {
+                    createComment(); 
+                  }
                 }
               },
               child: const Text("Post"),

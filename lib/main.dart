@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           secondary: const Color.fromARGB(180, 255, 255, 255), // post text
           onSecondary: Colors.black,
           background: bgColor,
-          onBackground: Colors.white,
+          onBackground: const Color.fromARGB(255, 27, 37, 62), // slightly lighter than background
           error: const Color.fromARGB(255, 214, 46, 46),
           onError: Colors.white,
           surface: const Color.fromARGB(18, 255, 255, 255),
