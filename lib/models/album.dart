@@ -4,7 +4,7 @@ import 'package:test_app/models/artist.dart';
 class Album {
 
   final String name;
-  final List<Track> tracks;
+  List<Track> tracks;
   final Artist artist;
   final String art;
 

@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_app/widgets/user_profile_page/user_profile_listening_page.dart';
 
+import '../../models/user.dart';
+import '../../viewmodels/user_profile_page_view_model.dart';
 import 'edit_profile_page.dart';
 
-class UserProfilePage extends StatelessWidget {
+class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
+  @override
+  State<UserProfilePage> createState() => _UserProfilePage();
+}
 
+class _UserProfilePage extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
+
+    final User user = context.watch<UserProfilePageViewModel>().user;
+
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -28,16 +38,16 @@ class UserProfilePage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Image(
+                        Image(
                           height: 100,
-                          image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                          image: NetworkImage(user.image),
                         ),
                         Column(
-                          children: const [
-                            Text("Username",
+                          children: [
+                            Text(user.name,
                               style: TextStyle(fontSize: 30),
                             ),
-                            Text("Bio",
+                            Text(user.profile.bio,
                               textAlign: TextAlign.left,
                             ),
                           ],
@@ -83,13 +93,13 @@ class UserProfilePage extends StatelessWidget {
                 )
             ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: <Widget>[
               // Posts
               Text("Post"),
 
               // Listening
-              UserProfileListeningPage(),
+              UserProfileListeningPage(user: user,),
             ],
           ),
       )

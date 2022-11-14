@@ -10,6 +10,6 @@ class Profile {
   String bio;
   final List<Track> listeningHistory;
 
-  Profile({this.bio = '', this.listeningHistory = const []});
+  Profile({this.bio = '', this.listeningHistory = const [], this.favoriteSong, this.favoriteAlbum, this.favoriteArtist});
 
 }
