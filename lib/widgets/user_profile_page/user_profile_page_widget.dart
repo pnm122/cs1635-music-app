@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/widgets/user_profile_page/user_profile_listening_page.dart';
+import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
 
 import '../../models/user.dart';
 import '../../viewmodels/user_profile_page_view_model.dart';
-import 'edit_profile_page.dart';
+import 'edit_profile_page_widget.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -17,6 +17,8 @@ class _UserProfilePage extends State<UserProfilePage> {
   Widget build(BuildContext context) {
 
     final User user = context.watch<UserProfilePageViewModel>().user;
+    final String followersCnt = context.watch<UserProfilePageViewModel>().followersCnt;
+    final String followingCnt = context.watch<UserProfilePageViewModel>().followingCnt;
 
     return DefaultTabController(
       initialIndex: 0,
@@ -54,26 +56,30 @@ class _UserProfilePage extends State<UserProfilePage> {
                         ),
                       ],
                     ),
-                    Row(children: const [
+                    Row(children: [
                       Spacer(),
                       IconButton(
                           padding: EdgeInsets.zero,
                           constraints: BoxConstraints(),
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (BuildContext context) { return EditProfilePage(user: user,); })
+                            );
+                          },
                           icon: Icon(Icons.edit, color: Colors.white),
                       ),
                       Spacer(),
                       TextButton(
                         onPressed: null,
                         child: Text(
-                            "100K Followers",
+                            "${followersCnt} Followers",
                             style: TextStyle(color: Colors.white)
                         )
                       ),
                       TextButton(
                         onPressed: null,
                         child: Text(
-                            "41 Following",
+                            "${followingCnt} Following",
                             style: TextStyle(color: Colors.white)
                         )
                       ),
