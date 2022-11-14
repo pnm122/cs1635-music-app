@@ -41,13 +41,13 @@ String countToString(int cnt) {
   String str = '';
 
   if (cnt >= 1000000000) {
-    str += (cnt / 1000000000).toString();
+    str += (cnt / 1000000000).floor().toString();
     str += "B";
   } else if (cnt >= 1000000) {
-    str += (cnt / 1000000).toString();
+    str += (cnt / 1000000).floor().toString();
     str += "M";
   } else if (cnt >= 1000) {
-    str += (cnt / 1000).toString();
+    str += (cnt / 1000).floor().toString();
     str += "K";
   } else {
     str += cnt.toString();

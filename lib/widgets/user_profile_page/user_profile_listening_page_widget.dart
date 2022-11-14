@@ -17,7 +17,7 @@ class UserProfileListeningPage extends StatelessWidget {
         Column(
           children: [
             Text(
-              "Username's Favorites",
+              "${user.name}'s Favorites",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
@@ -145,8 +145,8 @@ class UserProfileListeningPage extends StatelessWidget {
         const SizedBox(height: 30,),
         Column(
           children: [
-            const Text(
-              "Username's Listening History",
+            Text(
+              "${user.name}'s Listening History",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             OutlinedButton(
