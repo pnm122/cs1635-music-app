@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';import '../viewmodels/user_profile_page_view_model.dart';
+
 import 'homepage_widget.dart';
 import 'upload_page_widget.dart';
 
@@ -18,7 +20,11 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     const UploadPage(),
-    const UserProfilePage(),
+    ChangeNotifierProvider<UserProfilePageViewModel>(
+      child: const UserProfilePage(),
+      create: (_) => UserProfilePageViewModel()
+    )
+    ,
   ];
 
   @override
