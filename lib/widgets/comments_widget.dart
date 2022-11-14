@@ -35,12 +35,17 @@ class _CommentsState extends State<Comments> {
   }
 
   deleteComment(c) {
-    setState((){context.read<CommentsPageViewModel>().delete(widget.post, c);});
+    setState((){context.read<CommentsPageViewModel>().deleteComment(widget.post, c);});
   }
 
   createReply() {
     setState((){context.read<CommentsPageViewModel>().reply(replyingTo, myController.text);});
     myController.clear();
+  }
+
+  deleteReply(c, r)
+  {
+    setState((){context.read<CommentsPageViewModel>().deleteReply(c, r);});
   }
 
   // TODO: deleteReply
@@ -139,7 +144,6 @@ class _CommentsState extends State<Comments> {
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                   
-                              // TODO: Replying
                               onPressed: () {
                                 setState(
                                   () { 
@@ -191,6 +195,130 @@ class _CommentsState extends State<Comments> {
 
                 // TODO: CHILD COMMENTS
 
+              ),
+
+              // Replies to main comment
+              ListView.builder(
+                itemCount: c.childComments.length,
+
+                // Fix to allow listview inside another listview
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+
+                itemBuilder:(context, j) {
+                  dynamic r = c.childComments[j];
+
+                  return Container(
+                    padding: const EdgeInsets.only(left: 42.0),
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(height: smallGap),
+
+                        // Reply
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[ 
+                            // TODO: Bring to user profile
+                            r.commenter.image == ""
+                            ? const Icon(Icons.account_circle, size: 32)
+                            : Image.asset(r.commenter.image, height: 32, width: 32),
+
+                            const SizedBox(width: postSectionMargin),
+
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // TODO: Bring to user profile
+                                  Text(
+                                    r.commenter.name,
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                                  ),
+                            
+                              
+                                  Text(
+                                    r.content,
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                                  ),
+                            
+                            
+                                  const SizedBox(height: 4.0),
+                            
+                                  Row(
+                                    children: <Widget>[
+                            
+                                      // Liking
+                                      Column(
+                                        children: <Widget>[
+                                          IconButton(
+                                            padding: EdgeInsets.zero,
+                                            constraints: const BoxConstraints(),
+                                            iconSize: smallIconSize,
+                                            isSelected: false,
+                                            // TODO: Can we use a context.watch to achieve this somehow?
+                                            onPressed: () { 
+                                              setState((){context.read<CommentsPageViewModel>().like(c.childComments[j]);}); },
+                                            icon: r.likedBy.contains(currentUser)
+                                              ? const Icon(Icons.favorite, color: Colors.red)
+                                              : const Icon(Icons.favorite_outline, color: Colors.white)
+                                          ),
+                                          Text(
+                                            r.likedBy.length.toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelSmall
+                                                ?.copyWith(fontFamily: "Nunito"),
+                                          ),
+                                        ],
+                                      ),
+                            
+                                      // Can't reply to replies
+
+                                      // Allow deleting if the commenter is the current user
+                                      if(identical(r.commenter, currentUser)) TextButton(
+                                        child: Text(
+                                          "Delete",
+                                          style: Theme.of(context).textTheme.bodySmall,
+                                        ),
+
+                                        onPressed: () { 
+                                          // Confirm that the user wants to delete this comment
+                                          showDialog(
+                                            context: context,
+                                            builder: (_) => AlertDialog(
+                                              backgroundColor: Theme.of(context).colorScheme.background,
+
+                                              title: const Text("Are you sure you want to delete this comment?"),
+                                              actions: [
+                                                IconButton(
+                                                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                                                  icon: const Icon(Icons.close, color: Colors.red),
+                                                ),
+                                                IconButton(
+                                                  onPressed: () { 
+                                                    deleteReply(c, r);
+                                                    Navigator.pop(context, 'OK'); 
+                                                  },
+                                                  icon: const Icon(Icons.check, color: Colors.green),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+
+                        ),
+
+                      ],
+                    ),
+                  );
+                }
               ),
 
               const SizedBox(height: sectionPadding),

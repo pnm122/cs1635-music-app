@@ -18,6 +18,10 @@ class CommentsPageViewModel with ChangeNotifier {
     post.comments.add(c);
   }
 
+  deleteComment(Post post, Comment comment) {
+    post.comments.remove(comment);
+  }
+
   reply(Comment comment, String text) {
     if(comment.childComments.isEmpty) {
       comment.childComments = List.empty(growable: true);
@@ -31,8 +35,8 @@ class CommentsPageViewModel with ChangeNotifier {
     comment.childComments.add(c);
   }
 
-  delete(Post post, Comment comment) {
-    post.comments.remove(comment);
+  deleteReply(Comment comment, Comment reply) {
+    comment.childComments.remove(reply);
   }
 
   like(Comment comment) {
