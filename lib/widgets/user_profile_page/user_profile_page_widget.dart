@@ -61,7 +61,11 @@ class _UserProfilePage extends State<UserProfilePage> {
                       IconButton(
                           padding: EdgeInsets.zero,
                           constraints: BoxConstraints(),
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (BuildContext context) { return EditProfilePage(user: user,); })
+                            );
+                          },
                           icon: Icon(Icons.edit, color: Colors.white),
                       ),
                       Spacer(),
