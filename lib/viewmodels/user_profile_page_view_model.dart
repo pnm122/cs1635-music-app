@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:test_app/mock_data.dart';
 import 'package:test_app/models/artist.dart';
 
 import '../models/album.dart';
@@ -6,7 +9,10 @@ import '../models/profile.dart';
 import '../models/track.dart';
 import '../models/user.dart';
 
-Artist initialFavArtist = Artist(name: "Coldplay", image: "https://cdns-images.dzcdn.net/images/artist/e65d62ecd00b8bf1ba89073943ac62a1/500x500.jpg");
+Artist initialFavArtist = Artist(
+    name: "Coldplay",
+    image: "https://cdns-images.dzcdn.net/images/artist/e65d62ecd00b8bf1ba89073943ac62a1/500x500.jpg");
+
 Album initialAlbum = Album(
     name: 'The Blue Room',
     tracks: [],
@@ -57,7 +63,6 @@ String countToString(int cnt) {
 }
 
 class UserProfilePageViewModel with ChangeNotifier {
-
   final User _user = initialUser;
   User get user => _user;
 
@@ -66,4 +71,7 @@ class UserProfilePageViewModel with ChangeNotifier {
 
   final String _followingCnt = countToString(initialUser.following.length);
   String get followingCnt => _followingCnt;
+  //
+  // final List<Artist> _artists = MockData().artists;
+  // List<Artist> get artists => _artists;
 }

@@ -6,5 +6,4 @@ class Artist extends Creator{
   final List<Album> albums;
 
   Artist({this.albums = const [], required super.name, required super.image});
-
 }
