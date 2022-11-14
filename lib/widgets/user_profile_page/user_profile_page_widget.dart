@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/widgets/user_profile_page/user_profile_listening_page.dart';
+import 'package:provider/provider.dart';
+import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
 
-import 'edit_profile_page.dart';
+import '../../models/user.dart';
+import '../../viewmodels/user_profile_page_view_model.dart';
+import 'edit_profile_page_widget.dart';
 
-class UserProfilePage extends StatelessWidget {
+class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
+  @override
+  State<UserProfilePage> createState() => _UserProfilePage();
+}
 
+class _UserProfilePage extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
+
+    final User user = context.watch<UserProfilePageViewModel>().user;
+    final String followersCnt = context.watch<UserProfilePageViewModel>().followersCnt;
+    final String followingCnt = context.watch<UserProfilePageViewModel>().followingCnt;
+
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -28,42 +40,46 @@ class UserProfilePage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Image(
+                        Image(
                           height: 100,
-                          image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                          image: NetworkImage(user.image),
                         ),
                         Column(
-                          children: const [
-                            Text("Username",
+                          children: [
+                            Text(user.name,
                               style: TextStyle(fontSize: 30),
                             ),
-                            Text("Bio",
+                            Text(user.profile.bio,
                               textAlign: TextAlign.left,
                             ),
                           ],
                         ),
                       ],
                     ),
-                    Row(children: const [
+                    Row(children: [
                       Spacer(),
                       IconButton(
                           padding: EdgeInsets.zero,
                           constraints: BoxConstraints(),
-                          onPressed: null,
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (BuildContext context) { return EditProfilePage(user: user,); })
+                            );
+                          },
                           icon: Icon(Icons.edit, color: Colors.white),
                       ),
                       Spacer(),
                       TextButton(
                         onPressed: null,
                         child: Text(
-                            "100K Followers",
+                            "${followersCnt} Followers",
                             style: TextStyle(color: Colors.white)
                         )
                       ),
                       TextButton(
                         onPressed: null,
                         child: Text(
-                            "41 Following",
+                            "${followingCnt} Following",
                             style: TextStyle(color: Colors.white)
                         )
                       ),
@@ -83,13 +99,13 @@ class UserProfilePage extends StatelessWidget {
                 )
             ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: <Widget>[
               // Posts
               Text("Post"),
 
               // Listening
-              UserProfileListeningPage(),
+              UserProfileListeningPage(user: user,),
             ],
           ),
       )

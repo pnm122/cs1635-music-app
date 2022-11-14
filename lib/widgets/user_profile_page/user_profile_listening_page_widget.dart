@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/artist.dart';
+import '../../models/user.dart';
+import '../../viewmodels/user_profile_page_view_model.dart';
 
 class UserProfileListeningPage extends StatelessWidget {
-  const UserProfileListeningPage({super.key});
+  final User user;
 
+  const UserProfileListeningPage({super.key, required this.user});
   @override
   Widget build(BuildContext context) {
     return(Column(
@@ -11,7 +17,7 @@ class UserProfileListeningPage extends StatelessWidget {
         Column(
           children: [
             Text(
-              "Username's Favorites",
+              "${user.name}'s Favorites",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
@@ -30,27 +36,27 @@ class UserProfileListeningPage extends StatelessWidget {
                     )
                   ],
                 ),
-                const Image(
+                Image(
                   height: 100,
-                  image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                  image: NetworkImage(user.profile.favoriteSong == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteSong!.album.art),
                 ),
-                RichText(text: const TextSpan(
+                RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.music_note, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: "Song name  "
+                          text: user.profile.favoriteSong == null ? "Song name" : user.profile.favoriteSong!.name
                       )
                     ]
                 )),
-                RichText(text: const TextSpan(
+                RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: "Artist name  "
+                          text: user.profile.favoriteSong == null ? 'Artist name' : user.profile.favoriteSong!.creator.name
                       )
                     ]
                 )),
@@ -68,27 +74,27 @@ class UserProfileListeningPage extends StatelessWidget {
                     )
                   ],
                 ),
-                const Image(
+                Image(
                   height: 100,
-                  image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                  image: NetworkImage(user.profile.favoriteAlbum == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteAlbum!.art),
                 ),
-                RichText(text: const TextSpan(
+                RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.album, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: "Album name"
+                          text: user.profile.favoriteAlbum == null ? 'Album name' : user.profile.favoriteAlbum!.name
                       )
                     ]
                 )),
-                RichText(text: const TextSpan(
+                RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: "Artist name  "
+                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.artist.name
                       )
                     ]
                 )),
@@ -106,17 +112,17 @@ class UserProfileListeningPage extends StatelessWidget {
                     )
                   ],
                 ),
-                const Image(
+                Image(
                   height: 100,
-                  image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                  image: NetworkImage(user.profile.favoriteArtist == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteArtist!.image),
                 ),
-                RichText(text: const TextSpan(
+                RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: "Artist name  "
+                          text: user.profile.favoriteArtist == null ? 'Artist name' : user.profile.favoriteArtist!.name
                       )
                     ]
                 )),
@@ -139,8 +145,8 @@ class UserProfileListeningPage extends StatelessWidget {
         const SizedBox(height: 30,),
         Column(
           children: [
-            const Text(
-              "Username's Listening History",
+            Text(
+              "${user.name}'s Listening History",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             OutlinedButton(

@@ -1,9 +1,9 @@
 abstract class Creator {
 
-  final String name;
-  String? image;
+  String name;
+  String image;
 
-  Creator({required this.name, this.image});
+  Creator({required this.name, required this.image});
 
 
 }
