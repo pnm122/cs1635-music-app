@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
 
+import '../../models/artist.dart';
 import '../../models/user.dart';
 import '../../viewmodels/user_profile_page_view_model.dart';
 import 'edit_profile_page_widget.dart';
