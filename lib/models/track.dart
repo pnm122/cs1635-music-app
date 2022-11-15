@@ -4,8 +4,8 @@ import 'album.dart';
 
 class Track extends Song {
 
-  final Album album;
+  final String albumName;
 
-  Track({required this.album, required super.name, required super.creator});
+  Track({required this.albumName, required super.name, required super.creator});
 
 }

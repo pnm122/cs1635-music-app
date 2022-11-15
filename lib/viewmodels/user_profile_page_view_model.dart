@@ -16,16 +16,16 @@ Artist initialFavArtist = Artist(
 Album initialAlbum = Album(
     name: 'The Blue Room',
     tracks: [],
-    artist: initialFavArtist,
+    artistName: "Coldplay",
     art: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Blue_room_ep.jpg');
 
 Album initialAlbum2 = Album(
     name: 'Parachutes',
     tracks: [],
-    artist: initialFavArtist,
+    artistName: "Coldplay",
     art: 'https://upload.wikimedia.org/wikipedia/en/f/fd/Coldplay_-_Parachutes.png');
 
-Track initialTrack = Track(album: initialAlbum, name: 'See You Soon', creator: initialFavArtist,);
+Track initialTrack = Track(albumName: 'The Blue Room', name: 'See You Soon', creator: initialFavArtist,);
 
 Profile initialProfile = Profile(
   bio: "I'm into folktronica and indie cloud rap.",
@@ -36,8 +36,8 @@ Profile initialProfile = Profile(
 
 User initialUser = User(
   name: "Sean Dyche",
-  followers: List.empty(),
-  following: List.empty(),
+  followersUsername: List.empty(),
+  followingUsername: List.empty(),
   posts: List.empty(),
   image: "https://i2-prod.mirror.co.uk/incoming/article23403859.ece/ALTERNATES/s1200c/1_Sean-Dyche-file-photo.jpg",
   profile: initialProfile
@@ -66,10 +66,10 @@ class UserProfilePageViewModel with ChangeNotifier {
   final User _user = initialUser;
   User get user => _user;
 
-  final String _followersCnt = countToString(initialUser.followers.length);
+  final String _followersCnt = countToString(initialUser.followersUsername.length);
   String get followersCnt => _followersCnt;
 
-  final String _followingCnt = countToString(initialUser.following.length);
+  final String _followingCnt = countToString(initialUser.followingUsername.length);
   String get followingCnt => _followingCnt;
   //
   // final List<Artist> _artists = MockData().artists;

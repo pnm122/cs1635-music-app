@@ -5,9 +5,9 @@ class Album {
 
   final String name;
   List<Track> tracks;
-  final Artist artist;
+  final String artistName;
   final String art;
 
-  Album({required this.name, required this.tracks, required this.artist, required this.art});
+  Album({required this.name, required this.tracks, required this.artistName, required this.art});
 
 }

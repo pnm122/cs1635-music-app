@@ -11,8 +11,8 @@ import '../models/artist.dart';
 
 User currentUser = User(
   name: "Default User",
-  followers: List.empty(growable: true),
-  following: List.empty(growable: true),
+  followersUsername: List.empty(growable: true),
+  followingUsername: List.empty(growable: true),
   posts: List.empty(growable: true),
   image: "",
   profile: Profile(),
@@ -22,42 +22,18 @@ List<Post> initialData = List.from(
     [
       TextPost(
           likedBy: [currentUser],
-          poster:
-          User(
-              name: "Kris Martin",
-              followers: List.empty(growable: true),
-              following: List.empty(growable: true),
-              posts: List.empty(growable: true),
-              image: "",
-              profile: Profile()
-          ),
+          posterUsername: "Kris Martin",
           text: "Look at the stars, look how they shine for you", createdTime: DateTime.now(),
 
       ),
       TextPost(
           likedBy: List.empty(growable: true),
-          poster:
-          User(
-              name: "Billy Goat",
-              followers: List.empty(growable: true),
-              following: List.empty(growable: true),
-              posts: List.empty(growable: true),
-              image: "",
-              profile: Profile()
-          ),
+          posterUsername: "Billy Goat",
           text: "Bebop", createdTime: DateTime.now()
       ),
       MediaPost(
           likedBy: List.empty(growable: true),
-          poster:
-          User(
-              name: "Sean Dyche",
-              followers: List.empty(growable: true),
-              following: List.empty(growable: true),
-              posts: List.empty(growable: true),
-              image: "",
-              profile: Profile()
-          ),
+          posterUsername: "Sean Dyche",
           text: "I didn't actually eat the worms",
           href: "https://player.vimeo.com/external/430014215.sd.mp4?s=2c2fedb46aa038dcc4664ad42ef6a0e002bf312a&profile_id=165&oauth2_token_id=57447761", createdTime: DateTime.now(),
           song: Original(
