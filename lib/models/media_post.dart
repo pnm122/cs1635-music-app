@@ -11,7 +11,9 @@ class MediaPost extends Post {
     required super.text,
     required this.href,
     required super.createdTime,
-    required this.song
+    required this.song,
+    super.comments,
+    super.isPinned,
   });
 
 }

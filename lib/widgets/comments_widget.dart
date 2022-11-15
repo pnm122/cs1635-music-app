@@ -35,17 +35,17 @@ class _CommentsState extends State<Comments> {
   }
 
   deleteComment(c) {
-    setState((){context.read<CommentsPageViewModel>().deleteComment(widget.post, c);});
+    //setState((){context.read<CommentsPageViewModel>().deleteComment(widget.post, c);});
   }
 
   createReply() {
-    setState((){context.read<CommentsPageViewModel>().reply(replyingTo, myController.text);});
+    //setState((){context.read<CommentsPageViewModel>().reply(replyingTo, myController.text);});
     myController.clear();
   }
 
   deleteReply(c, r)
   {
-    setState((){context.read<CommentsPageViewModel>().deleteReply(c, r);});
+    //setState((){context.read<CommentsPageViewModel>().deleteReply(c, r);});
   }
 
   // TODO: deleteReply
@@ -122,7 +122,9 @@ class _CommentsState extends State<Comments> {
                                   isSelected: false,
                                   // TODO: Can we use a context.watch to achieve this somehow?
                                   onPressed: () { 
-                                    setState((){context.read<CommentsPageViewModel>().like(widget.post.comments[i]);}); },
+                                    setState((){
+                                      //context.read<CommentsPageViewModel>().like(widget.post.comments[i])
+                                      ;}); },
                                   icon: c.likedBy.contains(currentUser)
                                     ? const Icon(Icons.favorite, color: Colors.red)
                                     : const Icon(Icons.favorite_outline, color: Colors.white)
@@ -257,7 +259,9 @@ class _CommentsState extends State<Comments> {
                                             isSelected: false,
                                             // TODO: Can we use a context.watch to achieve this somehow?
                                             onPressed: () { 
-                                              setState((){context.read<CommentsPageViewModel>().like(c.childComments[j]);}); },
+                                              setState((){
+                                                //context.read<CommentsPageViewModel>().like(c.childComments[j]);
+                                              }); },
                                             icon: r.likedBy.contains(currentUser)
                                               ? const Icon(Icons.favorite, color: Colors.red)
                                               : const Icon(Icons.favorite_outline, color: Colors.white)

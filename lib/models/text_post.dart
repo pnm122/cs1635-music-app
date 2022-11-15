@@ -4,7 +4,9 @@ class TextPost extends Post {
   TextPost({required super.posterUsername,
     required super.likedBy,
     required super.text,
-    required super.createdTime
+    required super.createdTime,
+    super.comments,
+    super.isPinned,
   });
 
 }
