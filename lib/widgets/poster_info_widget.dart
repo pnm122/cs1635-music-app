@@ -41,7 +41,7 @@ class _PosterInfoState extends State<PosterInfo> {
 
         // Following button
         OutlinedButton(
-          style: currentUser.following.contains(widget.post.poster)
+          style: HomepageViewModel.currentUser.following.contains(widget.post.poster)
             ? ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.outline),
               foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
@@ -70,7 +70,7 @@ class _PosterInfoState extends State<PosterInfo> {
           onPressed: () { 
             setState((){ context.read<HomepageViewModel>().follow(widget.post.poster); });
           },
-          child: currentUser.following.contains(widget.post.poster)
+          child: HomepageViewModel.currentUser.following.contains(widget.post.poster)
             ? const Text("Following")
             : const Text("Follow")
         ),

@@ -22,7 +22,7 @@ class HomepageViewModel with ChangeNotifier {
   final List<Post> _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
   List<Post> get followingPosts => _followingPosts;
 
-  User get currentUser => MockData().currentUser;
+  static User get currentUser => MockData().currentUser;
 
   void likePost(Post post) {
     if(post.likedBy.contains(MockData().currentUser)) {
