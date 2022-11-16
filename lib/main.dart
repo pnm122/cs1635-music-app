@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/router_constants.dart';
-import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
+import 'package:test_app/viewmodels/homepage/general_view_model.dart';
 import 'router.dart' as LocalRouter;
 import 'widgets/bottom_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';
