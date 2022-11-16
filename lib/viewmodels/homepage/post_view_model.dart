@@ -14,7 +14,7 @@ _getFollowingPosts(List<Post> posts, List<User> following) {
   return posts;
 }
 
-class HomepageViewModel with ChangeNotifier {
+class PostViewModel with ChangeNotifier {
 
   List<Post> _popularPosts = _getPopularPosts(MockData().posts);
   List<Post> get popularPosts => _popularPosts;

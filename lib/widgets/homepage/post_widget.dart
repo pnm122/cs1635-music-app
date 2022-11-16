@@ -9,7 +9,7 @@ import 'package:test_app/widgets/homepage/comments_widget.dart';
 import 'package:test_app/widgets/video_widget.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../viewmodels/homepage/homepage_view_model.dart';
+import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 
 /// Container for all posts displayed in a view
 class PostView extends StatefulWidget {
@@ -25,7 +25,7 @@ class _PostViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
-    var postList = isPopularPosts ? context.watch<HomepageViewModel>().popularPosts : context.watch<HomepageViewModel>().followingPosts;
+    var postList = isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
 
     return ListView.builder(
         // padding around the entire list
@@ -79,7 +79,7 @@ class PosterInfo extends StatefulWidget {
 class _PosterInfoState extends State<PosterInfo> {
   @override
   Widget build(BuildContext context) {
-    var currentUser = context.watch<HomepageViewModel>().currentUser;
+    var currentUser = context.watch<PostViewModel>().currentUser;
 
     return Row(
       children: <Widget>[
@@ -139,7 +139,7 @@ class _PosterInfoState extends State<PosterInfo> {
             ),
           // TODO: Follow this user when this button is pressed
           onPressed: () { 
-            context.read<HomepageViewModel>().follow(widget.user);
+            context.read<PostViewModel>().follow(widget.user);
           },
           child: currentUser.following.contains(widget.user)
             ? const Text("Following")
@@ -226,7 +226,7 @@ class _PostInteractionState extends State<PostInteraction> {
   Widget build(BuildContext context) {
     // TODO: How do I watch individual posts so that all this stuff updates the way I want?
 
-    var currentUser = context.watch<HomepageViewModel>().currentUser;
+    var currentUser = context.watch<PostViewModel>().currentUser;
     return Row(
       children: <Widget>[
         // Favorite button
@@ -236,7 +236,7 @@ class _PostInteractionState extends State<PostInteraction> {
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
               isSelected: false,
-              onPressed: () { context.read<HomepageViewModel>().likePost(widget.post); },
+              onPressed: () { context.read<PostViewModel>().likePost(widget.post); },
               icon: widget.post.likedBy.contains(currentUser)
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.white)

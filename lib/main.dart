@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
-import 'mock_data.dart';
+import 'package:test_app/viewmodels/homepage/general_view_model.dart';
 import 'widgets/bottom_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';
 
-///
-///
-/// LOOK AT TUTORIAL TO SEE HOW TO ADD TO FAVORITES
-///
-///
-
 void main() {
-  // runApp(ChangeNotifierProvider<HomepageViewModel>(
-  //   child: const MyApp(),
-  //   create: (_) => HomepageViewModel(),
-  // ));
   runApp(const MyApp());
 }
 
@@ -28,9 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Music App',
       // home: HomePage(),
-      home: (ChangeNotifierProvider<HomepageViewModel>(
+      home: (ChangeNotifierProvider<GeneralViewModel>(
         child: const BottomNavigationBarWidget(),
-        create: (_) => HomepageViewModel(),
+        create: (_) => GeneralViewModel(),
       )),
 
       theme: ThemeData(

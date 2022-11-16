@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import '../../mock_data.dart';
-import '../../viewmodels/homepage/homepage_view_model.dart'; // TODO: FIX THIS; really probably shouldn't be doing this but how else can I access the current user?
 
 class Comments extends StatefulWidget {
   const Comments({super.key});

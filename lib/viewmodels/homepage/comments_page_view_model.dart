@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import '../../mock_data.dart';
 import '../../models/post.dart';
 import '../../models/comment.dart';
-import 'homepage_view_model.dart';
 
 class CommentsPageViewModel with ChangeNotifier {
   CommentsPageViewModel({required this.relatedPost});
