@@ -10,15 +10,19 @@ import 'package:provider/provider.dart';
 import '../viewmodels/homepage_view_model.dart';
 
 class PostView extends StatefulWidget {
-  const PostView({super.key});
+  final bool isPopularPosts;
+  const PostView({super.key, required this.isPopularPosts});
   @override
-  State<PostView> createState() => _PostViewState();
+  State<PostView> createState() => _PostViewState(isPopularPosts);
 }
 
 class _PostViewState extends State<PostView> {
+  _PostViewState(this.isPopularPosts);
+  final bool isPopularPosts;
+
   @override
   Widget build(BuildContext context) {
-    final postList = context.watch<HomepageViewModel>().popularPosts;
+    final postList = isPopularPosts ? context.watch<HomepageViewModel>().popularPosts : context.watch<HomepageViewModel>().followingPosts;
 
     return ListView.builder(
         // padding around the entire list

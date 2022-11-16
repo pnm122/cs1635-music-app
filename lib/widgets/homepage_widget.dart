@@ -53,10 +53,10 @@ class HomePage extends StatelessWidget {
         body: const TabBarView(
           children: <Widget>[
             // Popular
-            PostView(),
+            PostView(isPopularPosts: true,),
 
             // Following
-            PostView(),
+            PostView(isPopularPosts: false,),
           ],
         ),
       ),

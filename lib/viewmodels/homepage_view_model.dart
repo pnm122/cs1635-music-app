@@ -3,10 +3,24 @@ import 'package:test_app/mock_data.dart';
 import '../models/post.dart';
 import '../models/user.dart';
 
+_getPopularPosts(List<Post> posts) {
+  posts.shuffle();
+  return posts;
+}
+
+_getFollowingPosts(List<Post> posts, List<User> following) {
+  posts = posts.where((x) => following.contains(x.poster)).toList();
+  posts.shuffle();
+  return posts;
+}
+
 class HomepageViewModel with ChangeNotifier {
 
-  final List<Post> _popularPosts = MockData().posts;
+  final List<Post> _popularPosts = _getPopularPosts(MockData().posts);
   List<Post> get popularPosts => _popularPosts;
+
+  final List<Post> _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
+  List<Post> get followingPosts => _followingPosts;
 
   User get currentUser => MockData().currentUser;
 
