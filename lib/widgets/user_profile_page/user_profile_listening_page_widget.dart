@@ -41,7 +41,7 @@ class UserProfileListeningPage extends StatelessWidget {
                 ),
                 Image(
                   height: 100,
-                  image: NetworkImage(user.profile.favoriteSong == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteSong!.albumName),    // TODO fix
+                  image: NetworkImage(user.profile.favoriteSong == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteSong!.album.art),
                 ),
                 RichText(text: TextSpan(
                     children: [
@@ -97,7 +97,7 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.name   // TODO fix name so it shows artist name not album name
+                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.artist.name
                       )
                     ]
                 )),

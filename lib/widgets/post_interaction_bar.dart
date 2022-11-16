@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/viewmodels/comments_page_view_model.dart';
+import '../mock_data.dart';
 import '../viewmodels/homepage_view_model.dart';
 import '../widgets/comments_widget.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class _PostInteractionState extends State<PostInteraction> {
               isSelected: false,
               // TODO: Can we use a context.watch to achieve this somehow?
               onPressed: () { setState((){context.read<HomepageViewModel>().likePost(widget.post);}); },
-              icon: widget.post.likedBy.contains(currentUser)
+              icon: widget.post.likedBy.contains(MockData().currentUser)
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.white)
             ),

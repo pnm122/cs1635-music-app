@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../mock_data.dart';
 import '../models/post.dart';
 import '../models/comment.dart';
 import '../viewmodels/homepage_view_model.dart';
@@ -12,7 +13,7 @@ class CommentsPageViewModel with ChangeNotifier {
 
     Comment c = Comment(
       content: text,
-      commenter: currentUser,
+      commenter: MockData().currentUser,
     );
 
     post.comments.add(c);
@@ -29,7 +30,7 @@ class CommentsPageViewModel with ChangeNotifier {
 
     Comment c = Comment(
       content: text,
-      commenter: currentUser,
+      commenter: MockData().currentUser,
     );
 
     comment.childComments.add(c);
@@ -44,10 +45,10 @@ class CommentsPageViewModel with ChangeNotifier {
       comment.likedBy = List.empty(growable: true);
     }
 
-    if(comment.likedBy.contains(currentUser)) {
-      comment.likedBy.remove(currentUser);
+    if(comment.likedBy.contains(MockData().currentUser)) {
+      comment.likedBy.remove(MockData().currentUser);
     } else {
-      comment.likedBy.add(currentUser);
+      comment.likedBy.add(MockData().currentUser);
     }
   }
 }

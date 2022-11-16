@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/viewmodels/homepage_view_model.dart';
+import 'mock_data.dart';
 import 'widgets/bottom_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MockData m = MockData();
     return MaterialApp(
       title: 'Music App',
       // home: HomePage(),
