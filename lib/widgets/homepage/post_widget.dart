@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/global_styles.dart';
-import 'package:test_app/widgets/post_content_widget.dart';
-import 'package:test_app/widgets/post_interaction_bar.dart';
-import 'package:test_app/widgets/poster_info_widget.dart';
+import 'package:test_app/widgets/homepage/post_content_widget.dart';
+import 'package:test_app/widgets/homepage/post_interaction_bar.dart';
+import 'package:test_app/widgets/homepage/poster_info_widget.dart';
 // import 'package:video_player/video_player.dart';
 // import 'package:test_app/widgets/video_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../viewmodels/homepage_view_model.dart';
+import '../../viewmodels/homepage/homepage_view_model.dart';
 
 class PostView extends StatefulWidget {
   final bool isPopularPosts;

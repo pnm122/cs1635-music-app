@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';import '../viewmodels/user_profile_page_view_model.dart';
+import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';import '../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 
-import 'homepage_widget.dart';
-import 'upload_page_widget.dart';
+import 'homepage/homepage_widget.dart';
+import 'upload_page/upload_page_widget.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   const BottomNavigationBarWidget({super.key});

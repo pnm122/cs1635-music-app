@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/viewmodels/homepage_view_model.dart';
+import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
 import 'mock_data.dart';
 import 'widgets/bottom_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';

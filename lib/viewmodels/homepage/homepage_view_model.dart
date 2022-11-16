@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:test_app/mock_data.dart';
-import '../models/post.dart';
-import '../models/user.dart';
+import '../../models/post.dart';
+import '../../models/user.dart';
 
 _getPopularPosts(List<Post> posts) {
   posts.shuffle();

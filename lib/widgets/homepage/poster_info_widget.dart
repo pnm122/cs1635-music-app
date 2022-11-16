@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/viewmodels/homepage_view_model.dart';
+import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
 
 class PosterInfo extends StatefulWidget {
   const PosterInfo({super.key, required this.post});

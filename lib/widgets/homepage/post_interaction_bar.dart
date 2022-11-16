@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/viewmodels/comments_page_view_model.dart';
-import '../mock_data.dart';
-import '../viewmodels/homepage_view_model.dart';
-import '../widgets/comments_widget.dart';
+import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
+import '../../mock_data.dart';
+import '../../viewmodels/homepage/homepage_view_model.dart';
+import 'comments_widget.dart';
 import 'package:provider/provider.dart';
 
 class PostInteraction extends StatefulWidget {

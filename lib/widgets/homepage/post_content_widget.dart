@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:test_app/widgets/video_widget.dart';
 import 'package:video_player/video_player.dart';
 
-import '../global_styles.dart';
-import '../models/text_post.dart';
+import '../../global_styles.dart';
+import '../../models/text_post.dart';
 
 class PostContent extends StatelessWidget {
   const PostContent({super.key, required this.post});

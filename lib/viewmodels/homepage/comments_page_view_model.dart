@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import '../mock_data.dart';
-import '../models/post.dart';
-import '../models/comment.dart';
-import '../viewmodels/homepage_view_model.dart';
+import '../../mock_data.dart';
+import '../../models/post.dart';
+import '../../models/comment.dart';
+import 'homepage_view_model.dart';
 
 class CommentsPageViewModel with ChangeNotifier {
   comment(Post post, String text) {
