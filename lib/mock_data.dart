@@ -166,7 +166,7 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(),
-      image: "https://i2-prod.mirror.co.uk/incoming/article23403859.ece/ALTERNATES/s1200c/1_Sean-Dyche-file-photo.jpg",
+      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "ROCK ON LADS!!!",
         favoriteSong: _tracks.where((x) => x.name == "See You Soon").first,
@@ -181,7 +181,7 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(),
-      image: "https://media.gq-magazine.co.uk/photos/61a8ffb65d423b74f72b6651/master/pass/021221_Crouch_HP2.jpg",
+      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "I'm into folktronica and indie cloud rap.",
         favoriteSong: _tracks.where((x) => x.name == "Only Superstition").first,
@@ -196,7 +196,7 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(),
-      image: "https://www.famousbirthdays.com/faces/carroll-andy-image.jpg",
+      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "I just wanna rock out.",
         favoriteSong: _tracks.where((x) => x.name == "Broken Feather").first,
@@ -211,7 +211,7 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(),
-      image: "https://www.planetsport.com/image-library/square/1200/w/west-bromwich-albion-manager-steve-bruce-feb22.jpg",
+      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "Music is my escape.",
         favoriteSong: _tracks.where((x) => x.name == "Outside").first,

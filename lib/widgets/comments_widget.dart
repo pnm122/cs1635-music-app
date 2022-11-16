@@ -88,8 +88,11 @@ class _CommentsState extends State<Comments> {
                 children: <Widget>[ 
                   // TODO: Bring to user profile
                   c.commenter.image == ""
-                  ? const Icon(Icons.account_circle, size: 32)
-                  : Image.asset(c.commenter.image, height: 32, width: 32),
+                    ? const Icon(Icons.account_circle, size: 32)
+                    : CircleAvatar(
+                      backgroundImage: NetworkImage(c.commenter.image),
+                      radius: 16,
+                    ),
 
                   const SizedBox(width: postSectionMargin),
 
@@ -195,9 +198,6 @@ class _CommentsState extends State<Comments> {
                     ),
                   ),
                 ],
-
-                // TODO: CHILD COMMENTS
-
               ),
 
               // Replies to main comment
@@ -223,8 +223,11 @@ class _CommentsState extends State<Comments> {
                           children: <Widget>[ 
                             // TODO: Bring to user profile
                             r.commenter.image == ""
-                            ? const Icon(Icons.account_circle, size: 32)
-                            : Image.asset(r.commenter.image, height: 32, width: 32),
+                              ? const Icon(Icons.account_circle, size: 32)
+                              : CircleAvatar(
+                                backgroundImage: NetworkImage(r.commenter.image),
+                                radius: 16,
+                              ),
 
                             const SizedBox(width: postSectionMargin),
 

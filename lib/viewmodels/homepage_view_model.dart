@@ -16,10 +16,10 @@ _getFollowingPosts(List<Post> posts, List<User> following) {
 
 class HomepageViewModel with ChangeNotifier {
 
-  final List<Post> _popularPosts = _getPopularPosts(MockData().posts);
+  List<Post> _popularPosts = _getPopularPosts(MockData().posts);
   List<Post> get popularPosts => _popularPosts;
 
-  final List<Post> _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
+  List<Post> _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
   List<Post> get followingPosts => _followingPosts;
 
   static User get currentUser => MockData().currentUser;
@@ -36,9 +36,15 @@ class HomepageViewModel with ChangeNotifier {
     if(currentUser.following.contains(user)) {
       currentUser.following.remove(user);
       user.followers.remove(currentUser);
+
+      // update following posts
+      _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
     } else {
       currentUser.following.add(user);
       user.followers.add(currentUser);
+
+      // Update following posts
+      _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
     }
   }
 }
