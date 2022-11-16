@@ -31,7 +31,7 @@ class _PosterInfoState extends State<PosterInfo> {
           child: Row(children: <Widget>[
             widget.post.poster.image == ""
                   ? const Icon(Icons.account_circle, size: 32)
-                  : Image.asset(widget.post.poster.image, height: 32, width: 32),
+                  : Image.network(widget.post.poster.image, height: 32, width: 32),
             const SizedBox(width: 5),
             Text(widget.post.poster.name),
           ]),

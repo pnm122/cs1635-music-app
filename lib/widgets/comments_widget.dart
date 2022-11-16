@@ -89,7 +89,7 @@ class _CommentsState extends State<Comments> {
                   // TODO: Bring to user profile
                   c.commenter.image == ""
                   ? const Icon(Icons.account_circle, size: 32)
-                  : Image.asset(c.commenter.image, height: 32, width: 32),
+                  : Image.network(c.commenter.image, height: 32, width: 32),
 
                   const SizedBox(width: postSectionMargin),
 
@@ -224,7 +224,7 @@ class _CommentsState extends State<Comments> {
                             // TODO: Bring to user profile
                             r.commenter.image == ""
                             ? const Icon(Icons.account_circle, size: 32)
-                            : Image.asset(r.commenter.image, height: 32, width: 32),
+                            : Image.network(r.commenter.image, height: 32, width: 32),
 
                             const SizedBox(width: postSectionMargin),
 
