@@ -6,8 +6,7 @@ import '../../mock_data.dart';
 import '../../viewmodels/homepage/homepage_view_model.dart'; // TODO: FIX THIS; really probably shouldn't be doing this but how else can I access the current user?
 
 class Comments extends StatefulWidget {
-  const Comments({super.key, required this.post});
-  final dynamic post;
+  const Comments({super.key});
 
   @override
   State<Comments> createState() => _CommentsState();
@@ -25,37 +24,14 @@ class _CommentsState extends State<Comments> {
     super.dispose();
   }
 
-  // TODO: Find a way to do this with context.watch?
-  // TODO: Handle replies
-  // Add a comment to the related post from the current user with the text entered into the TextField
-  // Notify UI that the state has changed
-  // Clear the text from the TextField
-  createComment() {
-    setState((){context.read<CommentsPageViewModel>().comment(widget.post, myController.text);});
-    myController.clear();
-  }
-
-  deleteComment(c) {
-    setState((){context.read<CommentsPageViewModel>().deleteComment(widget.post, c);});
-  }
-
-  createReply() {
-    setState((){context.read<CommentsPageViewModel>().reply(replyingTo, myController.text);});
-    myController.clear();
-  }
-
-  deleteReply(c, r)
-  {
-    setState((){context.read<CommentsPageViewModel>().deleteReply(c, r);});
-  }
-
-  // TODO: deleteReply
-
+  // UI info for displaying and deciding what to call from CommentsPageViewModel
   bool replying = false;
   dynamic replyingTo;
 
   @override
   Widget build(BuildContext context) {
+    var post = context.watch<CommentsPageViewModel>().post;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -73,11 +49,11 @@ class _CommentsState extends State<Comments> {
         // Extra padding on bottom as a workaround of bottomSheet overlaying on top of the body
         // Apparently there's no way to fix this in flutter still :(
         padding: EdgeInsets.only(top: sectionPadding, left: sectionPadding, right: sectionPadding, bottom: MediaQuery.of(context).size.height / 3),
-        itemCount: widget.post.comments.length,
+        itemCount: post.comments.length,
 
         // Each item is a comment + any replies
         itemBuilder:(context, i) {
-          dynamic c = widget.post.comments[i];
+          dynamic c = post.comments[i];
 
           // Container for comment + replies
           return Column(
@@ -128,7 +104,8 @@ class _CommentsState extends State<Comments> {
                                   isSelected: false,
                                   // TODO: Can we use a context.watch to achieve this somehow?
                                   onPressed: () { 
-                                    setState((){context.read<CommentsPageViewModel>().like(widget.post.comments[i]);}); },
+                                    context.read<CommentsPageViewModel>().like(post.comments[i]);
+                                  },
                                   icon: c.likedBy.contains(MockData().currentUser)
                                     ? const Icon(Icons.favorite, color: Colors.red)
                                     : const Icon(Icons.favorite_outline, color: Colors.white)
@@ -182,7 +159,7 @@ class _CommentsState extends State<Comments> {
                                       ),
                                       IconButton(
                                         onPressed: () { 
-                                          deleteComment(c);
+                                          context.read<CommentsPageViewModel>().deleteComment(c);
                                           Navigator.pop(context, 'OK'); 
                                         },
                                         icon: const Icon(Icons.check, color: Colors.green),
@@ -263,7 +240,8 @@ class _CommentsState extends State<Comments> {
                                             isSelected: false,
                                             // TODO: Can we use a context.watch to achieve this somehow?
                                             onPressed: () { 
-                                              setState((){context.read<CommentsPageViewModel>().like(c.childComments[j]);}); },
+                                              context.read<CommentsPageViewModel>().like(c.childComments[j]);
+                                            },
                                             icon: r.likedBy.contains(MockData().currentUser)
                                               ? const Icon(Icons.favorite, color: Colors.red)
                                               : const Icon(Icons.favorite_outline, color: Colors.white)
@@ -302,7 +280,7 @@ class _CommentsState extends State<Comments> {
                                                 ),
                                                 IconButton(
                                                   onPressed: () { 
-                                                    deleteReply(c, r);
+                                                    context.read<CommentsPageViewModel>().deleteReply(c, r);
                                                     Navigator.pop(context, 'OK'); 
                                                   },
                                                   icon: const Icon(Icons.check, color: Colors.green),
@@ -418,9 +396,11 @@ class _CommentsState extends State<Comments> {
                         if(myController.text.isNotEmpty) { 
                           if(replying) {
                             replying = false;
-                            createReply();
+                            context.read<CommentsPageViewModel>().reply(replyingTo, myController.text);
+                            myController.clear();
                           } else {
-                            createComment(); 
+                            context.read<CommentsPageViewModel>().comment(myController.text);
+                            myController.clear();
                           }
                         }
                       },

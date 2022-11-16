@@ -264,8 +264,8 @@ class _PostInteractionState extends State<PostInteraction> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => (ChangeNotifierProvider<CommentsPageViewModel>(
-                      child: Comments(post: widget.post),
-                      create: (_) => CommentsPageViewModel(),
+                      child: Comments(),
+                      create: (_) => CommentsPageViewModel(relatedPost: widget.post),
                     )),
                   ),
                 );

@@ -5,7 +5,12 @@ import '../../models/comment.dart';
 import 'homepage_view_model.dart';
 
 class CommentsPageViewModel with ChangeNotifier {
-  comment(Post post, String text) {
+  CommentsPageViewModel({required this.relatedPost});
+  Post relatedPost;
+
+  Post get post => relatedPost;
+
+  comment(String text) {
     // TODO: BETTER WAY THAN THIS MUST BE POSSIBLE
     if(post.comments.isEmpty) {
       post.comments = List.empty(growable: true);
@@ -17,10 +22,12 @@ class CommentsPageViewModel with ChangeNotifier {
     );
 
     post.comments.add(c);
+    notifyListeners();
   }
 
-  deleteComment(Post post, Comment comment) {
+  deleteComment(Comment comment) {
     post.comments.remove(comment);
+    notifyListeners();
   }
 
   reply(Comment comment, String text) {
@@ -34,10 +41,12 @@ class CommentsPageViewModel with ChangeNotifier {
     );
 
     comment.childComments.add(c);
+    notifyListeners();
   }
 
   deleteReply(Comment comment, Comment reply) {
     comment.childComments.remove(reply);
+    notifyListeners();
   }
 
   like(Comment comment) {
@@ -50,5 +59,6 @@ class CommentsPageViewModel with ChangeNotifier {
     } else {
       comment.likedBy.add(MockData().currentUser);
     }
+    notifyListeners();
   }
 }
