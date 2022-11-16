@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/widgets/bottom_navigation_bar_widget.dart';
+import 'package:test_app/widgets/homepage/comments_widget.dart';
+import 'models/post.dart';
 import 'router_constants.dart';
 
 class Router {
@@ -7,6 +11,12 @@ class Router {
     switch (settings.name) {
       case homeRoute:
         return MaterialPageRoute(builder: (_) => const BottomNavigationBarWidget());
+      case commentsRoute:
+        var post = settings.arguments as Post;
+        return MaterialPageRoute(builder: (_) => (ChangeNotifierProvider<CommentsPageViewModel>(
+          child: Comments(post: post),
+          create: (_) => CommentsPageViewModel(),
+        )));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

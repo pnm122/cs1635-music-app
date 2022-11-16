@@ -259,14 +259,7 @@ class _PostInteractionState extends State<PostInteraction> {
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => (ChangeNotifierProvider<CommentsPageViewModel>(
-                      child: Comments(),
-                      create: (_) => CommentsPageViewModel(relatedPost: widget.post),
-                    )),
-                  ),
-                );
+                Navigator.pushNamed(context, commentsRoute, arguments: widget.post);
               },
               icon: const Icon(Icons.comment, color: Colors.white),
             ),
