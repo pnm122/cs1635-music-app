@@ -31,4 +31,14 @@ class HomepageViewModel with ChangeNotifier {
       post.likedBy.add(MockData().currentUser);
     }
   }
+
+  void follow(User user) {
+    if(currentUser.following.contains(user)) {
+      currentUser.following.remove(user);
+      user.followers.remove(currentUser);
+    } else {
+      currentUser.following.add(user);
+      user.followers.add(currentUser);
+    }
+  }
 }

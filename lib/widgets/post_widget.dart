@@ -35,8 +35,8 @@ class _PostViewState extends State<PostView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               // Poster
-              const PosterInfo(
-                //post: postList[i],
+              PosterInfo(
+                post: postList[i],
               ),
 
               // Padding between elements

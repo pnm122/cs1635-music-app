@@ -70,7 +70,9 @@ class _CommentsState extends State<Comments> {
       ),
 
       body: ListView.builder(
-        padding: const EdgeInsets.all(sectionPadding),
+        // Extra padding on bottom as a workaround of bottomSheet overlaying on top of the body
+        // Apparently there's no way to fix this in flutter still :(
+        padding: EdgeInsets.only(top: sectionPadding, left: sectionPadding, right: sectionPadding, bottom: MediaQuery.of(context).size.height / 3),
         itemCount: widget.post.comments.length,
 
         // Each item is a comment + any replies
@@ -328,95 +330,105 @@ class _CommentsState extends State<Comments> {
         },
       ),
       
-      // Tell the user that they're replying to a comment if they are
-      bottomSheet: replying ? Container(
-        color: Theme.of(context).colorScheme.onBackground,
-        padding: const EdgeInsets.symmetric(horizontal: sectionPadding, vertical: 4.0),
+      // Using a wrap to fit the height of the bottomSheet to the content
+      bottomSheet: Wrap(
+        children: [
+          Column(
+            children: [
 
-        child: Row(
-          children: <Widget>[
-            Expanded(child: Text(
-              "Replying to ${replyingTo.commenter.name}:",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
-            )),
+              // Tell the user that they're replying to a comment if they are
+              replying ? Container(
+                color: Theme.of(context).colorScheme.onBackground,
+                padding: const EdgeInsets.symmetric(horizontal: sectionPadding, vertical: 4.0),
 
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () { setState((){replying = false;}); },
-            ),
-          ],
-        ),
-      ) : null,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(child: Text(
+                      "Replying to ${replyingTo.commenter.name}:",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                    )),
 
-      // Comment creating text field and button
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(sectionPadding),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
-
-          // Estimating the app bar shadow (idk how to just copy it)
-          boxShadow: const [BoxShadow(
-            color: Colors.black54,
-            blurRadius: 2,
-          )],
-        ),
-
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: TextField(
-              controller: myController,
-
-              minLines: 1,
-              maxLines: 3,
-              maxLength: commentMaxChars, // MAX CHARACTERS FOR A COMMENT
-
-              decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(16.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultBorderRadius),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.black26,
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .labelLarge
-                      ?.copyWith(color: Colors.white),
-                  hintText: 'Type a comment here...',
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () { setState((){replying = false;}); },
+                    ),
+                  ],
                 ),
-            )),
+              ) : Container(height:0),
 
-            const SizedBox(width: 10),
+              // Comment creating text field and button
+              Container(
+                padding: const EdgeInsets.all(sectionPadding),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.background,
 
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.outline),
-                padding: const MaterialStatePropertyAll(EdgeInsets.all(16.0)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(defaultBorderRadius),
-                    side: BorderSide.none,
-                  )
+                  // Estimating the app bar shadow (idk how to just copy it)
+                  boxShadow: const [BoxShadow(
+                    color: Colors.black54,
+                    blurRadius: 2,
+                  )],
                 ),
-                // Rounded?
+
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: TextField(
+                      controller: myController,
+
+                      minLines: 1,
+                      maxLines: 3,
+                      maxLength: commentMaxChars, // MAX CHARACTERS FOR A COMMENT
+
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(16.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(defaultBorderRadius),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.black26,
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .labelLarge
+                              ?.copyWith(color: Colors.white),
+                          hintText: 'Type a comment here...',
+                        ),
+                    )),
+
+                    const SizedBox(width: 10),
+
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.outline),
+                        padding: const MaterialStatePropertyAll(EdgeInsets.all(16.0)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(defaultBorderRadius),
+                            side: BorderSide.none,
+                          )
+                        ),
+                        // Rounded?
+                      ),
+
+                      // Add the comment to the post if the user has entered text
+                      onPressed: (){ 
+                        if(myController.text.isNotEmpty) { 
+                          if(replying) {
+                            replying = false;
+                            createReply();
+                          } else {
+                            createComment(); 
+                          }
+                        }
+                      },
+                      child: const Text("Post"),
+                    ),
+                  ],
+                ),
               ),
-
-              // Add the comment to the post if the user has entered text
-              onPressed: (){ 
-                if(myController.text.isNotEmpty) { 
-                  if(replying) {
-                    replying = false;
-                    createReply();
-                  } else {
-                    createComment(); 
-                  }
-                }
-              },
-              child: const Text("Post"),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
