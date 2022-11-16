@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
+import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 import 'package:test_app/widgets/homepage/post_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -50,13 +52,19 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
             // Popular
-            PostView(isPopularPosts: true,),
+            ChangeNotifierProvider<PostViewModel>(
+              child: const PostView(isPopularPosts: true,),
+              create: (_) => PostViewModel()
+            ),
 
             // Following
-            PostView(isPopularPosts: false,),
+            ChangeNotifierProvider<PostViewModel>(
+              child: const PostView(isPopularPosts: false,),
+              create: (_) => PostViewModel()
+            ),
           ],
         ),
       ),

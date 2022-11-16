@@ -22,10 +22,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    ChangeNotifierProvider<PostViewModel>(
-      child: const HomePage(),
-      create: (_) => PostViewModel(),
-    ),
+    const HomePage(),
     const UploadPage(),
     ChangeNotifierProvider<UserProfilePageViewModel>(
       child: const UserProfilePage(),

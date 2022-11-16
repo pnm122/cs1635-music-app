@@ -16,16 +16,14 @@ class PostView extends StatefulWidget {
   final bool isPopularPosts;
   const PostView({super.key, required this.isPopularPosts});
   @override
-  State<PostView> createState() => _PostViewState(isPopularPosts);
+  State<PostView> createState() => _PostViewState();
 }
 
 class _PostViewState extends State<PostView> {
-  _PostViewState(this.isPopularPosts);
-  final bool isPopularPosts;
 
   @override
   Widget build(BuildContext context) {
-    var postList = isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
+    var postList = widget.isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
 
     return ListView.builder(
         // padding around the entire list

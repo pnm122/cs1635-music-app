@@ -4,13 +4,13 @@ import '../../models/post.dart';
 import '../../models/user.dart';
 
 _getPopularPosts(List<Post> posts) {
-  posts.shuffle();
+  //posts.shuffle();
   return posts;
 }
 
 _getFollowingPosts(List<Post> posts, List<User> following) {
   posts = posts.where((x) => following.contains(x.poster)).toList();
-  posts.shuffle();
+  //posts.shuffle();
   return posts;
 }
 
