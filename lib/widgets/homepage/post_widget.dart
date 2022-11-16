@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/global_styles.dart';
-import 'package:test_app/mock_data.dart';
-import 'package:test_app/models/text_post.dart';
-import 'package:test_app/widgets/comments_widget.dart';
 // import 'package:video_player/video_player.dart';
 // import 'package:test_app/widgets/video_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/models/text_post.dart';
+import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
+import 'package:test_app/widgets/homepage/comments_widget.dart';
 import 'package:test_app/widgets/video_widget.dart';
 import 'package:video_player/video_player.dart';
 
-import '../viewmodels/comments_page_view_model.dart';
-import '../viewmodels/homepage_view_model.dart';
+import '../../viewmodels/homepage/homepage_view_model.dart';
 
 /// Container for all posts displayed in a view
 class PostView extends StatefulWidget {

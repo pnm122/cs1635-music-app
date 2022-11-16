@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/global_styles.dart';
-import 'package:test_app/widgets/post_widget.dart';
+import 'package:test_app/widgets/homepage/post_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

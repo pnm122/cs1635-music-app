@@ -256,10 +256,29 @@ List<Post> _posts = List.from([
               )
             ]
         ),
+        Comment(
+            content: "The Words You Say off of Sense of Home is fire.",
+            commenter: _users.where((x) => x.name == "Peter Crouch").first,
+            likedBy: [
+              _users.where((x) => x.name == "Steve Bruce").first,
+              _users.where((x) => x.name == "Sean Dyche").first,
+              _users.where((x) => x.name == "Andy Carroll").first,
+            ],
+            childComments: [
+              Comment(
+                  content: "Agreed. I remember when I came out, I was listening nonstop.",
+                  commenter: _users.where((x) => x.name == "Andy Carroll").first,
+              )
+            ]
+        ),
+        Comment(
+            content: "I also want to add that I already have listened to Coldplay's Only Superstition and wasn't a fan.",
+            commenter: _users.where((x) => x.name == "Steve Bruce").first,
+        ),
       ]
   ),
   TextPost(
-      poster: _users.where((x) => x.name == "Steve Bruce").first,
+      poster: _users.where((x) => x.name == "Peter Crouch").first,
       likedBy: [
         _users.where((x) => x.name == "Peter Crouch").first,
         _users.where((x) => x.name == "Andy Carroll").first,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user.dart';
-import '../../viewmodels/user_profile_page_view_model.dart';
+import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 
 class EditProfilePage extends StatefulWidget {
   final User user;

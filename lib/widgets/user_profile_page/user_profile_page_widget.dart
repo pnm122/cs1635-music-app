@@ -4,7 +4,7 @@ import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_w
 
 import '../../models/artist.dart';
 import '../../models/user.dart';
-import '../../viewmodels/user_profile_page_view_model.dart';
+import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 import 'edit_profile_page_widget.dart';
 
 class UserProfilePage extends StatefulWidget {
