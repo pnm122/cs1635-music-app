@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MockData m = MockData();
     return MaterialApp(
       title: 'Music App',
       // home: HomePage(),

@@ -26,7 +26,7 @@ class _PostViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
-    final postList = isPopularPosts ? context.watch<HomepageViewModel>().popularPosts : context.watch<HomepageViewModel>().followingPosts;
+    var postList = isPopularPosts ? context.watch<HomepageViewModel>().popularPosts : context.watch<HomepageViewModel>().followingPosts;
 
     return ListView.builder(
         // padding around the entire list
@@ -80,6 +80,8 @@ class PosterInfo extends StatefulWidget {
 class _PosterInfoState extends State<PosterInfo> {
   @override
   Widget build(BuildContext context) {
+    var currentUser = context.watch<HomepageViewModel>().currentUser;
+
     return Row(
       children: <Widget>[
         // Profile
@@ -111,7 +113,7 @@ class _PosterInfoState extends State<PosterInfo> {
 
         // Following button
         OutlinedButton(
-          style: HomepageViewModel.currentUser.following.contains(widget.user)
+          style: currentUser.following.contains(widget.user)
             ? ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.outline),
               foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
@@ -138,9 +140,9 @@ class _PosterInfoState extends State<PosterInfo> {
             ),
           // TODO: Follow this user when this button is pressed
           onPressed: () { 
-            setState((){ context.read<HomepageViewModel>().follow(widget.user); });
+            context.read<HomepageViewModel>().follow(widget.user);
           },
-          child: HomepageViewModel.currentUser.following.contains(widget.user)
+          child: currentUser.following.contains(widget.user)
             ? const Text("Following")
             : const Text("Follow")
         ),
@@ -223,20 +225,20 @@ class PostInteraction extends StatefulWidget {
 class _PostInteractionState extends State<PostInteraction> {
   @override
   Widget build(BuildContext context) {
+    // TODO: How do I watch individual posts so that all this stuff updates the way I want?
+
+    var currentUser = context.watch<HomepageViewModel>().currentUser;
     return Row(
       children: <Widget>[
         // Favorite button
-        // TODO: Update favorited posts and icon state if clicked
-        // TODO: Initial icon state based on if the user already liked the post or not
         Column(
           children: <Widget>[
             IconButton(
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
               isSelected: false,
-              // TODO: Can we use a context.watch to achieve this somehow?
-              onPressed: () { setState((){context.read<HomepageViewModel>().likePost(widget.post);}); },
-              icon: widget.post.likedBy.contains(MockData().currentUser)
+              onPressed: () { context.read<HomepageViewModel>().likePost(widget.post); },
+              icon: widget.post.likedBy.contains(currentUser)
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.white)
             ),
@@ -254,7 +256,6 @@ class _PostInteractionState extends State<PostInteraction> {
         const SizedBox(width: 8),
 
         // Comment button
-        // TODO: Take you to the post's comment page when clicked
         Column(
           children: <Widget>[
             IconButton(

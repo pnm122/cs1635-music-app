@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:test_app/mock_data.dart';
+import 'package:test_app/models/profile.dart';
 import '../models/post.dart';
 import '../models/user.dart';
 
@@ -22,13 +23,16 @@ class HomepageViewModel with ChangeNotifier {
   List<Post> _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
   List<Post> get followingPosts => _followingPosts;
 
-  static User get currentUser => MockData().currentUser;
+  User get currentUser => MockData().currentUser;
 
+  // TODO: Put this in the right viewmodel
   void likePost(Post post) {
     if(post.likedBy.contains(MockData().currentUser)) {
       post.likedBy.remove(MockData().currentUser);
+      notifyListeners();
     } else { 
       post.likedBy.add(MockData().currentUser);
+      notifyListeners();
     }
   }
 
@@ -39,12 +43,14 @@ class HomepageViewModel with ChangeNotifier {
 
       // update following posts
       _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
+      notifyListeners();
     } else {
       currentUser.following.add(user);
       user.followers.add(currentUser);
 
       // Update following posts
       _followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
+      notifyListeners();
     }
   }
 }
