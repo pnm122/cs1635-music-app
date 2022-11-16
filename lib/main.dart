@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/router_constants.dart';
 import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
-import 'mock_data.dart';
+import 'router.dart' as LocalRouter;
 import 'widgets/bottom_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
         child: const BottomNavigationBarWidget(),
         create: (_) => HomepageViewModel(),
       )),
+      onGenerateRoute: LocalRouter.Router.generateRoute,
+      initialRoute: homeRoute,
 
       theme: ThemeData(
         scaffoldBackgroundColor: bgColor,

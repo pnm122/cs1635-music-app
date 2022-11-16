@@ -9,6 +9,7 @@ import 'package:test_app/widgets/homepage/comments_widget.dart';
 import 'package:test_app/widgets/video_widget.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../router_constants.dart';
 import '../../viewmodels/homepage/homepage_view_model.dart';
 
 /// Container for all posts displayed in a view
@@ -261,14 +262,7 @@ class _PostInteractionState extends State<PostInteraction> {
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => (ChangeNotifierProvider<CommentsPageViewModel>(
-                      child: Comments(post: widget.post),
-                      create: (_) => CommentsPageViewModel(),
-                    )),
-                  ),
-                );
+                Navigator.pushNamed(context, commentsRoute, arguments: widget.post);
               },
               icon: const Icon(Icons.comment, color: Colors.white),
             ),
