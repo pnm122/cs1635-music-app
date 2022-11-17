@@ -260,7 +260,19 @@ class _PostInteractionState extends State<PostInteraction> {
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(),
               onPressed: () {
-                Navigator.pushNamed(context, commentsRoute, arguments: widget.post);
+                showModalBottomSheet<void>(
+                  isScrollControlled: true,
+                  context: context, 
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => Container(
+                    height: MediaQuery.of(context).size.height * 0.95,
+                    child: ChangeNotifierProvider<CommentsPageViewModel>(
+                      child: Comments(),
+                      create: (_) => CommentsPageViewModel(relatedPost: widget.post),
+                    ),
+                  ),
+                );
+                //Navigator.pushNamed(context, commentsRoute, arguments: widget.post);
               },
               icon: const Icon(Icons.comment, color: Colors.white),
             ),

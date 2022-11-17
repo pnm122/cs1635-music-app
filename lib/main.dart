@@ -48,6 +48,8 @@ class MyApp extends StatelessWidget {
           bodyColor: Colors.white,
           displayColor: Colors.white,
         ),
+
+        canvasColor: Colors.transparent,
       ),
     );
   }
