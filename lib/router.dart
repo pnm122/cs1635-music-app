@@ -14,7 +14,7 @@ class Router {
       case commentsRoute:
         var post = settings.arguments as Post;
         return MaterialPageRoute(builder: (_) => (ChangeNotifierProvider<CommentsPageViewModel>(
-          child: Comments(),
+          child: const Comments(),
           create: (_) => CommentsPageViewModel(relatedPost: post),
         )));
       default:
