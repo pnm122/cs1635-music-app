@@ -13,16 +13,18 @@ class Router {
         return MaterialPageRoute(builder: (_) => const BottomNavigationBarWidget());
       case commentsRoute:
         var post = settings.arguments as Post;
-        return MaterialPageRoute(builder: (_) => (ChangeNotifierProvider<CommentsPageViewModel>(
-          child: const Comments(),
-          create: (_) => CommentsPageViewModel(relatedPost: post),
-        )));
+        return MaterialPageRoute(
+          builder: (_) => (ChangeNotifierProvider<CommentsPageViewModel>(
+            child: const Comments(),
+            create: (_) => CommentsPageViewModel(relatedPost: post),
+          )),
+        );
       default:
         return MaterialPageRoute(
-            builder: (_) => Scaffold(
-                  body: Center(
-                      child: Text('No route defined for ${settings.name}')),
-                ));
+          builder: (_) => Scaffold(
+            body: Center(child: Text('No route defined for ${settings.name}')),
+          ),
+        );
     }
   }
 }
