@@ -6,5 +6,6 @@ const postGap = 32.0; // Extra margin between posts
 const smallGap = 5.0;
 
 const smallIconSize = 16.0;
+const navBarIconSize = 32.0;
 
 const commentMaxChars = 160;
