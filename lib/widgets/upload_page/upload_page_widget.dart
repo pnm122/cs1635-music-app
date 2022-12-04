@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/models/text_post.dart';
 import 'package:test_app/widgets/upload_page/song_record_widget.dart';
-import 'package:test_app/viewmodels/upload_page/text_post_view_model.dart';
+import 'package:test_app/widgets/upload_page/text_post_widget.dart';
 
 class UploadPage extends StatelessWidget {
   const UploadPage({super.key});
@@ -34,7 +35,6 @@ class UploadPage extends StatelessWidget {
         children: [
           ElevatedButton.icon(
             onPressed: () {
-              // TODO: Go to SongRecord
               // Navigator.pop(context);
               Navigator.push(
                 context,
@@ -55,8 +55,11 @@ class UploadPage extends StatelessWidget {
           ElevatedButton.icon(
             onPressed: () {
               // TODO: Go to TextPost
-              ChangeNotifierProvider(
-                create: (_) => TextPostViewModel(),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TextPostWidget(),
+                ),
               );
             },
             icon: Icon(
