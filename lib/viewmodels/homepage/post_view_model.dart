@@ -16,6 +16,19 @@ _getFollowingPosts(List<Post> posts, List<User> following) {
 
 class PostViewModel with ChangeNotifier {
 
+  bool openComments = false;
+
+  Post? commentsPost;
+
+  void openPostComments(Post post) {
+    commentsPost = post;
+    openComments = true;
+  }
+
+  void closePostComments() {
+    openComments = false;
+  }
+
   List<Post> _popularPosts = _getPopularPosts(MockData().posts);
   List<Post> get popularPosts => _popularPosts;
 

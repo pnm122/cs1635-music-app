@@ -32,8 +32,10 @@ class _CommentsState extends State<Comments> {
     var post = context.watch<CommentsPageViewModel>().post;
 
     return Scaffold(
+      // To avoid annoying issue with background sticking out of rounded appBar
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.onBackground,
         centerTitle: true,
 
         leading: const BackButton(),
@@ -42,272 +44,280 @@ class _CommentsState extends State<Comments> {
           "Comments",
           style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight:FontWeight.bold),
         ),
+
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        
       ),
 
-      body: ListView.builder(
-        // Extra padding on bottom as a workaround of bottomSheet overlaying on top of the body
-        // Apparently there's no way to fix this in flutter still :(
-        padding: EdgeInsets.only(top: sectionPadding, left: sectionPadding, right: sectionPadding, bottom: MediaQuery.of(context).size.height / 3),
-        itemCount: post.comments.length,
+      body: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: ListView.builder(
+          // Extra padding on bottom as a workaround of bottomSheet overlaying on top of the body
+          // Apparently there's no way to fix this in flutter still :(
+          padding: EdgeInsets.only(top: sectionPadding, left: sectionPadding, right: sectionPadding, bottom: MediaQuery.of(context).size.height / 3),
+          itemCount: post.comments.length,
 
-        // Each item is a comment + any replies
-        itemBuilder:(context, i) {
-          dynamic c = post.comments[i];
+          // Each item is a comment + any replies
+          itemBuilder:(context, i) {
+            dynamic c = post.comments[i];
 
-          // Container for comment + replies
-          return Column(
-            children: [
-              // Main comment
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[ 
-                  // TODO: Bring to user profile
-                  c.commenter.image == ""
-                    ? const Icon(Icons.account_circle, size: 32)
-                    : CircleAvatar(
-                      backgroundImage: NetworkImage(c.commenter.image),
-                      radius: 16,
-                    ),
+            // Container for comment + replies
+            return Column(
+              children: [
+                // Main comment
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[ 
+                    // TODO: Bring to user profile
+                    c.commenter.image == ""
+                      ? const Icon(Icons.account_circle, size: 32)
+                      : CircleAvatar(
+                        backgroundImage: NetworkImage(c.commenter.image),
+                        radius: 16,
+                      ),
 
-                  const SizedBox(width: postSectionMargin),
+                    const SizedBox(width: postSectionMargin),
 
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // TODO: Bring to user profile
-                        Text(
-                          c.commenter.name,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
-                        ),
-                  
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // TODO: Bring to user profile
+                          Text(
+                            c.commenter.name,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                          ),
                     
-                        Text(
-                          c.content,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
-                        ),
-                  
-                  
-                        const SizedBox(height: 4.0),
-                  
-                        Row(
-                          children: <Widget>[
-                  
-                            // Liking
-                            Column(
-                              children: <Widget>[
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  iconSize: smallIconSize,
-                                  isSelected: false,
-                                  // TODO: Can we use a context.watch to achieve this somehow?
-                                  onPressed: () { 
-                                    context.read<CommentsPageViewModel>().like(post.comments[i]);
-                                  },
-                                  icon: c.likedBy.contains(MockData().currentUser)
-                                    ? const Icon(Icons.favorite, color: Colors.red)
-                                    : const Icon(Icons.favorite_outline, color: Colors.white)
-                                ),
-                                Text(
-                                  c.likedBy.length.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(fontFamily: "Nunito"),
-                                ),
-                              ],
-                            ),
-                  
-                            // Replying
-                            TextButton(
-                              child: Text(
-                                "Reply",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                  
-                              onPressed: () {
-                                setState(
-                                  () { 
-                                    replying = true;
-                                    replyingTo = c;
-                                  }
-                                );
-                              },
-                            ),
-
-                            // Allow deleting if the commenter is the current user
-                            if(identical(c.commenter, MockData().currentUser)) TextButton(
-                              child: Text(
-                                "Delete",
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-
-                              onPressed: () { 
-                                // Confirm that the user wants to delete this comment
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    backgroundColor: Theme.of(context).colorScheme.background,
-
-                                    title: const Text("Are you sure you want to delete this comment?"),
-                                    actions: [
-                                      IconButton(
-                                        onPressed: () => Navigator.pop(context, 'Cancel'),
-                                        icon: const Icon(Icons.close, color: Colors.red),
-                                      ),
-                                      IconButton(
-                                        onPressed: () { 
-                                          context.read<CommentsPageViewModel>().deleteComment(c);
-                                          Navigator.pop(context, 'OK'); 
-                                        },
-                                        icon: const Icon(Icons.check, color: Colors.green),
-                                      ),
-                                    ],
+                      
+                          Text(
+                            c.content,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                          ),
+                    
+                    
+                          const SizedBox(height: 4.0),
+                    
+                          Row(
+                            children: <Widget>[
+                    
+                              // Liking
+                              Column(
+                                children: <Widget>[
+                                  IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    iconSize: smallIconSize,
+                                    isSelected: false,
+                                    // TODO: Can we use a context.watch to achieve this somehow?
+                                    onPressed: () { 
+                                      context.read<CommentsPageViewModel>().like(post.comments[i]);
+                                    },
+                                    icon: c.likedBy.contains(MockData().currentUser)
+                                      ? const Icon(Icons.favorite, color: Colors.red)
+                                      : const Icon(Icons.favorite_outline, color: Colors.white)
                                   ),
-                                );
-                              },
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              // Replies to main comment
-              ListView.builder(
-                itemCount: c.childComments.length,
-
-                // Fix to allow listview inside another listview
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-
-                itemBuilder:(context, j) {
-                  dynamic r = c.childComments[j];
-
-                  return Container(
-                    padding: const EdgeInsets.only(left: 42.0),
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(height: smallGap),
-
-                        // Reply
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[ 
-                            // TODO: Bring to user profile
-                            r.commenter.image == ""
-                              ? const Icon(Icons.account_circle, size: 32)
-                              : CircleAvatar(
-                                backgroundImage: NetworkImage(r.commenter.image),
-                                radius: 16,
-                              ),
-
-                            const SizedBox(width: postSectionMargin),
-
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // TODO: Bring to user profile
                                   Text(
-                                    r.commenter.name,
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                                    c.likedBy.length.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(fontFamily: "Nunito"),
                                   ),
-                            
-                              
-                                  Text(
-                                    r.content,
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
-                                  ),
-                            
-                            
-                                  const SizedBox(height: 4.0),
-                            
-                                  Row(
-                                    children: <Widget>[
-                            
-                                      // Liking
-                                      Column(
-                                        children: <Widget>[
-                                          IconButton(
-                                            padding: EdgeInsets.zero,
-                                            constraints: const BoxConstraints(),
-                                            iconSize: smallIconSize,
-                                            isSelected: false,
-                                            // TODO: Can we use a context.watch to achieve this somehow?
-                                            onPressed: () { 
-                                              context.read<CommentsPageViewModel>().like(c.childComments[j]);
-                                            },
-                                            icon: r.likedBy.contains(MockData().currentUser)
-                                              ? const Icon(Icons.favorite, color: Colors.red)
-                                              : const Icon(Icons.favorite_outline, color: Colors.white)
-                                          ),
-                                          Text(
-                                            r.likedBy.length.toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall
-                                                ?.copyWith(fontFamily: "Nunito"),
-                                          ),
-                                        ],
-                                      ),
-                            
-                                      // Can't reply to replies
-
-                                      // Allow deleting if the commenter is the current user
-                                      if(identical(r.commenter, MockData().currentUser)) TextButton(
-                                        child: Text(
-                                          "Delete",
-                                          style: Theme.of(context).textTheme.bodySmall,
-                                        ),
-
-                                        onPressed: () { 
-                                          // Confirm that the user wants to delete this comment
-                                          showDialog(
-                                            context: context,
-                                            builder: (_) => AlertDialog(
-                                              backgroundColor: Theme.of(context).colorScheme.background,
-
-                                              title: const Text("Are you sure you want to delete this comment?"),
-                                              actions: [
-                                                IconButton(
-                                                  onPressed: () => Navigator.pop(context, 'Cancel'),
-                                                  icon: const Icon(Icons.close, color: Colors.red),
-                                                ),
-                                                IconButton(
-                                                  onPressed: () { 
-                                                    context.read<CommentsPageViewModel>().deleteReply(c, r);
-                                                    Navigator.pop(context, 'OK'); 
-                                                  },
-                                                  icon: const Icon(Icons.check, color: Colors.green),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  )
                                 ],
                               ),
-                            ),
-                          ],
+                    
+                              // Replying
+                              TextButton(
+                                child: Text(
+                                  "Reply",
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                    
+                                onPressed: () {
+                                  setState(
+                                    () { 
+                                      replying = true;
+                                      replyingTo = c;
+                                    }
+                                  );
+                                },
+                              ),
 
-                        ),
+                              // Allow deleting if the commenter is the current user
+                              if(identical(c.commenter, MockData().currentUser)) TextButton(
+                                child: Text(
+                                  "Delete",
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
 
-                      ],
+                                onPressed: () { 
+                                  // Confirm that the user wants to delete this comment
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      backgroundColor: Theme.of(context).colorScheme.background,
+
+                                      title: const Text("Are you sure you want to delete this comment?"),
+                                      actions: [
+                                        IconButton(
+                                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                                          icon: const Icon(Icons.close, color: Colors.red),
+                                        ),
+                                        IconButton(
+                                          onPressed: () { 
+                                            context.read<CommentsPageViewModel>().deleteComment(c);
+                                            Navigator.pop(context, 'OK'); 
+                                          },
+                                          icon: const Icon(Icons.check, color: Colors.green),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  );
-                }
-              ),
+                  ],
+                ),
 
-              const SizedBox(height: sectionPadding),
-            ],
-          );
-        },
+                // Replies to main comment
+                ListView.builder(
+                  itemCount: c.childComments.length,
+
+                  // Fix to allow listview inside another listview
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+
+                  itemBuilder:(context, j) {
+                    dynamic r = c.childComments[j];
+
+                    return Container(
+                      padding: const EdgeInsets.only(left: 42.0),
+                      child: Column(
+                        children: <Widget>[
+                          const SizedBox(height: smallGap),
+
+                          // Reply
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[ 
+                              // TODO: Bring to user profile
+                              r.commenter.image == ""
+                                ? const Icon(Icons.account_circle, size: 32)
+                                : CircleAvatar(
+                                  backgroundImage: NetworkImage(r.commenter.image),
+                                  radius: 16,
+                                ),
+
+                              const SizedBox(width: postSectionMargin),
+
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // TODO: Bring to user profile
+                                    Text(
+                                      r.commenter.name,
+                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                                    ),
+                              
+                                
+                                    Text(
+                                      r.content,
+                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                                    ),
+                              
+                              
+                                    const SizedBox(height: 4.0),
+                              
+                                    Row(
+                                      children: <Widget>[
+                              
+                                        // Liking
+                                        Column(
+                                          children: <Widget>[
+                                            IconButton(
+                                              padding: EdgeInsets.zero,
+                                              constraints: const BoxConstraints(),
+                                              iconSize: smallIconSize,
+                                              isSelected: false,
+                                              // TODO: Can we use a context.watch to achieve this somehow?
+                                              onPressed: () { 
+                                                context.read<CommentsPageViewModel>().like(c.childComments[j]);
+                                              },
+                                              icon: r.likedBy.contains(MockData().currentUser)
+                                                ? const Icon(Icons.favorite, color: Colors.red)
+                                                : const Icon(Icons.favorite_outline, color: Colors.white)
+                                            ),
+                                            Text(
+                                              r.likedBy.length.toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall
+                                                  ?.copyWith(fontFamily: "Nunito"),
+                                            ),
+                                          ],
+                                        ),
+                              
+                                        // Can't reply to replies
+
+                                        // Allow deleting if the commenter is the current user
+                                        if(identical(r.commenter, MockData().currentUser)) TextButton(
+                                          child: Text(
+                                            "Delete",
+                                            style: Theme.of(context).textTheme.bodySmall,
+                                          ),
+
+                                          onPressed: () { 
+                                            // Confirm that the user wants to delete this comment
+                                            showDialog(
+                                              context: context,
+                                              builder: (_) => AlertDialog(
+                                                backgroundColor: Theme.of(context).colorScheme.background,
+
+                                                title: const Text("Are you sure you want to delete this comment?"),
+                                                actions: [
+                                                  IconButton(
+                                                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                                                    icon: const Icon(Icons.close, color: Colors.red),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () { 
+                                                      context.read<CommentsPageViewModel>().deleteReply(c, r);
+                                                      Navigator.pop(context, 'OK'); 
+                                                    },
+                                                    icon: const Icon(Icons.check, color: Colors.green),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+
+                          ),
+
+                        ],
+                      ),
+                    );
+                  }
+                ),
+
+                const SizedBox(height: sectionPadding),
+              ],
+            );
+          },
+        ),
       ),
       
       // Using a wrap to fit the height of the bottomSheet to the content
