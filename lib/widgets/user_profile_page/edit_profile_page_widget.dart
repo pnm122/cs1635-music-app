@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/viewmodels/user_profile_page/user_profile_page_edit_view_model.dart';
 
 import '../../models/user.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
@@ -10,19 +11,25 @@ class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key, required this.user});
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePage();
+  State<EditProfilePage> createState() => _EditProfilePage(user);
 }
 
 class _EditProfilePage extends State<EditProfilePage> {
+  late final usernameController;
+  late final bioController;
 
-  // final usernameController = TextEditingController();
-  //
-  // @override
-  // void dispose() {
-  //   // Clean up the controller when the widget is disposed.
-  //   usernameController.dispose();
-  //   super.dispose();
-  // }
+  _EditProfilePage(User user) {
+    usernameController = TextEditingController(text: user.name);
+    bioController = TextEditingController(text: user.profile.bio);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    usernameController.dispose();
+    bioController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,12 @@ class _EditProfilePage extends State<EditProfilePage> {
 
           leading: const BackButton(color: Colors.white,),
           actions: [
-            IconButton(onPressed: null, icon: Icon(Icons.save, color: Colors.white,))
+            IconButton(
+                onPressed: () {
+                  context.read<UserProfilePageEditViewModel>().edit(usernameController.text, bioController.text);
+                },
+                icon: Icon(Icons.save, color: Colors.white,),
+            )
           ],
           title: Text(
             "Edit Profile",
@@ -42,7 +54,10 @@ class _EditProfilePage extends State<EditProfilePage> {
         ),
       body: Column(
         children: [
-          IconButton(onPressed: null, icon: Icon(Icons.change_circle, color: Colors.white,),),
+          IconButton(
+            onPressed: null,
+            icon: Icon(Icons.change_circle, color: Colors.white,),
+          ),
           Row(
             children: [
               Spacer(),
@@ -54,16 +69,9 @@ class _EditProfilePage extends State<EditProfilePage> {
               Container(
                 width: 200,
                 child: Form(child: TextFormField(
-                  decoration: InputDecoration(
-
-                  ),
+                  controller: usernameController,
                   keyboardType: TextInputType.name,
                   maxLength: 15,
-                  onChanged: (text) {
-                    setState(() {
-                      context.watch()<UserProfilePageViewModel>().user.name;
-                    });
-                  },
                 )),
               ),
               Spacer(),
@@ -80,9 +88,10 @@ class _EditProfilePage extends State<EditProfilePage> {
               Container(
                 width: 200,
                 child: Form(child: TextFormField(
+                  controller: bioController,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  maxLength: 100,
+                  maxLength: 50,
                 )),
               ),
               Spacer(),
