@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // gets rid of the debug banner in the top right
       title: 'Music App',
       // home: HomePage(),
       home: (ChangeNotifierProvider<GeneralViewModel>(
