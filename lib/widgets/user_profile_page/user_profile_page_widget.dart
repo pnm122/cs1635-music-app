@@ -4,6 +4,7 @@ import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_w
 
 import '../../models/artist.dart';
 import '../../models/user.dart';
+import '../../router_constants.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 import 'edit_profile_page_widget.dart';
 
@@ -42,20 +43,29 @@ class _UserProfilePage extends State<UserProfilePage> {
                   children: [
                     Row(
                       children: [
+                        Spacer(),
                         Image(
                           height: 100,
                           image: NetworkImage(user.image),
                         ),
-                        Column(
-                          children: [
-                            Text(user.name,
-                              style: TextStyle(fontSize: 30),
-                            ),
-                            Text(user.profile.bio,
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
+                        Spacer(),
+                        SizedBox(
+                          width: 220,
+                          child: Column(
+                            children: [
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(user.name,
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                                ),
+                              ),
+                              Text(user.profile.bio,
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
                         ),
+                        Spacer(),
                       ],
                     ),
                     Row(children: [
@@ -64,9 +74,7 @@ class _UserProfilePage extends State<UserProfilePage> {
                           padding: EdgeInsets.zero,
                           constraints: BoxConstraints(),
                           onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (BuildContext context) { return EditProfilePage(user: user,); })
-                            );
+                            Navigator.pushNamed(context, editProfileRoute, arguments: user);
                           },
                           icon: Icon(Icons.edit, color: Colors.white),
                       ),
