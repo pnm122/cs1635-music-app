@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
+import 'package:test_app/router_constants.dart';
+import 'package:test_app/search_constants.dart';
 import 'package:test_app/viewmodels/homepage/post_view_model.dart';
+import 'package:test_app/widgets/common/custom_app_bar.dart';
+import 'package:test_app/widgets/common/search_page.dart';
 import 'package:test_app/widgets/homepage/post_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,36 +17,17 @@ class HomePage extends StatelessWidget {
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 75,
-          shadowColor: Colors.transparent,
-          backgroundColor: Theme.of(context).colorScheme.background,
-
-          // Search Bar
-          title: TextField(
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(0.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(defaultBorderRadius),
-              ),
-              filled: true,
-              fillColor: Colors.black26,
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .labelLarge
-                  ?.copyWith(color: Colors.white),
-              prefixIcon: const Icon(Icons.search, color: Colors.white),
-              hintText: 'Search for a song or profile...',
-              enabled: false,
-            ),
-          ),
-
-          // Tabs between popular and following pages
-          bottom: TabBar(
-            unselectedLabelStyle: Theme.of(context).textTheme.labelLarge,
-            labelStyle: Theme.of(context).textTheme.labelLarge,
-            indicatorColor: Theme.of(context).colorScheme.outline,
-            tabs: const <Widget>[
+        appBar: CustomAppBar(
+          title: "Your Feed",
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, searchRoute, arguments: userSearch);
+              },
+              icon: const Icon(Icons.search)
+            )
+          ],
+          tabs: const [
               Tab(
                 child: Text("Popular"),
               ),
@@ -50,8 +35,8 @@ class HomePage extends StatelessWidget {
                 child: Text("Following"),
               ),
             ],
-          ),
         ),
+        
         body: TabBarView(
           children: <Widget>[
             // Popular
