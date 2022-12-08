@@ -91,7 +91,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                   controller: bioController,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  maxLength: 100,
+                  maxLength: 50,
                 )),
               ),
               Spacer(),

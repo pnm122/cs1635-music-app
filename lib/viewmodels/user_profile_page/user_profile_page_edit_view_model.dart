@@ -8,7 +8,11 @@ class UserProfilePageEditViewModel with ChangeNotifier {
   User user;
 
   edit(String name, String bio) {
-    user.name = name;
+
+    if (name.length >= 5) {
+      user.name = name;
+    }
+
     user.profile.bio = bio;
   }
 }
