@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/user_profile_page_edit_arguments.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/viewmodels/homepage/search_page_view_model.dart';
 import 'package:test_app/viewmodels/user_profile_page/user_profile_page_edit_view_model.dart';
+import 'package:test_app/viewmodels/user_profile_page/user_profile_page_view_model.dart';
 import 'package:test_app/widgets/bottom_navigation_bar_widget.dart';
 import 'package:test_app/widgets/common/search_page.dart';
 import 'package:test_app/widgets/homepage/comments_widget.dart';
 import 'package:test_app/widgets/user_profile_page/edit_profile_page_widget.dart';
+import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';
 import 'models/post.dart';
 import 'models/user.dart';
 import 'router_constants.dart';
@@ -32,12 +35,23 @@ class Router {
             create: (_) => SearchPageViewModel(searchType),
           )),
         );
-      case editProfileRoute:
+      case profileRoute:
         var user = settings.arguments as User;
         return MaterialPageRoute(
-          builder: (_) => (ChangeNotifierProvider<UserProfilePageEditViewModel>(
-            child: EditProfilePage(user: user,),
-            create: (_) => UserProfilePageEditViewModel(user: user),
+          builder: (_) => ChangeNotifierProvider<UserProfilePageViewModel>(
+              child: const UserProfilePage(),
+              create: (_) => UserProfilePageViewModel(u: user)
+          ),
+        );
+        // ChangeNotifierProvider<UserProfilePageViewModel>(
+        //     child: const UserProfilePage(),
+        //     create: (_) => UserProfilePageViewModel()
+      case editProfileRoute:
+        var args = settings.arguments as UserProfilePageEditArguments;
+        return MaterialPageRoute(
+          builder: (_) => (ChangeNotifierProvider<UserProfilePageViewModel>.value(
+            child: EditProfilePage(user: args.user,),
+            value: args.viewModel,
           )),
         );
       default:

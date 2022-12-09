@@ -5,6 +5,7 @@ import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_w
 import '../../models/artist.dart';
 import '../../models/user.dart';
 import '../../router_constants.dart';
+import '../../user_profile_page_edit_arguments.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 import 'edit_profile_page_widget.dart';
 
@@ -70,13 +71,17 @@ class _UserProfilePage extends State<UserProfilePage> {
                     ),
                     Row(children: [
                       Spacer(),
-                      IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: BoxConstraints(),
-                          onPressed: () {
-                            Navigator.pushNamed(context, editProfileRoute, arguments: user);
-                          },
-                          icon: Icon(Icons.edit, color: Colors.white),
+                      Visibility(
+                        child:
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            constraints: BoxConstraints(),
+                            onPressed: () {
+                              Navigator.pushNamed(context, editProfileRoute, arguments: UserProfilePageEditArguments(viewModel: viewModel, user: user));
+                            },
+                            icon: Icon(Icons.edit, color: Colors.white),
+                          ),
+                        visible: viewModel.editAvailable,
                       ),
                       Spacer(),
                       TextButton(

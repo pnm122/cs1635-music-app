@@ -42,7 +42,7 @@ class _EditProfilePage extends State<EditProfilePage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  context.read<UserProfilePageEditViewModel>().edit(usernameController.text, bioController.text);
+                  context.read<UserProfilePageViewModel>().edit(usernameController.text, bioController.text);
                 },
                 icon: Icon(Icons.save, color: Colors.white,),
             )
