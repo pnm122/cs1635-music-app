@@ -31,7 +31,9 @@ class _PostViewState extends State<PostView> {
   Widget build(BuildContext context) {
     final posts = context.watch<PostViewModel>().posts;
 
-    return ListView.builder(
+    return posts.isEmpty ? const Center(child: Text("No posts yet...")) : ListView.builder(
+      // Lets us wrap pages that contain this ListView with a SingleChildScrollView so the whole page can scroll!
+      shrinkWrap: true,
         // padding around the entire list
         padding: const EdgeInsets.all(sectionPadding),
         itemCount: posts.length,

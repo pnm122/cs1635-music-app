@@ -6,6 +6,6 @@ class Track extends Song {
 
   final Album album;
 
-  Track({required this.album, required super.name, required super.creator});
+  Track({required this.album, required super.name, required super.creator, required super.covers});
 
 }
