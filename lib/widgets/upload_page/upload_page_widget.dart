@@ -54,7 +54,6 @@ class UploadPage extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
-              // TODO: Go to TextPost
               Navigator.push(
                 context,
                 MaterialPageRoute(
