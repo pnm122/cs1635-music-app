@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
 
 import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';
 import '../viewmodels/user_profile_page/user_profile_page_view_model.dart';
@@ -20,7 +21,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
 
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    const HomePage(),
+    ChangeNotifierProvider<HomePageViewModel>(
+      child: const HomePage(),
+      create: (_) => HomePageViewModel(),
+    ),
     const UploadPage(),
     ChangeNotifierProvider<UserProfilePageViewModel>(
       child: const UserProfilePage(),

@@ -2,4 +2,5 @@
 const String homeRoute = '/';
 const String commentsRoute = '/comments';
 const String searchRoute = '/search';
+const String songRoute = '/song';
 const String editProfileRoute = '/editProfile';
