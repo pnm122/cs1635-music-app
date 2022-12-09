@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/user_profile_page_edit_arguments.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/viewmodels/homepage/search_page_view_model.dart';
 import 'package:test_app/viewmodels/user_profile_page/user_profile_page_edit_view_model.dart';
+import 'package:test_app/viewmodels/user_profile_page/user_profile_page_view_model.dart';
 import 'package:test_app/widgets/bottom_navigation_bar_widget.dart';
 import 'package:test_app/widgets/common/search_page.dart';
 import 'package:test_app/widgets/homepage/comments_widget.dart';
@@ -33,11 +35,11 @@ class Router {
           )),
         );
       case editProfileRoute:
-        var user = settings.arguments as User;
+        var args = settings.arguments as UserProfilePageEditArguments;
         return MaterialPageRoute(
-          builder: (_) => (ChangeNotifierProvider<UserProfilePageEditViewModel>(
-            child: EditProfilePage(user: user,),
-            create: (_) => UserProfilePageEditViewModel(user: user),
+          builder: (_) => (ChangeNotifierProvider<UserProfilePageViewModel>.value(
+            child: EditProfilePage(user: args.user,),
+            value: args.viewModel,
           )),
         );
       default:

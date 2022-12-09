@@ -27,7 +27,12 @@ String countToString(int cnt) {
 }
 
 class UserProfilePageViewModel with ChangeNotifier {
-  final User _user = MockData().currentUser;
+  late final User _user;
+
+  UserProfilePageViewModel({User? u}) {
+    _user = u == null ? MockData().currentUser : u;
+  }
+
   User get user => _user;
 
   final String _followersCnt = countToString(MockData().currentUser.followers.length);
@@ -35,4 +40,14 @@ class UserProfilePageViewModel with ChangeNotifier {
 
   final String _followingCnt = countToString(MockData().currentUser.following.length);
   String get followingCnt => _followingCnt;
+
+  edit(String name, String bio) {
+
+    if (name.length >= 5) {
+      user.name = name;
+    }
+
+    user.profile.bio = bio;
+    notifyListeners();
+  }
 }
