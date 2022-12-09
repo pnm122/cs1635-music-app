@@ -92,8 +92,9 @@ class _PosterInfoState extends State<PosterInfo> {
                 Theme.of(context).textTheme.labelLarge),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
           ),
-          // TODO: Take a user to the profile when they press this button
-          onPressed: null,
+          onPressed: () {
+            Navigator.pushNamed(context, profileRoute, arguments: widget.user);
+          },
 
           child: Row(children: <Widget>[
             widget.user.image == ""

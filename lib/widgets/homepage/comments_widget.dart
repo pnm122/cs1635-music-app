@@ -114,7 +114,7 @@ class _CommentsState extends State<Comments> {
                                     onPressed: () { 
                                       context.read<CommentsPageViewModel>().like(post.comments[i]);
                                     },
-                                    icon: c.likedBy.contains(MockData().currentUser)
+                                    icon: c.likedBy.contains(MockData().currentUser)    // TODO: Should not be using MockData here
                                       ? const Icon(Icons.favorite, color: Colors.red)
                                       : const Icon(Icons.favorite_outline, color: Colors.white)
                                   ),

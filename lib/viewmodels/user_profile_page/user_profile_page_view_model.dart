@@ -28,18 +28,21 @@ String countToString(int cnt) {
 
 class UserProfilePageViewModel with ChangeNotifier {
   late final User _user;
+  late final String _followersCnt;
+  late final String _followingCnt;
+  late final bool _editAvailable;
 
   UserProfilePageViewModel({User? u}) {
     _user = u == null ? MockData().currentUser : u;
+    _followersCnt = countToString(_user.followers.length);
+    _followingCnt = countToString(MockData().currentUser.following.length);
+    _editAvailable = u == null;
   }
 
   User get user => _user;
-
-  final String _followersCnt = countToString(MockData().currentUser.followers.length);
   String get followersCnt => _followersCnt;
-
-  final String _followingCnt = countToString(MockData().currentUser.following.length);
   String get followingCnt => _followingCnt;
+  bool get editAvailable => _editAvailable;
 
   edit(String name, String bio) {
 

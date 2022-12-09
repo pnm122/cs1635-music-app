@@ -9,6 +9,7 @@ import 'package:test_app/widgets/bottom_navigation_bar_widget.dart';
 import 'package:test_app/widgets/common/search_page.dart';
 import 'package:test_app/widgets/homepage/comments_widget.dart';
 import 'package:test_app/widgets/user_profile_page/edit_profile_page_widget.dart';
+import 'package:test_app/widgets/user_profile_page/user_profile_page_widget.dart';
 import 'models/post.dart';
 import 'models/user.dart';
 import 'router_constants.dart';
@@ -34,6 +35,17 @@ class Router {
             create: (_) => SearchPageViewModel(searchType),
           )),
         );
+      case profileRoute:
+        var user = settings.arguments as User;
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider<UserProfilePageViewModel>(
+              child: const UserProfilePage(),
+              create: (_) => UserProfilePageViewModel(u: user)
+          ),
+        );
+        // ChangeNotifierProvider<UserProfilePageViewModel>(
+        //     child: const UserProfilePage(),
+        //     create: (_) => UserProfilePageViewModel()
       case editProfileRoute:
         var args = settings.arguments as UserProfilePageEditArguments;
         return MaterialPageRoute(
