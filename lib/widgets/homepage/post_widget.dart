@@ -6,25 +6,30 @@ import 'package:provider/provider.dart';
 import 'package:test_app/models/text_post.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/widgets/homepage/comments_widget.dart';
+import 'package:test_app/widgets/homepage/post_organize_type.dart';
 import 'package:test_app/widgets/video_widget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:test_app/router_constants.dart';
 
 import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 
+import '../../models/post.dart';
+import '../../models/user.dart';
+
 /// Container for all posts displayed in a view
 class PostView extends StatefulWidget {
-  final bool isPopularPosts;
-  const PostView({super.key, required this.isPopularPosts});
+  final PostOrganizeType postOrganizeType;
+  final User? user;
+  const PostView({super.key, required this.postOrganizeType, this.user});
   @override
   State<PostView> createState() => _PostViewState();
 }
 
 class _PostViewState extends State<PostView> {
-
   @override
   Widget build(BuildContext context) {
-    var postList = widget.isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
+    //var postList = widget.isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
+    var postList = context.watch<PostViewModel>().getPosts(postOrganizeType: widget.postOrganizeType, user: widget.user);
 
     return ListView.builder(
         // padding around the entire list
@@ -39,6 +44,8 @@ class _PostViewState extends State<PostView> {
               // Poster
               PosterInfo(
                 user: postList[i].poster,
+                post: postList[i],
+                postOrganizeType: widget.postOrganizeType,
               ),
 
               // Padding between elements
@@ -68,8 +75,10 @@ class _PostViewState extends State<PostView> {
 
 /// Avatar, name, and following button attached to the top of each post
 class PosterInfo extends StatefulWidget {
-  const PosterInfo({super.key, required this.user});
+  const PosterInfo({super.key, required this.user, required this.post, required this.postOrganizeType});
   final dynamic user;
+  final Post post;
+  final PostOrganizeType postOrganizeType;
 
   @override
   State<PosterInfo> createState() => _PosterInfoState();
@@ -145,6 +154,15 @@ class _PosterInfoState extends State<PosterInfo> {
             ? const Text("Following")
             : const Text("Follow")
         ),
+        Spacer(),
+        Visibility(
+          child: IconButton(
+            padding: EdgeInsets.zero,
+            icon: Icon(widget.post.isPinned ? Icons.push_pin : Icons.push_pin_outlined, color: Colors.white), onPressed: () { context.read<PostViewModel>().pinPress(widget.post); },
+          ),
+          visible: (widget.postOrganizeType == PostOrganizeType.user),
+        ),
+
       ],
     );
   }
@@ -236,7 +254,9 @@ class _PostInteractionState extends State<PostInteraction> {
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
               isSelected: false,
-              onPressed: () { context.read<PostViewModel>().likePost(widget.post); },
+              onPressed: () {
+                context.read<PostViewModel>().likePost(widget.post);
+                },
               icon: widget.post.likedBy.contains(currentUser)
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.white)
