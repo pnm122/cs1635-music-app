@@ -15,12 +15,14 @@ import 'package:test_app/router_constants.dart';
 
 import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 
+import '../../models/post.dart';
+import '../../models/user.dart';
+
 /// Container for all posts displayed in a view
 class PostView extends StatefulWidget {
-  const PostView({super.key, this.isHomepage = false});
-
-  final bool isHomepage;
-
+  final PostOrganizeType postOrganizeType;
+  final User? user;
+  const PostView({super.key, required this.postOrganizeType, this.user});
   @override
   State<PostView> createState() => _PostViewState();
 }
@@ -29,7 +31,8 @@ class _PostViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
-    final posts = context.watch<PostViewModel>().posts;
+    //var postList = widget.isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
+    var posts = context.watch<PostViewModel>().getPosts(postOrganizeType: widget.postOrganizeType, user: widget.user);
 
     return posts.isEmpty ? const Center(child: Text("No posts yet...")) : ListView.builder(
       // Lets us wrap pages that contain this ListView with a SingleChildScrollView so the whole page can scroll!
@@ -45,7 +48,9 @@ class _PostViewState extends State<PostView> {
             children: <Widget>[
               // Poster
               PosterInfo(
-                user: posts[i].poster, isHomepage: widget.isHomepage
+                user: posts[i].poster,
+                post: posts[i],
+                postOrganizeType: widget.postOrganizeType,
               ),
 
               // Padding between elements
@@ -75,9 +80,10 @@ class _PostViewState extends State<PostView> {
 
 /// Avatar, name, and following button attached to the top of each post
 class PosterInfo extends StatefulWidget {
-  const PosterInfo({super.key, required this.user, required this.isHomepage});
+  const PosterInfo({super.key, required this.user, required this.post, required this.postOrganizeType});
   final dynamic user;
-  final bool isHomepage;
+  final Post post;
+  final PostOrganizeType postOrganizeType;
 
   @override
   State<PosterInfo> createState() => _PosterInfoState();
@@ -100,8 +106,9 @@ class _PosterInfoState extends State<PosterInfo> {
                 Theme.of(context).textTheme.labelLarge),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
           ),
-          // TODO: Take a user to the profile when they press this button
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, profileRoute, arguments: widget.user);
+          },
 
           child: Row(children: <Widget>[
             UserImage(imageURL: widget.user.image),
@@ -139,16 +146,26 @@ class _PosterInfoState extends State<PosterInfo> {
               textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium),
               padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
             ),
+          // TODO: Follow this user when this button is pressed
           onPressed: () { 
             context.read<PostViewModel>().follow(widget.user);
-            if(widget.isHomepage) {
-              context.read<HomePageViewModel>().updateFollowingPosts();
-            }
+            // if(widget.isHomepage) {
+            //   context.read<HomePageViewModel>().updateFollowingPosts();
+            // }
           },
           child: currentUser.following.contains(widget.user)
             ? const Text("Following")
             : const Text("Follow")
         ),
+        Spacer(),
+        Visibility(
+          child: IconButton(
+            padding: EdgeInsets.zero,
+            icon: Icon(widget.post.isPinned ? Icons.push_pin : Icons.push_pin_outlined, color: Colors.white), onPressed: () { context.read<PostViewModel>().pinPress(widget.post); },
+          ),
+          visible: (widget.postOrganizeType == PostOrganizeType.user),
+        ),
+
       ],
     );
   }
@@ -240,7 +257,9 @@ class _PostInteractionState extends State<PostInteraction> {
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
               isSelected: false,
-              onPressed: () { context.read<PostViewModel>().likePost(widget.post); },
+              onPressed: () {
+                context.read<PostViewModel>().likePost(widget.post);
+                },
               icon: widget.post.likedBy.contains(currentUser)
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.white)

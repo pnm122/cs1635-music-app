@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/search_constants.dart';
+import 'package:test_app/widgets/homepage/post_widget.dart';
 import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
 
 import '../../models/artist.dart';
 import '../../models/user.dart';
 import '../../router_constants.dart';
 import '../../user_profile_page_edit_arguments.dart';
+import '../../viewmodels/homepage/post_view_model.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
+import '../homepage/post_organize_type.dart';
 import 'edit_profile_page_widget.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -30,14 +32,17 @@ class _UserProfilePage extends State<UserProfilePage> {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            toolbarHeight: 75,
+            toolbarHeight: 100,
             shadowColor: Colors.transparent,
             backgroundColor: Theme.of(context).colorScheme.background,
             centerTitle: true,
 
-            title: const Text(
-              "Your Profile",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            title: Visibility(child:
+              Text(
+                "Your Profile",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+              visible: viewModel.editAvailable,
             ),
             bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(140),
@@ -112,7 +117,10 @@ class _UserProfilePage extends State<UserProfilePage> {
           body: TabBarView(
             children: <Widget>[
               // Posts
-              Text("Post"),
+              ChangeNotifierProvider<PostViewModel>(
+                  child: PostView(postOrganizeType: PostOrganizeType.user, user: user,),
+                  create: (_) => PostViewModel()
+              ),
 
               // Listening
               UserProfileListeningPage(viewModel: viewModel,),
