@@ -59,11 +59,9 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         ],
         currentIndex: _selectedIndex,
         onTap: (int index) {
-          setState(
-            () {
-              _selectedIndex = index;
-            },
-          );
+          setState(() {
+            _selectedIndex = index;
+          });
         },
       ),
     );

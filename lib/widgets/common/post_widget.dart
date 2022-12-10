@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/global_styles.dart';
-// import 'package:video_player/video_player.dart';
-// import 'package:test_app/widgets/video_widget.dart';
+import 'package:video_player/video_player.dart';
+import 'package:test_app/widgets/video_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/models/post.dart';
 import 'package:test_app/models/text_post.dart';
@@ -9,14 +9,10 @@ import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
 import 'package:test_app/widgets/common/comments_widget.dart';
 import 'package:test_app/widgets/common/misc_widgets.dart';
-import 'package:test_app/widgets/video_widget.dart';
-import 'package:video_player/video_player.dart';
 import 'package:test_app/router_constants.dart';
 
 import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 
-import '../../models/post.dart';
-import '../../models/user.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 
 /// Container for all posts displayed in a view
@@ -244,6 +240,7 @@ class PostInteraction extends StatefulWidget {
   const PostInteraction({super.key, required this.post});
   final dynamic post;
 
+  @override
   State<PostInteraction> createState() => _PostInteractionState();
 }
 
@@ -287,7 +284,7 @@ class _PostInteractionState extends State<PostInteraction> {
           children: <Widget>[
             IconButton(
               padding: EdgeInsets.zero,
-              constraints: BoxConstraints(),
+              constraints: const BoxConstraints(),
               onPressed: () {
                 showModalBottomSheet<void>(
                   isScrollControlled: true,
@@ -296,7 +293,7 @@ class _PostInteractionState extends State<PostInteraction> {
                   builder: (context) => Container(
                     height: MediaQuery.of(context).size.height * 0.95,
                     child: ChangeNotifierProvider<CommentsPageViewModel>(
-                      child: Comments(),
+                      child: const Comments(),
                       create: (_) => CommentsPageViewModel(relatedPost: widget.post),
                     ),
                   ),

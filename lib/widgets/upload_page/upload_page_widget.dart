@@ -33,9 +33,7 @@ class UploadPage extends StatelessWidget {
         children: [
           ElevatedButton.icon(
             onPressed: () {
-              // Navigator.pop(context);
-              Navigator.push(
-                context,
+              Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const SongRecordWidget(),
                 ),
@@ -52,8 +50,7 @@ class UploadPage extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
-              Navigator.push(
-                context,
+              Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const TextPostWidget(),
                 ),
