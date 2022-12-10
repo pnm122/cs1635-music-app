@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:test_app/mock_data.dart';
 import 'package:test_app/models/artist.dart';
+import 'package:test_app/search_constants.dart';
 
 import '../../models/album.dart';
 import '../../models/profile.dart';
@@ -51,6 +52,21 @@ class UserProfilePageViewModel with ChangeNotifier {
     }
 
     user.profile.bio = bio;
+    notifyListeners();
+  }
+
+  setFavorite(String type, var item) {
+    switch(type) {
+      case songSearch:
+        user.profile.favoriteSong = item;
+        break;
+      case albumSearch:
+        user.profile.favoriteAlbum = item;
+        break;
+      case artistSearch:
+        user.profile.favoriteArtist = item;
+        break;
+    }
     notifyListeners();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/search_constants.dart';
 import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
 
 import '../../models/artist.dart';
@@ -85,18 +86,12 @@ class _UserProfilePage extends State<UserProfilePage> {
                       ),
                       Spacer(),
                       TextButton(
-                        onPressed: null,
-                        child: Text(
-                            "${followersCnt} Followers",
-                            style: TextStyle(color: Colors.white)
-                        )
+                        onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followersBehavior]); },
+                        child: Text("$followersCnt Followers"),
                       ),
                       TextButton(
-                        onPressed: null,
-                        child: Text(
-                            "${followingCnt} Following",
-                            style: TextStyle(color: Colors.white)
-                        )
+                        onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followingBehavior]); },
+                        child: Text("$followingCnt Following")
                       ),
                       Spacer(),
                     ],),

@@ -1,9 +1,10 @@
 import 'package:test_app/models/track.dart';
+import 'package:test_app/models/song.dart';
 import 'package:test_app/models/album.dart';
 import 'package:test_app/models/artist.dart';
 
 class Profile {
-  Track? favoriteSong;
+  Song? favoriteSong;
   Album? favoriteAlbum;
   Artist? favoriteArtist;
   String bio;

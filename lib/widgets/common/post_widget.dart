@@ -8,7 +8,7 @@ import 'package:test_app/models/text_post.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
 import 'package:test_app/widgets/common/comments_widget.dart';
-import 'package:test_app/widgets/common/user_image.dart';
+import 'package:test_app/widgets/common/misc_widgets.dart';
 import 'package:test_app/widgets/video_widget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:test_app/router_constants.dart';

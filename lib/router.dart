@@ -32,11 +32,31 @@ class Router {
           )),
         );
       case searchRoute:
-        // TODO: Decide what argument I might pass in here to modify how the search page appears
+        var args = settings.arguments as List;
+        // Options: userSearch, songSearch, albumSearch, artistSearch
+        List<String> searchTypes = args[0];
+        // Options: homepageBehavior, settingFavoriteBehavior, attachingSongBehavior, followersBehavior, followingBehavior
+        // IMPORTANT: If providing settingFavorite or attachingSong, you must also provide the viewModel surrounding the page calling this,
+        // so that functions can be called on those viewModels
+        String searchBehavior = args[1];
+        
         return MaterialPageRoute(
           builder: (_) => (ChangeNotifierProvider<SearchPageViewModel>(
-            child: const SearchPage(),
-            create: (_) => SearchPageViewModel(userSearch),
+            child: searchBehavior == settingFavoriteBehavior
+              ? ChangeNotifierProvider<UserProfilePageViewModel>.value(
+                value: args[2],
+                child: const SearchPage()
+              )
+              : searchBehavior == attachingSongBehavior
+                // TODO: Wrap a ChangeNotifierProvider.value with value of whatever upload viewmodel you make
+                // Once you do that, create a function to attach the song you tap on to the post you're creating
+                // You can put this function in search_tiles.dart => SearchResultTile => onTap
+                ? const SearchPage()
+                : const SearchPage(),
+            create: (_) => SearchPageViewModel(
+              searchTypes,
+              args[1],
+            ),
           )),
         );
       case songRoute:

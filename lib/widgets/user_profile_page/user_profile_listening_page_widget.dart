@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/models/album.dart';
+import 'package:test_app/models/song.dart';
+import 'package:test_app/router_constants.dart';
+import 'package:test_app/search_constants.dart';
+import 'package:test_app/widgets/common/misc_widgets.dart';
 
 import '../../models/artist.dart';
 import '../../models/user.dart';
@@ -12,7 +17,10 @@ class UserProfileListeningPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var user = viewModel.user;
+    var user = context.watch<UserProfilePageViewModel>().user;
+    Song? favoriteSong = user.profile.favoriteSong;
+    Album? favoriteAlbum = user.profile.favoriteAlbum;
+    Artist? favoriteArtist = user.profile.favoriteArtist;
 
     return(Column(
       children: [
@@ -34,22 +42,19 @@ class UserProfileListeningPage extends StatelessWidget {
                   children: [
                     Text("Song"),
                     IconButton(
-                        onPressed: null,
+                        onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[songSearch], settingFavoriteBehavior, viewModel]); },
                         icon: Icon(Icons.edit, color: Colors.white)
                     )
                   ],
                 ),
-                Image(
-                  height: 100,
-                  image: NetworkImage(user.profile.favoriteSong == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteSong!.album.art),
-                ),
+                AlbumCoverOfSong(song: favoriteSong, size: 100),
                 RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.music_note, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteSong == null ? "Song name" : user.profile.favoriteSong!.name
+                          text: favoriteSong == null ? "Song name" : favoriteSong.name
                       )
                     ]
                 )),
@@ -59,7 +64,7 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteSong == null ? 'Artist name' : user.profile.favoriteSong!.creator.name
+                          text: favoriteSong == null ? 'Artist name' : favoriteSong.creator.name
                       )
                     ]
                 )),
@@ -72,22 +77,19 @@ class UserProfileListeningPage extends StatelessWidget {
                   children: [
                     Text("Album"),
                     IconButton(
-                        onPressed: null,
+                        onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[albumSearch], settingFavoriteBehavior, viewModel]); },
                         icon: Icon(Icons.edit, color: Colors.white)
                     )
                   ],
                 ),
-                Image(
-                  height: 100,
-                  image: NetworkImage(user.profile.favoriteAlbum == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteAlbum!.art),
-                ),
+                AlbumCoverOfAlbum(album: favoriteAlbum, size: 100),
                 RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.album, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteAlbum == null ? 'Album name' : user.profile.favoriteAlbum!.name
+                          text: favoriteAlbum == null ? 'Album name' : favoriteAlbum.name
                       )
                     ]
                 )),
@@ -97,7 +99,7 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.artist.name
+                          text: favoriteAlbum == null ? 'Artist name' : favoriteAlbum.artist.name
                       )
                     ]
                 )),
@@ -110,22 +112,19 @@ class UserProfileListeningPage extends StatelessWidget {
                   children: [
                     Text("Artist"),
                     IconButton(
-                        onPressed: null,
+                        onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[artistSearch], settingFavoriteBehavior, viewModel]); },
                         icon: Icon(Icons.edit, color: Colors.white)
                     )
                   ],
                 ),
-                Image(
-                  height: 100,
-                  image: NetworkImage(user.profile.favoriteArtist == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteArtist!.image),
-                ),
+                ArtistImage(artist: favoriteArtist, size: 100),
                 RichText(text: TextSpan(
                     children: [
                       WidgetSpan(
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteArtist == null ? 'Artist name' : user.profile.favoriteArtist!.name
+                          text: favoriteArtist == null ? 'Artist name' : favoriteArtist.name
                       )
                     ]
                 )),

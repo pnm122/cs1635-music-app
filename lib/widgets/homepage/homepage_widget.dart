@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, searchRoute);
+                Navigator.pushNamed(context, searchRoute, arguments: [[userSearch, songSearch], homepageBehavior]);
               },
               icon: const Icon(Icons.search)
             )

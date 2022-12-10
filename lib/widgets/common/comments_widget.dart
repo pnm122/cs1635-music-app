@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
-import 'package:test_app/widgets/common/user_image.dart';
+import 'package:test_app/widgets/common/misc_widgets.dart';
 import '../../mock_data.dart';
 
 class Comments extends StatefulWidget {

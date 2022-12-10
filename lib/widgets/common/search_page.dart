@@ -6,14 +6,27 @@ import 'package:test_app/widgets/common/custom_app_bar.dart';
 import 'package:test_app/viewmodels/common/song_page_view_model.dart';
 import 'package:test_app/widgets/common/search_tiles.dart';
 
-// TODO: Allow this search page to be flexible for the other search use cases
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var viewModel = context.watch<SearchPageViewModel>();
+
+    // Initialize the list of tabs and views given what search types the viewModel is asking for
+    List<Tab> tabs = List.empty(growable: true);
+    List<Widget> views = List.empty(growable: true);
+    for(String searchType in viewModel.searchTypes) {
+      views.add(const SearchResults());
+      tabs.add(
+        Tab(
+          child: Text(searchType),
+        )
+      );
+    }
+
     return DefaultTabController(
-      length: 2,
+      length: tabs.length,
       initialIndex: 0,
       child: Scaffold(
         appBar: CustomAppBar(
@@ -25,28 +38,17 @@ class SearchPage extends StatelessWidget {
               child: const Text("Cancel"),
             )
           ],
-          tabs: const [
-            Tab(
-              child: Text("Users"),
-            ),
-            Tab(
-              child: Text("Songs"),
-            )
-          ],
+          // Tabs only if more than 1 tab
+          tabs: tabs.length > 1 ? tabs : null,
           onTapTabBar: (index) {
-            // This will
-            index == 0 ? context.read<SearchPageViewModel>().setSearchType(userSearch)
-                       : context.read<SearchPageViewModel>().setSearchType(songSearch);
+            context.read<SearchPageViewModel>().currentSearchType = viewModel.searchTypes[index];
           },
         ),
-        body: const TabBarView(
+        body: TabBarView(
           // Don't allow swiping between tabs because the results won't update properly
           // I tried several different ways of showing results but this was unfortunately the most functional and it's good enough for now
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            SearchResults(),
-            SearchResults(),
-          ],
+          physics: const NeverScrollableScrollPhysics(),
+          children: views,
         ),
       ),
     );
@@ -91,7 +93,7 @@ class _SearchBarState extends State<SearchBar> {
             setState(() {}); // Tell UI to update since the clear search button should disappear
           },
         ),
-        hintText: "Search for a user or song...",
+        hintText: "What are you looking for?",
         isDense: true, // get rid of the extra padding flutter likes to put in
         contentPadding: const EdgeInsets.all(12.0),
         border: const UnderlineInputBorder(
@@ -110,18 +112,20 @@ class SearchResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List results = context.watch<SearchPageViewModel>().results;
-    String searchType = context.watch<SearchPageViewModel>().searchType;
+    String currentSearchType = context.watch<SearchPageViewModel>().currentSearchType;
     
     return results.isNotEmpty ? ListView.builder(
       itemCount: results.length,
       itemBuilder:(context, index) {
-        switch(searchType) {
+        switch(currentSearchType) {
           case userSearch:
             return UserTile(user: results[index]);
           case songSearch:
             return SongTile(song: results[index]);
           case albumSearch:
             return AlbumTile(album: results[index]);
+          case artistSearch:
+            return ArtistTile(artist: results[index]);
           default:
             return const Center(child: Text("Undefined search"));
         }

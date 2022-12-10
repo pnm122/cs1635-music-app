@@ -334,8 +334,6 @@ _addSongsToAlbums() {
   _albums.where((x) => x.name == "Brothers & Sisters").first.tracks.addAll(_tracks.where((x) => x.album.name == "Brothers & Sisters"));
   _albums.where((x) => x.name == "Sonic Highways").first.tracks.addAll(_tracks.where((x) => x.album.name == "Sonic Highways"));
   _albums.where((x) => x.name == "Sense of Home").first.tracks.addAll(_tracks.where((x) => x.album.name == "Sense of Home"));
-  _tracks.where((element) => element.name == "Broken Feather").first.covers
-      .addAll(_posts.whereType<MediaPost>());
 }
 
 _addFollowingFollowers() {
@@ -390,6 +388,8 @@ class MockData {
   setup() {
     _addSongsToAlbums();
     _addFollowingFollowers();
+    _tracks.where((element) => element.name == "Broken Feather").first.covers
+      .addAll(_posts.whereType<MediaPost>());
   }
 
   List<Artist> get artists => _artists;
