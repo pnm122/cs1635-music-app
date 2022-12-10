@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/widgets/homepage/post_widget.dart';
 import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
 
 import '../../models/artist.dart';
 import '../../models/user.dart';
 import '../../router_constants.dart';
+import '../../search_constants.dart';
 import '../../user_profile_page_edit_arguments.dart';
 import '../../viewmodels/homepage/post_view_model.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
-import '../homepage/post_organize_type.dart';
+import '../common/post_widget.dart';
 import 'edit_profile_page_widget.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -118,8 +118,8 @@ class _UserProfilePage extends State<UserProfilePage> {
             children: <Widget>[
               // Posts
               ChangeNotifierProvider<PostViewModel>(
-                  child: PostView(postOrganizeType: PostOrganizeType.user, user: user,),
-                  create: (_) => PostViewModel()
+                  child: PostView(),
+                  create: (_) => PostViewModel(posts: context.watch<UserProfilePageViewModel>().posts)
               ),
 
               // Listening

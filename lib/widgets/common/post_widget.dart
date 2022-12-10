@@ -17,12 +17,11 @@ import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 
 import '../../models/post.dart';
 import '../../models/user.dart';
+import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 
 /// Container for all posts displayed in a view
 class PostView extends StatefulWidget {
-  final PostOrganizeType postOrganizeType;
-  final User? user;
-  const PostView({super.key, required this.postOrganizeType, this.user});
+  const PostView({super.key});
   @override
   State<PostView> createState() => _PostViewState();
 }
@@ -32,7 +31,7 @@ class _PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
     //var postList = widget.isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
-    var posts = context.watch<PostViewModel>().getPosts(postOrganizeType: widget.postOrganizeType, user: widget.user);
+    var posts = context.watch<PostViewModel>().posts;
 
     return posts.isEmpty ? const Center(child: Text("No posts yet...")) : ListView.builder(
       // Lets us wrap pages that contain this ListView with a SingleChildScrollView so the whole page can scroll!
@@ -48,9 +47,7 @@ class _PostViewState extends State<PostView> {
             children: <Widget>[
               // Poster
               PosterInfo(
-                user: posts[i].poster,
                 post: posts[i],
-                postOrganizeType: widget.postOrganizeType,
               ),
 
               // Padding between elements
@@ -80,10 +77,8 @@ class _PostViewState extends State<PostView> {
 
 /// Avatar, name, and following button attached to the top of each post
 class PosterInfo extends StatefulWidget {
-  const PosterInfo({super.key, required this.user, required this.post, required this.postOrganizeType});
-  final dynamic user;
+  const PosterInfo({super.key, required this.post});
   final Post post;
-  final PostOrganizeType postOrganizeType;
 
   @override
   State<PosterInfo> createState() => _PosterInfoState();
@@ -93,6 +88,7 @@ class _PosterInfoState extends State<PosterInfo> {
   @override
   Widget build(BuildContext context) {
     var currentUser = context.watch<PostViewModel>().currentUser;
+    var user = widget.post.poster;
 
     return Row(
       children: <Widget>[
@@ -107,13 +103,13 @@ class _PosterInfoState extends State<PosterInfo> {
             padding: MaterialStateProperty.all(EdgeInsets.zero),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, profileRoute, arguments: widget.user);
+            Navigator.pushNamed(context, profileRoute, arguments: user);
           },
 
           child: Row(children: <Widget>[
-            UserImage(imageURL: widget.user.image),
+            UserImage(imageURL: user.image),
             const SizedBox(width: 5),
-            Text(widget.user.name),
+            Text(user.name),
           ]),
         ),
 
@@ -121,7 +117,7 @@ class _PosterInfoState extends State<PosterInfo> {
 
         // Following button
         OutlinedButton(
-          style: currentUser.following.contains(widget.user)
+          style: currentUser.following.contains(user)
             ? ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.outline),
               foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
@@ -148,12 +144,12 @@ class _PosterInfoState extends State<PosterInfo> {
             ),
           // TODO: Follow this user when this button is pressed
           onPressed: () { 
-            context.read<PostViewModel>().follow(widget.user);
+            context.read<PostViewModel>().follow(user);
             // if(widget.isHomepage) {
             //   context.read<HomePageViewModel>().updateFollowingPosts();
             // }
           },
-          child: currentUser.following.contains(widget.user)
+          child: currentUser.following.contains(user)
             ? const Text("Following")
             : const Text("Follow")
         ),
@@ -161,9 +157,9 @@ class _PosterInfoState extends State<PosterInfo> {
         Visibility(
           child: IconButton(
             padding: EdgeInsets.zero,
-            icon: Icon(widget.post.isPinned ? Icons.push_pin : Icons.push_pin_outlined, color: Colors.white), onPressed: () { context.read<PostViewModel>().pinPress(widget.post); },
+            icon: Icon(widget.post.isPinned ? Icons.push_pin : Icons.push_pin_outlined, color: Colors.white), onPressed: () { context.read<UserProfilePageViewModel>().pinPress(widget.post); },
           ),
-          visible: (widget.postOrganizeType == PostOrganizeType.user),
+          visible: context.watch<PostViewModel>().isProfilePage,
         ),
 
       ],

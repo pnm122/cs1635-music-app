@@ -105,7 +105,7 @@ class SongPage extends StatelessWidget {
               ),
               const Divider(),
               ChangeNotifierProvider(
-                create: (context) => PostViewModel(song.covers),
+                create: (context) => PostViewModel(posts: song.covers),
                 child: const PostView(),
               )
             ],
