@@ -35,12 +35,13 @@ class UserProfileListeningPage extends StatelessWidget {
                     Text("Song"),
                     IconButton(
                         onPressed: null,
-                        icon: Icon(Icons.edit, color: Colors.white)
+                        icon: Icon(Icons.edit, color: viewModel.editAvailable ? Colors.white : Colors.transparent),
                     )
                   ],
                 ),
                 Image(
                   height: 100,
+                  width: 100,
                   image: NetworkImage(user.profile.favoriteSong == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteSong!.album.art),
                 ),
                 RichText(text: TextSpan(
@@ -49,7 +50,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.music_note, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteSong == null ? "Song name" : user.profile.favoriteSong!.name
+                          text: user.profile.favoriteSong == null ? "Song name" : user.profile.favoriteSong!.name,
+                          style: TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -59,7 +61,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteSong == null ? 'Artist name' : user.profile.favoriteSong!.creator.name
+                          text: user.profile.favoriteSong == null ? 'Artist name' : user.profile.favoriteSong!.creator.name,
+                          style: TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -73,12 +76,13 @@ class UserProfileListeningPage extends StatelessWidget {
                     Text("Album"),
                     IconButton(
                         onPressed: null,
-                        icon: Icon(Icons.edit, color: Colors.white)
+                      icon: Icon(Icons.edit, color: viewModel.editAvailable ? Colors.white : Colors.transparent),
                     )
                   ],
                 ),
                 Image(
                   height: 100,
+                  width: 100,
                   image: NetworkImage(user.profile.favoriteAlbum == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteAlbum!.art),
                 ),
                 RichText(text: TextSpan(
@@ -87,7 +91,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.album, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteAlbum == null ? 'Album name' : user.profile.favoriteAlbum!.name
+                          text: user.profile.favoriteAlbum == null ? 'Album name' : user.profile.favoriteAlbum!.name,
+                          style: TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -97,7 +102,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.artist.name
+                          text: user.profile.favoriteAlbum == null ? 'Artist name' : user.profile.favoriteAlbum!.artist.name,
+                          style: TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -111,12 +117,13 @@ class UserProfileListeningPage extends StatelessWidget {
                     Text("Artist"),
                     IconButton(
                         onPressed: null,
-                        icon: Icon(Icons.edit, color: Colors.white)
+                      icon: Icon(Icons.edit, color: viewModel.editAvailable ? Colors.white : Colors.transparent),
                     )
                   ],
                 ),
                 Image(
                   height: 100,
+                  width: 100,
                   image: NetworkImage(user.profile.favoriteArtist == null ? 'https://icons.veryicon.com/png/o/internet--web/55-common-web-icons/person-4.png' : user.profile.favoriteArtist!.image),
                 ),
                 RichText(text: TextSpan(
@@ -125,7 +132,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: user.profile.favoriteArtist == null ? 'Artist name' : user.profile.favoriteArtist!.name
+                          text: user.profile.favoriteArtist == null ? 'Artist name' : user.profile.favoriteArtist!.name,
+                          style: TextStyle(fontSize: 12)
                       )
                     ]
                 )),

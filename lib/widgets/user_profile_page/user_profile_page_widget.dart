@@ -32,14 +32,17 @@ class _UserProfilePage extends State<UserProfilePage> {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            toolbarHeight: 75,
+            toolbarHeight: 100,
             shadowColor: Colors.transparent,
             backgroundColor: Theme.of(context).colorScheme.background,
             centerTitle: true,
 
-            title: const Text(
-              "Your Profile",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            title: Visibility(child:
+              Text(
+                "Your Profile",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+              visible: viewModel.editAvailable,
             ),
             bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(140),
