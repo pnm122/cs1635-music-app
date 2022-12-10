@@ -426,5 +426,5 @@ class MockData {
   List<Song> get songs => _songs;
   List<Album> get albums => _albums;
   List<User> get users => _users;
-  User get currentUser => _users.where((x) => x.name == "Sean Dyche").first;
+  User get currentUser => _users.where((x) => x.name == "Steve Bruce").first;
 }

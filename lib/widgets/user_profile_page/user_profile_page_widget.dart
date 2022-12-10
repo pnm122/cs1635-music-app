@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/widgets/common/misc_widgets.dart';
 import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
 
 import '../../models/artist.dart';
@@ -51,10 +52,7 @@ class _UserProfilePage extends State<UserProfilePage> {
                     Row(
                       children: [
                         Spacer(),
-                        Image(
-                          height: 100,
-                          image: NetworkImage(user.image),
-                        ),
+                        UserImage(imageURL: user.image, radius: 50),
                         Spacer(),
                         SizedBox(
                           width: 220,
@@ -119,7 +117,7 @@ class _UserProfilePage extends State<UserProfilePage> {
               // Posts
               ChangeNotifierProvider<PostViewModel>(
                   child: PostView(),
-                  create: (_) => PostViewModel(posts: context.watch<UserProfilePageViewModel>().posts)
+                  create: (_) => PostViewModel(posts: context.watch<UserProfilePageViewModel>().posts, isProfilePage: true)
               ),
 
               // Listening

@@ -84,7 +84,7 @@ class UserTile extends StatelessWidget {
     return SearchResultTile(
       item: user,
       onTap: () {
-        // TODO: bring to user profile
+        Navigator.pushNamed(context, profileRoute, arguments: user);
       },
       leading: UserImage(imageURL: user.image, radius: 32),
       contents: Column(

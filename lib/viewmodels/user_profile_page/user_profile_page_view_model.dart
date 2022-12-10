@@ -49,12 +49,14 @@ class UserProfilePageViewModel with ChangeNotifier {
   late final String _followersCnt;
   late final String _followingCnt;
   late final bool _editAvailable;
+  late List<Post> _posts;
 
   UserProfilePageViewModel({User? u}) {
     _user = u == null ? MockData().currentUser : u;
     _followersCnt = countToString(_user.followers.length);
     _followingCnt = countToString(MockData().currentUser.following.length);
     _editAvailable = u == null;
+    _posts = _getUserPosts(user);
   }
 
   User get user => _user;
@@ -62,7 +64,7 @@ class UserProfilePageViewModel with ChangeNotifier {
   String get followingCnt => _followingCnt;
   bool get editAvailable => _editAvailable;
   User get currentUser => MockData().currentUser;
-  List<Post> get posts => _getUserPosts(user);
+  List<Post> get posts => _posts;
 
   edit(String name, String bio) {
 
@@ -93,6 +95,8 @@ class UserProfilePageViewModel with ChangeNotifier {
     if (currentUser != post.poster) {
       return;
     }
+
+    _posts = _getUserPosts(user);
 
     post.isPinned = !post.isPinned;
     notifyListeners();

@@ -30,8 +30,9 @@ class _PostViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
-    //var postList = widget.isPopularPosts ? context.watch<PostViewModel>().popularPosts : context.watch<PostViewModel>().followingPosts;
-    var posts = context.watch<PostViewModel>().posts;
+    var posts = context.watch<PostViewModel>().isProfilePage 
+      ? context.watch<UserProfilePageViewModel>().posts
+      : context.watch<PostViewModel>().posts;
 
     return posts.isEmpty ? const Center(child: Text("No posts yet...")) : ListView.builder(
       // Lets us wrap pages that contain this ListView with a SingleChildScrollView so the whole page can scroll!
@@ -142,26 +143,34 @@ class _PosterInfoState extends State<PosterInfo> {
               textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium),
               padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
             ),
-          // TODO: Follow this user when this button is pressed
           onPressed: () { 
             context.read<PostViewModel>().follow(user);
-            // if(widget.isHomepage) {
-            //   context.read<HomePageViewModel>().updateFollowingPosts();
-            // }
+            if(context.read<PostViewModel>().isHomepage) {
+              context.read<HomePageViewModel>().updateFollowingPosts();
+            }
           },
           child: currentUser.following.contains(user)
             ? const Text("Following")
             : const Text("Follow")
         ),
-        Spacer(),
-        Visibility(
-          child: IconButton(
-            padding: EdgeInsets.zero,
-            icon: Icon(widget.post.isPinned ? Icons.push_pin : Icons.push_pin_outlined, color: Colors.white), onPressed: () { context.read<UserProfilePageViewModel>().pinPress(widget.post); },
-          ),
-          visible: context.watch<PostViewModel>().isProfilePage,
-        ),
-
+        const Spacer(),
+        // Allows for 3 cases:
+        // 1: Not on a profile page: No pin icons (this is the bottom Container())
+        // 2: On another user's page: Only show pin icons on pinned posts
+        // 3: On your profile page: Show pin buttons to pin/unpin posts
+        context.watch<PostViewModel>().isProfilePage ? Container(
+          child: context.read<UserProfilePageViewModel>().currentUser == context.read<UserProfilePageViewModel>().user 
+            ? IconButton(
+              padding: EdgeInsets.zero,
+              icon: Icon(
+                widget.post.isPinned ? Icons.push_pin : Icons.push_pin_outlined, 
+              ), 
+              onPressed: () { context.read<UserProfilePageViewModel>().pinPress(widget.post); },
+            )
+            : widget.post.isPinned ? const Icon(
+              Icons.push_pin
+            ) : Container(),
+          ) : Container()
       ],
     );
   }
