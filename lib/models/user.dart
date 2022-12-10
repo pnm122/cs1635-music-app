@@ -12,7 +12,7 @@ class User extends Creator {
   User({this.followers = const [],
     this.following = const [],
     required this.profile,
-    this.posts = const [],
+    required this.posts,
     required super.name,
     required super.image
   });

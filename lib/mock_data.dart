@@ -185,7 +185,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "ROCK ON LADS!!!",
@@ -200,7 +200,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "I'm into folktronica and indie cloud rap.",
@@ -215,7 +215,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "I just wanna rock out.",
@@ -230,7 +230,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "Music is my escape.",
@@ -391,6 +391,10 @@ _addFollowingFollowers() {
   ]);
 }
 
+_addPostsToUser() {
+  _users.where((x) => x.name == "Steve Bruce").first.posts.addAll(_posts.where((x) => x.poster.name == "Steve Bruce"));
+}
+
 List<Song> _songs = _tracks;
 
 class MockData {
@@ -412,6 +416,7 @@ class MockData {
   setup() {
     _addSongsToAlbums();
     _addFollowingFollowers();
+    _addPostsToUser();
     _tracks.where((element) => element.name == "Broken Feather").first.covers
       .addAll(_posts.whereType<MediaPost>());
   }
