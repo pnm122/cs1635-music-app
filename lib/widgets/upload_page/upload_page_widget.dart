@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:test_app/models/text_post.dart';
 import 'package:test_app/widgets/upload_page/song_record_widget.dart';
 import 'package:test_app/widgets/upload_page/text_post_widget.dart';
 
