@@ -3,6 +3,7 @@ import 'package:test_app/models/track.dart';
 import 'package:test_app/models/user.dart';
 import 'package:test_app/models/song.dart';
 import 'package:test_app/models/album.dart';
+import 'package:test_app/router_constants.dart';
 
 const double tileImageRadius = 32.0;
 const EdgeInsets tilePadding = EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0);
@@ -100,7 +101,7 @@ class _SongTileState extends State<SongTile> {
         hovering = hover;
       },
       onTap: () {
-        // TODO: Take you to this song's page
+        Navigator.pushNamed(context, songRoute, arguments: widget.song);
         // TODO: Select this item if setting a favorite in your profile or picking it for a post
       },
 
@@ -110,7 +111,7 @@ class _SongTileState extends State<SongTile> {
         child: Row(
           children: [
             Container(
-              color: Colors.white70,
+              color: secondaryTileColor,
               width: 2 * tileImageRadius,
               height: 2 * tileImageRadius,
               // Show album cover if song is a Track with art, otherwise show an icon
@@ -147,6 +148,88 @@ class _SongTileState extends State<SongTile> {
                       const SizedBox(width: 4.0),
                       Text(
                         widget.song.creator.name,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: secondaryTileColor),
+                      ),
+                    ],
+                  ),
+                  
+                ],
+              ),
+            ),
+            const Center(child: Icon(Icons.keyboard_arrow_right, color: secondaryTileColor)),
+          ],
+        ),
+      )
+    );
+  }
+}
+
+class AlbumTile extends StatefulWidget {
+  const AlbumTile({super.key, required this.album});
+
+  final Album album;
+
+  @override
+  State<AlbumTile> createState() => _AlbumTileState();
+}
+
+class _AlbumTileState extends State<AlbumTile> {
+  bool hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onHover: (hover) {
+        hovering = hover;
+      },
+      onTap: () {
+        // TODO: Take you to this song's page
+        // TODO: Select this item if setting a favorite in your profile or picking it for a post
+      },
+
+      child: Container(
+        padding: tilePadding,
+        color: hovering ? Theme.of(context).colorScheme.onBackground : Colors.transparent,
+        child: Row(
+          children: [
+            Container(
+              color: secondaryTileColor,
+              width: 2 * tileImageRadius,
+              height: 2 * tileImageRadius,
+              // Show album cover if song is a Track with art, otherwise show an icon
+              child: widget.album.art != ""
+                ? Image.network(widget.album.art, fit: BoxFit.cover)
+                : const Center(child: Icon(Icons.album, size: tileImageRadius, color: Colors.black))
+            ),
+            tileColumnGap,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.album,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 4.0),
+                      Text(
+                        widget.album.name,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+            
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.person,
+                        size: 16,
+                        color: secondaryTileColor,
+                      ),
+                      const SizedBox(width: 4.0),
+                      Text(
+                        widget.album.artist.name,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: secondaryTileColor),
                       ),
                     ],

@@ -57,101 +57,121 @@ List<Track> _tracks = List.from(
         name: "Bigger Stronger",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "The Blue Room").first,
+        covers: []
       ),
       Track(
         name: "Don't Panic",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "The Blue Room").first,
+        covers: []
       ),
       Track(
         name: "See You Soon",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "The Blue Room").first,
+        covers: []
       ),
       Track(
         name: "High Speed",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "The Blue Room").first,
+        covers: []
       ),
       Track(
         name: "Such a Rush",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "The Blue Room").first,
+        covers: []
       ),
       Track(
         name: "Brothers & Sisters",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "Brothers & Sisters").first,
+        covers: []
       ),
       Track(
         name: "Easy To Please",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "Brothers & Sisters").first,
+        covers: []
       ),
       Track(
         name: "Only Superstition",
         creator: _artists.where((x) => x.name == "Coldplay").first,
         album: _albums.where((x) => x.name == "Brothers & Sisters").first,
+        covers: []
       ),
       Track(
         name: "Something from Nothing",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "The Feast and The Famine",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "Congregation",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "What Did I Do?/God As My Witness",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "Outside",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "In The Clear",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "Subterranean",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "I Am A River",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
+        covers: []
       ),
       Track(
         name: "Sense of Home",
         creator: _artists.where((x) => x.name == "Harrison Storm").first,
         album: _albums.where((x) => x.name == "Sense of Home").first,
+        covers: []
       ),
       Track(
         name: "Be Yourself",
         creator: _artists.where((x) => x.name == "Harrison Storm").first,
         album: _albums.where((x) => x.name == "Sense of Home").first,
+        covers: []
       ),
       Track(
         name: "The Words You Say",
         creator: _artists.where((x) => x.name == "Harrison Storm").first,
         album: _albums.where((x) => x.name == "Sense of Home").first,
+        covers: []
       ),
       Track(
         name: "Broken Feather",
         creator: _artists.where((x) => x.name == "Harrison Storm").first,
         album: _albums.where((x) => x.name == "Sense of Home").first,
+        covers: []
       ),
     ]
 );
@@ -314,6 +334,8 @@ _addSongsToAlbums() {
   _albums.where((x) => x.name == "Brothers & Sisters").first.tracks.addAll(_tracks.where((x) => x.album.name == "Brothers & Sisters"));
   _albums.where((x) => x.name == "Sonic Highways").first.tracks.addAll(_tracks.where((x) => x.album.name == "Sonic Highways"));
   _albums.where((x) => x.name == "Sense of Home").first.tracks.addAll(_tracks.where((x) => x.album.name == "Sense of Home"));
+  _tracks.where((element) => element.name == "Broken Feather").first.covers
+      .addAll(_posts.whereType<MediaPost>());
 }
 
 _addFollowingFollowers() {

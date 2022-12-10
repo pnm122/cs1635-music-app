@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 /// Custom App Bar to maintain the same AppBar styling across pages.
 /// You don't need to provide any styling to the widgets (i.e. padding, icon styling) because it will be done automatically by this widget
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({super.key, required this.title, this.actions, this.tabs, this.onTapTabBar, this.showBackButton = true});
-  /// title of the App Bar. Usally a string, but if you want to put a widget here you can
+  CustomAppBar({super.key, required this.title, this.actions, this.tabs, this.onTapTabBar, this.showBackButton = true, this.shape});
+  /// Title of the App Bar. Can be a String if you just want a title, or a Widget if you want to do something more complex
   final title;
-  /// buttons on the right side of the App Bar
+  /// Buttons on the right side of the App Bar
   final List<Widget>? actions;
   /// Any tabs you might want to put on the bottom of the App Bar 
   final List<Tab>? tabs; 
-  /// if applicable, showBackButton is whether or not there should be a back button in the App Bar.
+  /// If applicable, showBackButton is whether or not there should be a back button in the App Bar.
   /// Defaults to true
   bool showBackButton;
+
+  /// Shape of the app bar. Only used by comments page currently to make the top rounded
+  final ShapeBorder? shape;
 
   /// Function to call when tapping a tab. Parameter is the index of the tab tapped
   ValueChanged<int>? onTapTabBar;
@@ -27,8 +30,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      shadowColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.onBackground,
+      shadowColor: Colors.black54,
+      elevation: 10.0,
       automaticallyImplyLeading: showBackButton,
       titleSpacing: 8,
       centerTitle: true,
@@ -42,6 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         indicatorColor: Theme.of(context).colorScheme.outline,
         tabs: tabs!,
       ),
+      shape: shape,
     );
   }
   

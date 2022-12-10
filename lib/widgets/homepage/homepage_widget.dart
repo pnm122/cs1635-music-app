@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/router_constants.dart';
 import 'package:test_app/search_constants.dart';
+import 'package:test_app/viewmodels/homepage/homepage_view_model.dart';
 import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
 import 'package:test_app/widgets/common/search_page.dart';
-import 'package:test_app/widgets/homepage/post_widget.dart';
+import 'package:test_app/widgets/common/post_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, searchRoute, arguments: userSearch);
+                Navigator.pushNamed(context, searchRoute);
               },
               icon: const Icon(Icons.search)
             )
@@ -41,14 +42,14 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             // Popular
             ChangeNotifierProvider<PostViewModel>(
-              child: const PostView(isPopularPosts: true,),
-              create: (_) => PostViewModel()
+              child: const PostView(isHomepage: true),
+              create: (_) => PostViewModel(context.watch<HomePageViewModel>().popularPosts)
             ),
 
             // Following
             ChangeNotifierProvider<PostViewModel>(
-              child: const PostView(isPopularPosts: false,),
-              create: (_) => PostViewModel()
+              child: const PostView(isHomepage: true),
+              create: (_) => PostViewModel(context.watch<HomePageViewModel>().followingPosts)
             ),
           ],
         ),

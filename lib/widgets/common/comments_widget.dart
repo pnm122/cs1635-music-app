@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
+import 'package:test_app/widgets/common/custom_app_bar.dart';
+import 'package:test_app/widgets/common/user_image.dart';
 import '../../mock_data.dart';
 
 class Comments extends StatefulWidget {
@@ -34,21 +36,12 @@ class _CommentsState extends State<Comments> {
     return Scaffold(
       // To avoid annoying issue with background sticking out of rounded appBar
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.onBackground,
-        centerTitle: true,
-
-        leading: const BackButton(),
-
-        title: Text(
-          "Comments",
-          style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight:FontWeight.bold),
-        ),
-
+      appBar: CustomAppBar(
+        title: "Comments",
+        showBackButton: false,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
-        
       ),
 
       body: Container(
@@ -71,12 +64,7 @@ class _CommentsState extends State<Comments> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[ 
                     // TODO: Bring to user profile
-                    c.commenter.image == ""
-                      ? const Icon(Icons.account_circle, size: 32)
-                      : CircleAvatar(
-                        backgroundImage: NetworkImage(c.commenter.image),
-                        radius: 16,
-                      ),
+                    UserImage(imageURL: c.commenter.image),
 
                     const SizedBox(width: postSectionMargin),
 
@@ -207,12 +195,7 @@ class _CommentsState extends State<Comments> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[ 
                               // TODO: Bring to user profile
-                              r.commenter.image == ""
-                                ? const Icon(Icons.account_circle, size: 32)
-                                : CircleAvatar(
-                                  backgroundImage: NetworkImage(r.commenter.image),
-                                  radius: 16,
-                                ),
+                              UserImage(imageURL: r.commenter.image),
 
                               const SizedBox(width: postSectionMargin),
 
