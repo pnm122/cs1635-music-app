@@ -15,12 +15,13 @@ import 'package:test_app/router_constants.dart';
 
 import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 
+import '../../models/post.dart';
+import '../../models/user.dart';
+import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
+
 /// Container for all posts displayed in a view
 class PostView extends StatefulWidget {
-  const PostView({super.key, this.isHomepage = false});
-
-  final bool isHomepage;
-
+  const PostView({super.key});
   @override
   State<PostView> createState() => _PostViewState();
 }
@@ -29,7 +30,9 @@ class _PostViewState extends State<PostView> {
 
   @override
   Widget build(BuildContext context) {
-    final posts = context.watch<PostViewModel>().posts;
+    var posts = context.watch<PostViewModel>().isProfilePage 
+      ? context.watch<UserProfilePageViewModel>().posts
+      : context.watch<PostViewModel>().posts;
 
     return posts.isEmpty ? const Center(child: Text("No posts yet...")) : ListView.builder(
       // Lets us wrap pages that contain this ListView with a SingleChildScrollView so the whole page can scroll!
@@ -45,7 +48,7 @@ class _PostViewState extends State<PostView> {
             children: <Widget>[
               // Poster
               PosterInfo(
-                user: posts[i].poster, isHomepage: widget.isHomepage
+                post: posts[i],
               ),
 
               // Padding between elements
@@ -75,9 +78,8 @@ class _PostViewState extends State<PostView> {
 
 /// Avatar, name, and following button attached to the top of each post
 class PosterInfo extends StatefulWidget {
-  const PosterInfo({super.key, required this.user, required this.isHomepage});
-  final dynamic user;
-  final bool isHomepage;
+  const PosterInfo({super.key, required this.post});
+  final Post post;
 
   @override
   State<PosterInfo> createState() => _PosterInfoState();
@@ -87,6 +89,7 @@ class _PosterInfoState extends State<PosterInfo> {
   @override
   Widget build(BuildContext context) {
     var currentUser = context.watch<PostViewModel>().currentUser;
+    var user = widget.post.poster;
 
     return Row(
       children: <Widget>[
@@ -100,13 +103,14 @@ class _PosterInfoState extends State<PosterInfo> {
                 Theme.of(context).textTheme.labelLarge),
             padding: MaterialStateProperty.all(EdgeInsets.zero),
           ),
-          // TODO: Take a user to the profile when they press this button
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, profileRoute, arguments: user);
+          },
 
           child: Row(children: <Widget>[
-            UserImage(imageURL: widget.user.image),
+            UserImage(imageURL: user.image),
             const SizedBox(width: 5),
-            Text(widget.user.name),
+            Text(user.name),
           ]),
         ),
 
@@ -114,7 +118,7 @@ class _PosterInfoState extends State<PosterInfo> {
 
         // Following button
         OutlinedButton(
-          style: currentUser.following.contains(widget.user)
+          style: currentUser.following.contains(user)
             ? ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.outline),
               foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
@@ -140,15 +144,33 @@ class _PosterInfoState extends State<PosterInfo> {
               padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
             ),
           onPressed: () { 
-            context.read<PostViewModel>().follow(widget.user);
-            if(widget.isHomepage) {
+            context.read<PostViewModel>().follow(user);
+            if(context.read<PostViewModel>().isHomepage) {
               context.read<HomePageViewModel>().updateFollowingPosts();
             }
           },
-          child: currentUser.following.contains(widget.user)
+          child: currentUser.following.contains(user)
             ? const Text("Following")
             : const Text("Follow")
         ),
+        const Spacer(),
+        // Allows for 3 cases:
+        // 1: Not on a profile page: No pin icons (this is the bottom Container())
+        // 2: On another user's page: Only show pin icons on pinned posts
+        // 3: On your profile page: Show pin buttons to pin/unpin posts
+        context.watch<PostViewModel>().isProfilePage ? Container(
+          child: context.read<UserProfilePageViewModel>().currentUser == context.read<UserProfilePageViewModel>().user 
+            ? IconButton(
+              padding: EdgeInsets.zero,
+              icon: Icon(
+                widget.post.isPinned ? Icons.push_pin : Icons.push_pin_outlined, 
+              ), 
+              onPressed: () { context.read<UserProfilePageViewModel>().pinPress(widget.post); },
+            )
+            : widget.post.isPinned ? const Icon(
+              Icons.push_pin
+            ) : Container(),
+          ) : Container()
       ],
     );
   }
@@ -240,7 +262,9 @@ class _PostInteractionState extends State<PostInteraction> {
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
               isSelected: false,
-              onPressed: () { context.read<PostViewModel>().likePost(widget.post); },
+              onPressed: () {
+                context.read<PostViewModel>().likePost(widget.post);
+                },
               icon: widget.post.likedBy.contains(currentUser)
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.white)

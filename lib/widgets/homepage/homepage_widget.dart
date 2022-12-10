@@ -42,14 +42,14 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             // Popular
             ChangeNotifierProvider<PostViewModel>(
-              child: const PostView(isHomepage: true),
-              create: (_) => PostViewModel(context.watch<HomePageViewModel>().popularPosts)
+              child: const PostView(),
+              create: (_) => PostViewModel(posts: context.watch<HomePageViewModel>().popularPosts, isHomepage: true)
             ),
 
             // Following
             ChangeNotifierProvider<PostViewModel>(
-              child: const PostView(isHomepage: true),
-              create: (_) => PostViewModel(context.watch<HomePageViewModel>().followingPosts)
+              child: const PostView(),
+              create: (_) => PostViewModel(posts: context.watch<HomePageViewModel>().followingPosts, isHomepage: true)
             ),
           ],
         ),

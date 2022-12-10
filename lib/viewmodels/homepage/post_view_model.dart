@@ -4,15 +4,13 @@ import '../../models/post.dart';
 import '../../models/user.dart';
 
 class PostViewModel with ChangeNotifier {
+  List<Post> posts;
+  bool isHomepage;
+  bool isProfilePage;
+  PostViewModel({required this.posts, this.isHomepage = false, this.isProfilePage = false});
 
-  final List<Post> _posts;
   bool openComments = false;
   Post? commentsPost;
-
-  PostViewModel(this._posts);
-
-  User get currentUser => MockData().currentUser;
-  List<Post> get posts => _posts;
 
   void openPostComments(Post post) {
     commentsPost = post;
@@ -23,6 +21,9 @@ class PostViewModel with ChangeNotifier {
     openComments = false;
   }
 
+  User get currentUser => MockData().currentUser;
+
+  // TODO: Put this in the right viewmodel
   void likePost(Post post) {
     if(post.likedBy.contains(MockData().currentUser)) {
       post.likedBy.remove(MockData().currentUser);
@@ -50,4 +51,6 @@ class PostViewModel with ChangeNotifier {
       notifyListeners();
     }
   }
+
+
 }

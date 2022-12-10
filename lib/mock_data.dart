@@ -185,7 +185,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "ROCK ON LADS!!!",
@@ -200,7 +200,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "I'm into folktronica and indie cloud rap.",
@@ -215,7 +215,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "I just wanna rock out.",
@@ -230,7 +230,7 @@ List<User> _users = List.from([
       ],
       following: [
       ],
-      posts: List.empty(),
+      posts: List.empty(growable: true),
       image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
       profile: Profile(
         bio: "Music is my escape.",
@@ -253,6 +253,7 @@ List<Post> _posts = List.from([
     createdTime: DateTime.utc(2019, 12, 20, 10, 19),
   ),
   TextPost(
+      isPinned: true,
       poster: _users.where((x) => x.name == 'Steve Bruce').first,
       likedBy: [
         _users.where((x) => x.name == "Sean Dyche").first,
@@ -298,6 +299,7 @@ List<Post> _posts = List.from([
       ]
   ),
   TextPost(
+      isPinned: true,
       poster: _users.where((x) => x.name == "Peter Crouch").first,
       likedBy: [
         _users.where((x) => x.name == "Peter Crouch").first,
@@ -316,7 +318,7 @@ List<Post> _posts = List.from([
               _users.where((x) => x.name == "Steve Bruce").first,
             ]
         ),
-      ]
+      ],
   ),
   MediaPost(
       poster: _users.where((x) => x.name == "Andy Carroll").first,
@@ -326,7 +328,29 @@ List<Post> _posts = List.from([
       text: "Here is my cover of Harrison Storm's Broken Feather",
       href: "https://player.vimeo.com/external/430014215.sd.mp4?s=2c2fedb46aa038dcc4664ad42ef6a0e002bf312a&profile_id=165&oauth2_token_id=57447761",
       createdTime: DateTime.utc(2022, 11, 15, 9, 58),
-      song: _tracks.where((x) => x.name == "Broken Feather").first)
+      song: _tracks.where((x) => x.name == "Broken Feather").first
+  ),
+  MediaPost(
+      poster: _users.where((x) => x.name == "Sean Dyche").first,
+      likedBy: [
+        _users.where((x) => x.name == "Peter Crouch").first,
+      ],
+      text: "Watch my jam session",
+      href: "https://player.vimeo.com/external/430014215.sd.mp4?s=2c2fedb46aa038dcc4664ad42ef6a0e002bf312a&profile_id=165&oauth2_token_id=57447761",
+      createdTime: DateTime.utc(2022, 11, 15, 9, 58),
+      song: _tracks.where((x) => x.name == "Only Superstition").first
+  ),
+  TextPost(
+    isPinned: true,
+    poster: _users.where((x) => x.name == 'Sean Dyche').first,
+    likedBy: [
+      _users.where((x) => x.name == "Andy Carroll").first,
+      _users.where((x) => x.name == "Peter Crouch").first,
+      _users.where((x) => x.name == "Sean Dyche").first,
+    ],
+    text: 'This chilly weather makes me want to listen to COLD-PLAY... get it?',
+    createdTime: DateTime.utc(2017, 1, 31, 1, 9),
+  ),
 ]);
 
 _addSongsToAlbums() {
@@ -367,6 +391,10 @@ _addFollowingFollowers() {
   ]);
 }
 
+_addPostsToUser() {
+  _users.where((x) => x.name == "Steve Bruce").first.posts.addAll(_posts.where((x) => x.poster.name == "Steve Bruce"));
+}
+
 List<Song> _songs = _tracks;
 
 class MockData {
@@ -388,6 +416,7 @@ class MockData {
   setup() {
     _addSongsToAlbums();
     _addFollowingFollowers();
+    _addPostsToUser();
     _tracks.where((element) => element.name == "Broken Feather").first.covers
       .addAll(_posts.whereType<MediaPost>());
   }
@@ -397,5 +426,5 @@ class MockData {
   List<Song> get songs => _songs;
   List<Album> get albums => _albums;
   List<User> get users => _users;
-  User get currentUser => _users.first;
+  User get currentUser => _users.where((x) => x.name == "Steve Bruce").first;
 }
