@@ -257,3 +257,40 @@ class _PostInteractionState extends State<PostInteraction> {
 
         // Gap between icons
         const SizedBox(width: 8),
+
+        // Comment button
+        Column(
+          children: <Widget>[
+            IconButton(
+              padding: EdgeInsets.zero,
+              constraints: BoxConstraints(),
+              onPressed: () {
+                showModalBottomSheet<void>(
+                  isScrollControlled: true,
+                  context: context, 
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => Container(
+                    height: MediaQuery.of(context).size.height * 0.95,
+                    child: ChangeNotifierProvider<CommentsPageViewModel>(
+                      child: Comments(),
+                      create: (_) => CommentsPageViewModel(relatedPost: widget.post),
+                    ),
+                  ),
+                );
+                //Navigator.pushNamed(context, commentsRoute, arguments: widget.post);
+              },
+              icon: const Icon(Icons.comment, color: Colors.white),
+            ),
+            Text(
+              widget.post.comments.length.toString(),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.copyWith(fontFamily: "Nunito"),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
