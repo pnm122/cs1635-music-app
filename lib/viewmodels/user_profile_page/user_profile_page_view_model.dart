@@ -57,6 +57,7 @@ class UserProfilePageViewModel with ChangeNotifier {
     _followingCnt = countToString(MockData().currentUser.following.length);
     _editAvailable = u == null;
     _posts = _getUserPosts(user);
+    notifyListeners();
   }
 
   User get user => _user;

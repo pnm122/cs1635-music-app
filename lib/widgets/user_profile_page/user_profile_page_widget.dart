@@ -39,7 +39,7 @@ class _UserProfilePage extends State<UserProfilePage> {
             centerTitle: true,
 
             title: Visibility(child:
-              Text(
+              const Text(
                 "Your Profile",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
               ),
@@ -51,9 +51,9 @@ class _UserProfilePage extends State<UserProfilePage> {
                   children: [
                     Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         UserImage(imageURL: user.image, radius: 50),
-                        Spacer(),
+                        const Spacer(),
                         SizedBox(
                           width: 220,
                           child: Column(
@@ -61,7 +61,7 @@ class _UserProfilePage extends State<UserProfilePage> {
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(user.name,
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                                 ),
                               ),
                               Text(user.profile.bio,
@@ -70,24 +70,24 @@ class _UserProfilePage extends State<UserProfilePage> {
                             ],
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                       ],
                     ),
                     Row(children: [
-                      Spacer(),
+                      const Spacer(),
                       Visibility(
                         child:
                           IconButton(
                             padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
+                            constraints: const BoxConstraints(),
                             onPressed: () {
                               Navigator.pushNamed(context, editProfileRoute, arguments: UserProfilePageEditArguments(viewModel: viewModel, user: user));
                             },
-                            icon: Icon(Icons.edit, color: Colors.white),
+                            icon: const Icon(Icons.edit, color: Colors.white),
                           ),
                         visible: viewModel.editAvailable,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followersBehavior]); },
                         child: Text("$followersCnt Followers"),
@@ -96,7 +96,7 @@ class _UserProfilePage extends State<UserProfilePage> {
                         onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followingBehavior]); },
                         child: Text("$followingCnt Following")
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],),
                     const TabBar(
                         tabs: <Widget>[
@@ -116,7 +116,7 @@ class _UserProfilePage extends State<UserProfilePage> {
             children: <Widget>[
               // Posts
               ChangeNotifierProvider<PostViewModel>(
-                  child: PostView(),
+                  child: const PostView(),
                   create: (_) => PostViewModel(posts: context.watch<UserProfilePageViewModel>().posts, isProfilePage: true)
               ),
 

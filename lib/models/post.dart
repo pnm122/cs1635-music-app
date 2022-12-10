@@ -9,12 +9,12 @@ abstract class Post {
   bool isPinned;
   final DateTime createdTime;
 
-  Post({required this.poster,
+  Post({
+    required this.poster,
     required this.likedBy,
     this.comments = const [],
     required this.text,
     this.isPinned = false,
-    required this.createdTime
+    required this.createdTime,
   });
-
 }
