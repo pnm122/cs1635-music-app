@@ -5,7 +5,6 @@ import 'package:test_app/search_constants.dart';
 import 'package:test_app/user_profile_page_edit_arguments.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
 import 'package:test_app/viewmodels/common/search_page_view_model.dart';
-import 'package:test_app/viewmodels/user_profile_page/user_profile_page_edit_view_model.dart';
 import 'package:test_app/viewmodels/user_profile_page/user_profile_page_view_model.dart';
 import 'package:test_app/widgets/bottom_navigation_bar_widget.dart';
 import 'package:test_app/widgets/common/search_page.dart';

@@ -96,9 +96,8 @@ class UserProfilePageViewModel with ChangeNotifier {
       return;
     }
 
-    _posts = _getUserPosts(user);
-
     post.isPinned = !post.isPinned;
+    _posts = _getUserPosts(user);
     notifyListeners();
   }
 }
