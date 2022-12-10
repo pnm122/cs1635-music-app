@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/mock_data.dart';
 import 'package:test_app/models/text_post.dart';
-import 'package:provider/provider.dart';
 import 'package:test_app/models/user.dart';
-import 'package:test_app/viewmodels/user_profile_page/user_profile_page_view_model.dart';
 
 class TextPostWidget extends StatefulWidget {
   const TextPostWidget({super.key});
