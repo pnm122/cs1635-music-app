@@ -3,6 +3,7 @@ import 'package:test_app/global_styles.dart';
 import 'package:test_app/mock_data.dart';
 import 'package:test_app/models/text_post.dart';
 import 'package:test_app/models/user.dart';
+import 'package:test_app/widgets/bottom_navigation_bar_widget.dart';
 
 class TextPostWidget extends StatefulWidget {
   const TextPostWidget({super.key});
@@ -49,7 +50,8 @@ class _TextPostState extends State<TextPostWidget> {
           IconButton(
             onPressed: () {
               if (textFieldcharLen > 0) {
-                // Notify user that the post is successfully uploaded
+                // TODO: change this to fit the MVVM pattern
+                // TODO: also show on 'popular' page
                 User user = MockData().currentUser;
                 TextPost newPost = TextPost(
                   poster: user,
@@ -59,6 +61,7 @@ class _TextPostState extends State<TextPostWidget> {
                 );
                 user.posts.add(newPost);
 
+                // Notify user that the post is successfully uploaded
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Posted!')));
               }
               Navigator.pop(context);
