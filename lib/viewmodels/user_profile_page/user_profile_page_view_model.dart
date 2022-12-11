@@ -52,7 +52,7 @@ class UserProfilePageViewModel with ChangeNotifier {
   late List<Post> _posts;
 
   UserProfilePageViewModel({User? u}) {
-    _user = u == null ? MockData().currentUser : u;
+    _user = u ?? MockData().currentUser;
     _followersCnt = countToString(_user.followers.length);
     _followingCnt = countToString(MockData().currentUser.following.length);
     _editAvailable = u == null;

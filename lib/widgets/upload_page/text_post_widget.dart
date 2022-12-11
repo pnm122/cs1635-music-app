@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
-import 'package:test_app/mock_data.dart';
-import 'package:test_app/models/text_post.dart';
-import 'package:test_app/models/user.dart';
-import 'package:test_app/widgets/bottom_navigation_bar_widget.dart';
+import 'package:test_app/widgets/common/custom_app_bar.dart';
+import 'package:test_app/viewmodels/upload_page/text_post_view_model.dart';
 
-class TextPostWidget extends StatefulWidget {
-  const TextPostWidget({super.key});
+import '../../mock_data.dart';
+import '../../models/text_post.dart';
+import '../../models/user.dart';
 
+class TextPostUpload extends StatefulWidget {
+  const TextPostUpload({super.key});
   @override
   State<StatefulWidget> createState() => _TextPostState();
 }
 
-class _TextPostState extends State<TextPostWidget> {
+class _TextPostState extends State<TextPostUpload> {
   late FocusNode foNode;
 
   @override
@@ -44,22 +46,14 @@ class _TextPostState extends State<TextPostWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         title: const Text('Share your thoughts'),
+        showBackButton: true,
         actions: [
           IconButton(
             onPressed: () {
               if (textFieldcharLen > 0) {
-                // TODO: change this to fit the MVVM pattern
-                // TODO: also show on 'popular' page
-                User user = MockData().currentUser;
-                TextPost newPost = TextPost(
-                  poster: user,
-                  likedBy: [],
-                  text: content,
-                  createdTime: DateTime.now().toUtc(),
-                );
-                user.posts.add(newPost);
+                context.read<TextPostViewModel>().addPost(content);
 
                 // Notify user that the post is successfully uploaded
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Posted!')));
@@ -69,7 +63,6 @@ class _TextPostState extends State<TextPostWidget> {
             icon: const Icon(Icons.send),
           )
         ],
-        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
