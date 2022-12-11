@@ -35,6 +35,30 @@ List<Artist> _artists = List.from(
           name: "Harrison Storm",
           image: "https://twostorymelody.com/wp-content/uploads/elementor/thumbs/harrison-om5udujmsccxrn9lm0m4w3f6bm8b0z76gx4fzwcmfc.jpg"
       ),
+      Artist(
+          name: "Lord Huron",
+          image: "https://wp.dailybruin.com/images/2021/10/web.ae_.lordhuron.vx_.review.jpg"
+      ),
+      Artist(
+          name: "The Lumineers",
+          image: "https://first-avenue.com/wp-content/uploads/2020/01/lumineers_new.jpg"
+      ),
+      Artist(
+          name: "Noah Kahan",
+          image: "https://images.sk-static.com/images/media/img/col3/20220708-045641-218359.jpg"
+      ),
+      Artist(
+          name: "Lorde",
+          image: "https://e1.pngegg.com/pngimages/475/502/png-clipart-lorde.png"
+      ),
+      Artist(
+          name: "Hailaker",
+          image: "https://f4.bcbits.com/img/0028689010_10.jpg"
+      ),
+      Artist(
+          name: "Matt Maeson",
+          image: "https://s3-us-west-1.amazonaws.com/wasserman-media-library/music_artists/matt-maeson-20190510.jpg"
+      ),
     ]
 );
 
@@ -48,6 +72,18 @@ List<Album> _albums = List.from(
       ], artist: _artists.where((x) => x.name == "Foo Fighters").first, art: "https://upload.wikimedia.org/wikipedia/en/6/67/Foo_Fighters_8LP_Sonic_Highways.jpg"),
       Album(name: "Sense of Home", tracks: [
       ], artist: _artists.where((x) => x.name == "Harrison Storm").first, art: "https://images.genius.com/dba6d5bf9692b5d96efd96ef48bc1670.1000x894x1.jpg"),
+      Album(name: "Your Other Life", tracks: [
+      ], artist: _artists.where((x) => x.name == "Lord Huron").first, art: "https://www.lordhuron.com/files/2022/05/release_202205_ab67616d0000b2738be5edeeca4b2ac968f3db8a.jpg"),
+      Album(name: "C-Sides", tracks: [
+      ], artist: _artists.where((x) => x.name == "The Lumineers").first, art: "https://images.genius.com/f9c393229f2b3dc1db8e3bb89ed97bc8.640x640x1.jpg"),
+      Album(name: "Cape Elizabeth", tracks: [
+      ], artist: _artists.where((x) => x.name == "Noah Kahan").first, art: "https://noahkahan.com/files/2020/05/news_202005_Screen-Shot-2020-05-07-at-3.32.09-PM.jpg"),
+      Album(name: "Tennis Court", tracks: [
+      ], artist: _artists.where((x) => x.name == "Lorde").first, art: "https://upload.wikimedia.org/wikipedia/en/1/10/Lorde_Tennis_Court.png"),
+      Album(name: "Not Much", tracks: [
+      ], artist: _artists.where((x) => x.name == "Hailaker").first, art: "https://images.genius.com/6526e7c73ab66a20e6fbf7b366846882.996x1000x1.jpg"),
+      Album(name: "A Memory Away", tracks: [
+      ], artist: _artists.where((x) => x.name == "Matt Maeson").first, art: "https://i1.sndcdn.com/artworks-c66kuwa9oB4K-0-t500x500.jpg"),
     ]
 );
 
@@ -173,6 +209,102 @@ List<Track> _tracks = List.from(
         album: _albums.where((x) => x.name == "Sense of Home").first,
         covers: []
       ),
+      Track(
+        name: "Your Other Life",
+        creator: _artists.where((x) => x.name == "Lord Huron").first,
+        album: _albums.where((x) => x.name == "Your Other Life").first,
+        covers: [],
+      ),
+      Track(
+        name: "Ton Autre Vie",
+        creator: _artists.where((x) => x.name == "Lord Huron").first,
+        album: _albums.where((x) => x.name == "Your Other Life").first,
+        covers: [],
+      ),
+      Track(
+        name: "Scotland",
+        creator: _artists.where((x) => x.name == "The Lumineers").first,
+        album: _albums.where((x) => x.name == "C-Sides").first,
+        covers: [],
+      ),
+      Track(
+        name: "For Fra",
+        creator: _artists.where((x) => x.name == "The Lumineers").first,
+        album: _albums.where((x) => x.name == "C-Sides").first,
+        covers: [],
+      ),
+      Track(
+        name: "Visions of China",
+        creator: _artists.where((x) => x.name == "The Lumineers").first,
+        album: _albums.where((x) => x.name == "C-Sides").first,
+        covers: [],
+      ),
+      Track(
+        name: "A Troubled Mind",
+        creator: _artists.where((x) => x.name == "Noah Kahan").first,
+        album: _albums.where((x) => x.name == "Cape Elizabeth").first,
+        covers: [],
+      ),
+      Track(
+        name: "Close Behind",
+        creator: _artists.where((x) => x.name == "Noah Kahan").first,
+        album: _albums.where((x) => x.name == "Cape Elizabeth").first,
+        covers: [],
+      ),
+      Track(
+        name: "Glue Myself Shut",
+        creator: _artists.where((x) => x.name == "Noah Kahan").first,
+        album: _albums.where((x) => x.name == "Cape Elizabeth").first,
+        covers: [],
+      ),
+      Track(
+        name: "Anyway",
+        creator: _artists.where((x) => x.name == "Noah Kahan").first,
+        album: _albums.where((x) => x.name == "Cape Elizabeth").first,
+        covers: [],
+      ),
+      Track(
+        name: "Maine",
+        creator: _artists.where((x) => x.name == "Noah Kahan").first,
+        album: _albums.where((x) => x.name == "Cape Elizabeth").first,
+        covers: [],
+      ),
+      Track(
+        name: "Tennis Court",
+        creator: _artists.where((x) => x.name == "Lorde").first,
+        album: _albums.where((x) => x.name == "Tennis Court").first,
+        covers: [],
+      ),
+      Track(
+        name: "Swingin Party",
+        creator: _artists.where((x) => x.name == "Lorde").first,
+        album: _albums.where((x) => x.name == "Tennis Court").first,
+        covers: [],
+      ),
+      Track(
+        name: "Not Much",
+        creator: _artists.where((x) => x.name == "Hailaker").first,
+        album: _albums.where((x) => x.name == "Not Much").first,
+        covers: [],
+      ),
+      Track(
+        name: "A Memory Away",
+        creator: _artists.where((x) => x.name == "Matt Maeson").first,
+        album: _albums.where((x) => x.name == "A Memory Away").first,
+        covers: [],
+      ),
+      Track(
+        name: "Blood Runs Red",
+        creator: _artists.where((x) => x.name == "Matt Maeson").first,
+        album: _albums.where((x) => x.name == "A Memory Away").first,
+        covers: [],
+      ),
+      Track(
+        name: "Nelsonwood Lane",
+        creator: _artists.where((x) => x.name == "Matt Maeson").first,
+        album: _albums.where((x) => x.name == "A Memory Away").first,
+        covers: [],
+      ),
     ]
 );
 
@@ -186,9 +318,9 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(growable: true),
-      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
+      image: "https://resources.premierleague.com/premierleague/photos/players/250x250/man40853.png",
       profile: Profile(
-        bio: "ROCK ON LADS!!!",
+        bio: "Guy Fieri is my spirit animal.",
         favoriteSong: _tracks.where((x) => x.name == "See You Soon").first,
         favoriteArtist: _artists.where((x) => x.name == "Michael Jackson").first,
         favoriteAlbum: _albums.where((x) => x.name == "Sense of Home").first,
@@ -201,7 +333,7 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(growable: true),
-      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
+      image: "https://media.gq-magazine.co.uk/photos/5f5b668ceadd3a2aff8f3232/16:9/w_2560%2Cc_limit/Crouchy.jpg",
       profile: Profile(
         bio: "I'm into folktronica and indie cloud rap.",
         favoriteSong: _tracks.where((x) => x.name == "Only Superstition").first,
@@ -216,7 +348,7 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(growable: true),
-      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
+      image: "https://goss.ie/wp-content/uploads/2022/05/Screenshot-2022-05-27-at-12.12.34.png",
       profile: Profile(
         bio: "I just wanna rock out.",
         favoriteSong: _tracks.where((x) => x.name == "Broken Feather").first,
@@ -231,12 +363,102 @@ List<User> _users = List.from([
       following: [
       ],
       posts: List.empty(growable: true),
-      image: "https://st.depositphotos.com/1269204/1219/i/600/depositphotos_12196477-stock-photo-smiling-men-isolated-on-the.jpg",
+      image: "https://static.wikia.nocookie.net/the-football-database/images/8/87/Steve_Bruce.1.png/revision/latest/scale-to-width-down/250?cb=20200705113041",
       profile: Profile(
         bio: "Music is my escape.",
         favoriteSong: _tracks.where((x) => x.name == "Outside").first,
         favoriteArtist: _artists.where((x) => x.name == "Coldplay").first,
         favoriteAlbum: _albums.where((x) => x.name == "Sense of Home").first,
+      )
+  ),
+  User(
+    name: "Harry Maguire",
+    followers: [
+    ],
+    following: [
+    ],
+    posts: List.empty(growable: true),
+    image: "https://cdn.standardmedia.co.ke/images/sunday/hgvwm4oz3pinohexehm5d46a37fac8c0.png",
+    profile: Profile(
+      bio: "I enjoy wrestling and pudding.",
+      favoriteSong: _tracks.where((x) => x.name == "Blood Runs Red").first,
+      favoriteArtist: _artists.where((x) => x.name == "The Lumineers").first,
+      favoriteAlbum: _albums.where((x) => x.name == "Tennis Court").first,
+    )
+  ),
+  User(
+      name: "David Moyes",
+      followers: [
+      ],
+      following: [
+      ],
+      posts: List.empty(growable: true),
+      image: "https://i2-prod.football.london/west-ham-united-fc/article20327478.ece/ALTERNATES/s615/0_GettyImages-1232133453.jpg",
+      profile: Profile(
+        bio: "Do I feel I should have been given more time?",
+        favoriteSong: _tracks.where((x) => x.name == "Visions of China").first,
+        favoriteArtist: _artists.where((x) => x.name == "Lorde").first,
+        favoriteAlbum: _albums.where((x) => x.name == "Tennis Court").first,
+      )
+  ),
+  User(
+      name: "Jeese Lingard",
+      followers: [
+      ],
+      following: [
+      ],
+      posts: List.empty(growable: true),
+      image: "https://cdn.redscores.com/images/player/820_b.png",
+      profile: Profile(
+        bio: "Beans Beans Beans Beans Beans!!!",
+        favoriteSong: _tracks.where((x) => x.name == "Ton Autre Vie").first,
+        favoriteArtist: _artists.where((x) => x.name == "\"Weird Al\" Yankovic").first,
+        favoriteAlbum: _albums.where((x) => x.name == "Tennis Court").first,
+      )
+  ),
+  User(
+      name: "Phil Jones",
+      followers: [
+      ],
+      following: [
+      ],
+      posts: List.empty(growable: true),
+      image: "https://icdn.strettynews.com/wp-content/uploads/2021/08/jones.jpg",
+      profile: Profile(
+        bio: "I love to listen and create new jams! Follow me if you enjoy British Blues!",
+        favoriteSong: _tracks.where((x) => x.name == "High Speed").first,
+        favoriteArtist: _artists.where((x) => x.name == "Foo Fighters").first,
+        favoriteAlbum: _albums.where((x) => x.name == "A Memory Away").first,
+      )
+  ),
+  User(
+      name: "José Mourinho",
+      followers: [
+      ],
+      following: [
+      ],
+      posts: List.empty(growable: true),
+      image: "https://www.thestatesman.com/wp-content/uploads/2017/08/1498803075-jose-mourinho-instagram.jpg",
+      profile: Profile(
+        bio: "I am the special one.",
+        favoriteSong: _tracks.where((x) => x.name == "Brothers & Sisters").first,
+        favoriteArtist: _artists.where((x) => x.name == "Lord Huron").first,
+        favoriteAlbum: _albums.where((x) => x.name == "Sense of Home").first,
+      )
+  ),
+  User(
+      name: "Kepa Arrizabalaga",
+      followers: [
+      ],
+      following: [
+      ],
+      posts: List.empty(growable: true),
+      image: "https://img.chelseafc.com//image/upload/f_auto,q_auto:best,f_auto,q_90,w_1440,c_fill,g_faces/editorial/news/2019/9/kepa-mag-plug.jpg",
+      profile: Profile(
+        bio: "They call me a flop but in reality I'm just a below average performer.",
+        favoriteSong: _tracks.where((x) => x.name == "Anyway").first,
+        favoriteArtist: _artists.where((x) => x.name == "The Lumineers").first,
+        favoriteAlbum: _albums.where((x) => x.name == "C-Sides").first,
       )
   ),
 ]);
@@ -364,9 +586,16 @@ _addFollowingFollowers() {
   _users.where((x) => x.name == "Sean Dyche").first.followers.addAll([
     _users.where((x) => x.name == "Steve Bruce").first,
     _users.where((x) => x.name == "Andy Carroll").first,
+    _users.where((x) => x.name == "Harry Maguire").first,
+    _users.where((x) => x.name == "David Moyes").first,
+    _users.where((x) => x.name == "Jeese Lingard").first,
+    _users.where((x) => x.name == "Phil Jones").first,
+    _users.where((x) => x.name == "José Mourinho").first,
+    _users.where((x) => x.name == "Kepa Arrizabalaga").first,
   ]);
   _users.where((x) => x.name == "Sean Dyche").first.following.addAll([
     _users.where((x) => x.name == "Steve Bruce").first,
+    _users.where((x) => x.name == "Kepa Arrizabalaga").first,
   ]);
   _users.where((x) => x.name == "Andy Carroll").first.followers.addAll([
     _users.where((x) => x.name == "Peter Crouch").first,
@@ -378,6 +607,7 @@ _addFollowingFollowers() {
   ]);
   _users.where((x) => x.name == "Peter Crouch").first.followers.addAll([
     _users.where((x) => x.name == "Andy Carroll").first,
+    _users.where((x) => x.name == "Jeese Lingard").first,
   ]);
   _users.where((x) => x.name == "Peter Crouch").first.following.addAll([
     _users.where((x) => x.name == "Andy Carroll").first,
@@ -389,10 +619,55 @@ _addFollowingFollowers() {
   _users.where((x) => x.name == "Steve Bruce").first.following.addAll([
     _users.where((x) => x.name == "Sean Dyche").first,
   ]);
+  _users.where((x) => x.name == "Harry Maguire").first.followers.addAll([
+    _users.where((x) => x.name == "David Moyes").first,
+  ]);
+  _users.where((x) => x.name == "Harry Maguire").first.following.addAll([
+    _users.where((x) => x.name == "Sean Dyche").first,
+  ]);
+  _users.where((x) => x.name == "David Moyes").first.followers.addAll([
+  ]);
+  _users.where((x) => x.name == "David Moyes").first.following.addAll([
+    _users.where((x) => x.name == "Sean Dyche").first,
+    _users.where((x) => x.name == "Harry Maguire").first,
+    _users.where((x) => x.name == "Jeese Lingard").first,
+  ]);
+  _users.where((x) => x.name == "Jeese Lingard").first.followers.addAll([
+    _users.where((x) => x.name == "David Moyes").first
+  ]);
+  _users.where((x) => x.name == "Jeese Lingard").first.following.addAll([
+    _users.where((x) => x.name == "Sean Dyche").first,
+    _users.where((x) => x.name == "Peter Crouch").first,
+  ]);
+  _users.where((x) => x.name == "Phil Jones").first.followers.addAll([
+  ]);
+  _users.where((x) => x.name == "Phil Jones").first.following.addAll([
+    _users.where((x) => x.name == "Sean Dyche").first,
+  ]);
+  _users.where((x) => x.name == "José Mourinho").first.followers.addAll([
+  ]);
+  _users.where((x) => x.name == "José Mourinho").first.following.addAll([
+    _users.where((x) => x.name == "Sean Dyche").first,
+  ]);
+  _users.where((x) => x.name == "Kepa Arrizabalaga").first.followers.addAll([
+    _users.where((x) => x.name == "Sean Dyche").first,
+  ]);
+  _users.where((x) => x.name == "Kepa Arrizabalaga").first.following.addAll([
+    _users.where((x) => x.name == "Sean Dyche").first,
+  ]);
 }
 
 _addPostsToUser() {
-  _users.where((x) => x.name == "Steve Bruce").first.posts.addAll(_posts.where((x) => x.poster.name == "Steve Bruce"));
+  for (var user in _users) {
+    _users.where((x) => x == user).first.posts.addAll(_posts.where((x) => x.poster == user));
+  }
+}
+
+_addCoversToTracks() {
+  for (var track in _tracks) {
+    _tracks.where((x) => x == track).first.covers
+        .addAll(_posts.whereType<MediaPost>().where((x) => x.song == track));
+  }
 }
 
 List<Song> _songs = _tracks;
@@ -417,8 +692,9 @@ class MockData {
     _addSongsToAlbums();
     _addFollowingFollowers();
     _addPostsToUser();
-    _tracks.where((element) => element.name == "Broken Feather").first.covers
-      .addAll(_posts.whereType<MediaPost>());
+    // _tracks.where((element) => element.name == "Broken Feather").first.covers
+    //   .addAll(_posts.whereType<MediaPost>());
+    _addCoversToTracks();
   }
 
   List<Artist> get artists => _artists;
