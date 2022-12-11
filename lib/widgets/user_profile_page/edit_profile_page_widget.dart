@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/viewmodels/user_profile_page/user_profile_page_edit_view_model.dart';
 
 import '../../models/user.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
