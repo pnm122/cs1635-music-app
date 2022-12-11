@@ -89,11 +89,11 @@ class _UserProfilePage extends State<UserProfilePage> {
                       ),
                       const Spacer(),
                       TextButton(
-                        onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followersBehavior]); },
+                        onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followersBehavior, user]); },
                         child: Text("$followersCnt Followers"),
                       ),
                       TextButton(
-                        onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followingBehavior]); },
+                        onPressed: () { Navigator.pushNamed(context, searchRoute, arguments: [[userSearch], followingBehavior, user]); },
                         child: Text("$followingCnt Following")
                       ),
                       const Spacer(),

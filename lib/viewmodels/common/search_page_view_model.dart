@@ -25,8 +25,9 @@ class SearchPageViewModel with ChangeNotifier {
   List _results = List.empty(growable: true);
 
   String searchBehavior;
+  var user;
 
-  SearchPageViewModel(this._searchTypes, this.searchBehavior) {
+  SearchPageViewModel(this._searchTypes, this.searchBehavior, this.user) {
     _currentSearchType = _searchTypes[0];
     users.sort((a, b) => b.followers.length.compareTo(a.followers.length));
     songs.sort((a, b) => b.covers.length.compareTo(a.covers.length));
@@ -55,10 +56,10 @@ class SearchPageViewModel with ChangeNotifier {
         _attachingSong = true;
         break;
       case followersBehavior:
-        _results = MockData().currentUser.followers;
+        _results = user.followers;
         break;
       case followingBehavior:
-        _results = MockData().currentUser.following;
+        _results = user.following;
       // implied default is homepage
     }
   }

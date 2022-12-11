@@ -35,8 +35,9 @@ class Router {
         // Options: userSearch, songSearch, albumSearch, artistSearch
         List<String> searchTypes = args[0];
         // Options: homepageBehavior, settingFavoriteBehavior, attachingSongBehavior, followersBehavior, followingBehavior
-        // IMPORTANT: If providing settingFavorite or attachingSong, you must also provide the viewModel surrounding the page calling this,
+        // IMPORTANT: If using settingFavoriteBehavior or attachingSongBehavior, you must also provide the viewModel surrounding the page calling this in args[2],
         // so that functions can be called on those viewModels
+        // IMPORTANT: If using followersBehavior or followingBehavior, you must also provide the user to get the following/followers of in args[2]
         String searchBehavior = args[1];
         
         return MaterialPageRoute(
@@ -55,6 +56,7 @@ class Router {
             create: (_) => SearchPageViewModel(
               searchTypes,
               args[1],
+              args.length > 2 ? args[2] : null, // Only matters for followersBehavior and followingBehavior
             ),
           )),
         );
