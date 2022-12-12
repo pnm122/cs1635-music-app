@@ -7,6 +7,7 @@ class User extends Creator {
   final List<User> following;
   final Profile profile;
   final List<Post> posts;
+  final int id;
 
   User({
     this.followers = const [],
@@ -15,5 +16,6 @@ class User extends Creator {
     required this.posts,
     required super.name,
     required super.image,
+    required this.id,
   });
 }
