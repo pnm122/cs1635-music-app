@@ -22,33 +22,33 @@ class UserProfileListeningPage extends StatelessWidget {
 
     return(Column(
       children: [
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         Column(
           children: [
             Text(
               "${user.name}'s Favorites",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             Column(
               children: [
                 Row(
                   children: [
-                    Text("Song"),
+                    const Text("Song"),
                     IconButton(
                         onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[songSearch], settingFavoriteBehavior, viewModel]); },
-                        icon: Icon(Icons.edit, color: Colors.white)
+                        icon: const Icon(Icons.edit, color: Colors.white)
                     )
                   ],
                 ),
                 AlbumCoverOfSong(song: favoriteSong, size: 100),
                 RichText(text: TextSpan(
                     children: [
-                      WidgetSpan(
+                      const WidgetSpan(
                           child: Icon(Icons.music_note, color: Colors.white,)
                       ),
                       TextSpan(
@@ -59,7 +59,7 @@ class UserProfileListeningPage extends StatelessWidget {
                 )),
                 RichText(text: TextSpan(
                     children: [
-                      WidgetSpan(
+                      const WidgetSpan(
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
@@ -70,22 +70,22 @@ class UserProfileListeningPage extends StatelessWidget {
                 )),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               children: [
                 Row(
                   children: [
-                    Text("Album"),
+                    const Text("Album"),
                     IconButton(
                         onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[albumSearch], settingFavoriteBehavior, viewModel]); },
-                        icon: Icon(Icons.edit, color: Colors.white)
+                        icon: const Icon(Icons.edit, color: Colors.white)
                     )
                   ],
                 ),
                 AlbumCoverOfAlbum(album: favoriteAlbum, size: 100),
                 RichText(text: TextSpan(
                     children: [
-                      WidgetSpan(
+                      const WidgetSpan(
                           child: Icon(Icons.album, color: Colors.white,)
                       ),
                       TextSpan(
@@ -96,7 +96,7 @@ class UserProfileListeningPage extends StatelessWidget {
                 )),
                 RichText(text: TextSpan(
                     children: [
-                      WidgetSpan(
+                      const WidgetSpan(
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
@@ -107,22 +107,22 @@ class UserProfileListeningPage extends StatelessWidget {
                 )),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               children: [
                 Row(
                   children: [
-                    Text("Artist"),
+                    const Text("Artist"),
                     IconButton(
                         onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[artistSearch], settingFavoriteBehavior, viewModel]); },
-                        icon: Icon(Icons.edit, color: Colors.white)
+                        icon: const Icon(Icons.edit, color: Colors.white)
                     )
                   ],
                 ),
                 ArtistImage(artist: favoriteArtist, size: 100),
                 RichText(text: TextSpan(
                     children: [
-                      WidgetSpan(
+                      const WidgetSpan(
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
@@ -144,7 +144,7 @@ class UserProfileListeningPage extends StatelessWidget {
 
               ],
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
         const SizedBox(height: 30,),
@@ -152,7 +152,7 @@ class UserProfileListeningPage extends StatelessWidget {
           children: [
             Text(
               "${user.name}'s Listening History",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             OutlinedButton(
               style: ButtonStyle(

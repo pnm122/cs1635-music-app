@@ -4,10 +4,6 @@ import 'package:test_app/global_styles.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
 import 'package:test_app/viewmodels/upload_page/text_post_view_model.dart';
 
-import '../../mock_data.dart';
-import '../../models/text_post.dart';
-import '../../models/user.dart';
-
 class TextPostUpload extends StatefulWidget {
   const TextPostUpload({super.key});
   @override
@@ -15,8 +11,8 @@ class TextPostUpload extends StatefulWidget {
 }
 
 class _TextPostState extends State<TextPostUpload> {
+  // Automatic keyboard pop-up
   late FocusNode foNode;
-
   @override
   void initState() {
     super.initState();

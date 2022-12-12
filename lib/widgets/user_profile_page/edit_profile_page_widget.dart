@@ -43,7 +43,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                 onPressed: () {
                   context.read<UserProfilePageViewModel>().edit(usernameController.text, bioController.text);
                 },
-                icon: Icon(Icons.save, color: Colors.white,),
+                icon: const Icon(Icons.save, color: Colors.white,),
             )
           ],
           title: Text(
@@ -53,18 +53,18 @@ class _EditProfilePage extends State<EditProfilePage> {
         ),
       body: Column(
         children: [
-          IconButton(
+          const IconButton(
             onPressed: null,
             icon: Icon(Icons.change_circle, color: Colors.white,),
           ),
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               Container(
                 width: 100,
-                child: Text("Username", style: TextStyle(fontSize: 20),),
+                child: const Text("Username", style: TextStyle(fontSize: 20),),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 width: 200,
                 child: Form(child: TextFormField(
@@ -73,17 +73,17 @@ class _EditProfilePage extends State<EditProfilePage> {
                   maxLength: 15,
                 )),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               Container(
                 width: 100,
-                child: Text("Bio", style: TextStyle(fontSize: 20),),
+                child: const Text("Bio", style: TextStyle(fontSize: 20),),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 width: 200,
                 child: Form(child: TextFormField(
@@ -93,7 +93,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                   maxLength: 50,
                 )),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ],
