@@ -1,12 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:test_app/mock_data.dart';
-import 'package:test_app/models/artist.dart';
 import 'package:test_app/search_constants.dart';
-
-import '../../models/album.dart';
 import '../../models/post.dart';
-import '../../models/profile.dart';
-import '../../models/track.dart';
 import '../../models/user.dart';
 
 String countToString(int cnt) {

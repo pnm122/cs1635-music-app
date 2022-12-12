@@ -5,9 +5,7 @@ import 'package:test_app/models/song.dart';
 import 'package:test_app/router_constants.dart';
 import 'package:test_app/search_constants.dart';
 import 'package:test_app/widgets/common/misc_widgets.dart';
-
 import '../../models/artist.dart';
-import '../../models/user.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 
 class UserProfileListeningPage extends StatelessWidget {
