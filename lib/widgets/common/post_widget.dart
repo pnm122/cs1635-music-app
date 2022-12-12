@@ -16,13 +16,9 @@ import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 
 /// Container for all posts displayed in a view
-class PostView extends StatefulWidget {
-  const PostView({super.key});
-  @override
-  State<PostView> createState() => _PostViewState();
-}
-
-class _PostViewState extends State<PostView> {
+class PostView extends StatelessWidget {
+  const PostView({super.key, required this.postViewModel});
+  final PostViewModel postViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +33,6 @@ class _PostViewState extends State<PostView> {
         padding: const EdgeInsets.all(sectionPadding),
         itemCount: posts.length,
         itemBuilder: (context, i) {
-          // Text Post
-          // TODO: Turn this into its own widget
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -61,6 +55,7 @@ class _PostViewState extends State<PostView> {
               // Interaction icons
               PostInteraction(
                 post: posts[i],
+                postViewModel: postViewModel,
               ),
 
               // extra space between each post
@@ -70,7 +65,6 @@ class _PostViewState extends State<PostView> {
         });
   }
 }
-
 
 /// Avatar, name, and following button attached to the top of each post
 class PosterInfo extends StatefulWidget {
@@ -236,19 +230,13 @@ class PostContent extends StatelessWidget {
 
 
 /// Interaction buttons (favorite and comment) attached to the bottom of each post
-class PostInteraction extends StatefulWidget {
-  const PostInteraction({super.key, required this.post});
+class PostInteraction extends StatelessWidget {
+  const PostInteraction({super.key, required this.post, required this.postViewModel});
+  final PostViewModel postViewModel;
   final dynamic post;
 
   @override
-  State<PostInteraction> createState() => _PostInteractionState();
-}
-
-class _PostInteractionState extends State<PostInteraction> {
-  @override
   Widget build(BuildContext context) {
-    // TODO: How do I watch individual posts so that all this stuff updates the way I want?
-
     var currentUser = context.watch<PostViewModel>().currentUser;
     return Row(
       children: <Widget>[
@@ -260,14 +248,14 @@ class _PostInteractionState extends State<PostInteraction> {
               constraints: const BoxConstraints(),
               isSelected: false,
               onPressed: () {
-                context.read<PostViewModel>().likePost(widget.post);
+                context.read<PostViewModel>().likePost(post);
                 },
-              icon: widget.post.likedBy.contains(currentUser)
+              icon: post.likedBy.contains(currentUser)
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.white)
             ),
             Text(
-              widget.post.likedBy.length.toString(),
+              post.likedBy.length.toString(),
               style: Theme.of(context)
                   .textTheme
                   .labelSmall
@@ -293,8 +281,11 @@ class _PostInteractionState extends State<PostInteraction> {
                   builder: (context) => Container(
                     height: MediaQuery.of(context).size.height * 0.95,
                     child: ChangeNotifierProvider<CommentsPageViewModel>(
-                      child: const Comments(),
-                      create: (_) => CommentsPageViewModel(relatedPost: widget.post),
+                      child: ChangeNotifierProvider<PostViewModel>.value(
+                        value: postViewModel,
+                        child: const Comments()
+                      ),
+                      create: (_) => CommentsPageViewModel(relatedPost: post),
                     ),
                   ),
                 );
@@ -303,7 +294,7 @@ class _PostInteractionState extends State<PostInteraction> {
               icon: const Icon(Icons.comment, color: Colors.white),
             ),
             Text(
-              widget.post.comments.length.toString(),
+              post.comments.length.toString(),
               style: Theme.of(context)
                   .textTheme
                   .labelSmall

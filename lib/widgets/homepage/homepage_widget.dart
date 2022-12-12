@@ -38,22 +38,42 @@ class HomePage extends StatelessWidget {
             ],
         ),
         
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
-            // Popular
-            ChangeNotifierProvider<PostViewModel>(
-              child: const PostView(),
-              create: (_) => PostViewModel(posts: context.watch<HomePageViewModel>().popularPosts, isHomepage: true)
-            ),
+            // refer to pierce_explanations for why these are separate widgets now
+            PopularPosts(),
 
-            // Following
-            ChangeNotifierProvider<PostViewModel>(
-              child: const PostView(),
-              create: (_) => PostViewModel(posts: context.watch<HomePageViewModel>().followingPosts, isHomepage: true)
-            ),
+            FollowingPosts(),
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class PopularPosts extends StatelessWidget {
+  const PopularPosts({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    PostViewModel postViewModel = PostViewModel(posts: context.watch<HomePageViewModel>().popularPosts, isHomepage: true);
+    return ChangeNotifierProvider<PostViewModel>(
+      child: PostView(postViewModel: postViewModel),
+      create: (_) => postViewModel,
+    );
+  }
+}
+
+class FollowingPosts extends StatelessWidget {
+  const FollowingPosts({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    PostViewModel postViewModel = PostViewModel(posts: context.watch<HomePageViewModel>().followingPosts, isHomepage: true);
+    return ChangeNotifierProvider<PostViewModel>(
+      child: PostView(postViewModel: postViewModel),
+      create: (_) => postViewModel,
     );
   }
 }

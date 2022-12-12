@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/viewmodels/homepage/comments_page_view_model.dart';
+import 'package:test_app/viewmodels/homepage/post_view_model.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
 import 'package:test_app/widgets/common/misc_widgets.dart';
 import '../../mock_data.dart';
@@ -394,6 +395,7 @@ class _CommentsState extends State<Comments> {
                             context.read<CommentsPageViewModel>().comment(myController.text);
                             myController.clear();
                           }
+                          context.read<PostViewModel>().updateComments();
                         }
                       },
                       child: const Text("Post"),

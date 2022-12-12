@@ -27,30 +27,24 @@ class PostViewModel with ChangeNotifier {
   void likePost(Post post) {
     if(post.likedBy.contains(MockData().currentUser)) {
       post.likedBy.remove(MockData().currentUser);
-      notifyListeners();
     } else { 
       post.likedBy.add(MockData().currentUser);
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   void follow(User user) {
     if(currentUser.following.contains(user)) {
       currentUser.following.remove(user);
       user.followers.remove(currentUser);
-
-      // update following posts
-      //_followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
-      notifyListeners();
     } else {
       currentUser.following.add(user);
       user.followers.add(currentUser);
-
-      // Update following posts
-      //_followingPosts = _getFollowingPosts(MockData().posts, MockData().currentUser.following);
-      notifyListeners();
     }
+    notifyListeners();
   }
 
-
+  void updateComments() {
+    notifyListeners();
+  }
 }

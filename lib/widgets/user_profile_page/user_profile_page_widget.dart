@@ -114,17 +114,27 @@ class _UserProfilePage extends State<UserProfilePage> {
           ),
           body: TabBarView(
             children: <Widget>[
-              // Posts
-              ChangeNotifierProvider<PostViewModel>(
-                  child: const PostView(),
-                  create: (_) => PostViewModel(posts: context.watch<UserProfilePageViewModel>().posts, isProfilePage: true)
-              ),
+              // refer to pierce_explanations for why this has to be a separate widget (or at least why I think it does)
+              const UserPosts(),
 
               // Listening
               UserProfileListeningPage(viewModel: viewModel,),
             ],
           ),
       )
+    );
+  }
+}
+
+class UserPosts extends StatelessWidget {
+  const UserPosts({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    PostViewModel postViewModel = PostViewModel(posts: context.watch<UserProfilePageViewModel>().posts, isProfilePage: true);
+    return ChangeNotifierProvider<PostViewModel>(
+      child: PostView(postViewModel: postViewModel),
+      create: (_) => postViewModel,
     );
   }
 }

@@ -14,6 +14,8 @@ class SongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Song song = context.watch<SongPageViewModel>().song;
+    PostViewModel postViewModel = PostViewModel(posts: song.covers);
+    
     return Scaffold(
       appBar: CustomAppBar(
         title: "Song"
@@ -105,8 +107,8 @@ class SongPage extends StatelessWidget {
               ),
               const Divider(),
               ChangeNotifierProvider(
-                create: (context) => PostViewModel(posts: song.covers),
-                child: const PostView(),
+                create: (context) => postViewModel,
+                child: PostView(postViewModel: postViewModel),
               )
             ],
           ),
