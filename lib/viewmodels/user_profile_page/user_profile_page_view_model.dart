@@ -54,7 +54,7 @@ class UserProfilePageViewModel with ChangeNotifier {
   UserProfilePageViewModel({User? u}) {
     _user = u ?? MockData().currentUser;
     _followersCnt = countToString(_user.followers.length);
-    _followingCnt = countToString(MockData().currentUser.following.length);
+    _followingCnt = countToString(_user.following.length);
     _editAvailable = u == null;
     _posts = _getUserPosts(user);
     notifyListeners();
@@ -93,10 +93,6 @@ class UserProfilePageViewModel with ChangeNotifier {
   }
 
   void pinPress(Post post) {
-    if (currentUser != post.poster) {
-      return;
-    }
-
     post.isPinned = !post.isPinned;
     _posts = _getUserPosts(user);
     notifyListeners();

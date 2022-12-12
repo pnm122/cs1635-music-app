@@ -199,6 +199,7 @@ class PostContent extends StatelessWidget {
               left: 12,
               top: 12,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
@@ -209,11 +210,11 @@ class PostContent extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                      const Icon(Icons.person, size: smallIconSize),
+                      const Icon(Icons.person, size: smallIconSize, color: Colors.white70),
                       const SizedBox(width: smallGap),
                       Text(
                         post.song.creator.name,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w300),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white70),
                       ),
                     ],
                   )

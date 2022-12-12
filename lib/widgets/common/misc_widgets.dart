@@ -38,10 +38,10 @@ class ArtistImage extends StatelessWidget {
           artist!.image, 
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
-            return Center(child: Icon(Icons.person, size: size / 2, color: Colors.black));
+            return Center(child: Icon(Icons.person, size: size * 0.8, color: Colors.black));
           },
         )
-        : Center(child: Icon(Icons.person, size: size / 2, color: Colors.black))
+        : Center(child: Icon(Icons.person, size: size * 0.8, color: Colors.black))
     );
   }
 }
@@ -65,10 +65,10 @@ class AlbumCoverOfSong extends StatelessWidget {
           (song as Track).album.art, 
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
-            return Center(child: Icon(Icons.album, size: size / 2, color: Colors.black));
+            return Center(child: Icon(Icons.album, size: size * 0.8, color: Colors.black));
           },
         )
-        : Center(child: Icon(Icons.album, size: size / 2, color: Colors.black))
+        : Center(child: Icon(Icons.album, size: size * 0.8, color: Colors.black))
     );
   }
 }
@@ -91,10 +91,10 @@ class AlbumCoverOfAlbum extends StatelessWidget {
           album!.art, 
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
-            return Center(child: Icon(Icons.album, size: size / 2, color: Colors.black));
+            return Center(child: Icon(Icons.album, size: size * 0.8, color: Colors.black));
           },
         )
-        : Center(child: Icon(Icons.album, size: size / 2, color: Colors.black))
+        : Center(child: Icon(Icons.album, size: size * 0.8, color: Colors.black))
     );
   }
 }
