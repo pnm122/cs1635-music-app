@@ -52,7 +52,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.music_note, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: favoriteSong == null ? "Song name" : favoriteSong.name
+                          text: favoriteSong == null ? "Song name" : favoriteSong.name,
+                          style: const TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -62,7 +63,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: favoriteSong == null ? 'Artist name' : favoriteSong.creator.name
+                          text: favoriteSong == null ? 'Artist name' : favoriteSong.creator.name,
+                          style: const TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -87,7 +89,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.album, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: favoriteAlbum == null ? 'Album name' : favoriteAlbum.name
+                          text: favoriteAlbum == null ? 'Album name' : favoriteAlbum.name,
+                          style: const TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -97,7 +100,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: favoriteAlbum == null ? 'Artist name' : favoriteAlbum.artist.name
+                          text: favoriteAlbum == null ? 'Artist name' : favoriteAlbum.artist.name,
+                          style: const TextStyle(fontSize: 12)
                       )
                     ]
                 )),
@@ -122,7 +126,8 @@ class UserProfileListeningPage extends StatelessWidget {
                           child: Icon(Icons.person, color: Colors.white,)
                       ),
                       TextSpan(
-                          text: favoriteArtist == null ? 'Artist name' : favoriteArtist.name
+                          text: favoriteArtist == null ? 'Artist name' : favoriteArtist.name,
+                          style: const TextStyle(fontSize: 12)
                       )
                     ]
                 )),
