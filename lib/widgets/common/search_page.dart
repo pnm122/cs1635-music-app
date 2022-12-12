@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:test_app/search_constants.dart';
 import 'package:test_app/viewmodels/common/search_page_view_model.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
-import 'package:test_app/viewmodels/common/song_page_view_model.dart';
 import 'package:test_app/widgets/common/search_tiles.dart';
 
 class SearchPage extends StatelessWidget {

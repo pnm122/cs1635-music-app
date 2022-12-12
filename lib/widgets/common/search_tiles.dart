@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/models/artist.dart';
-import 'package:test_app/models/track.dart';
 import 'package:test_app/models/user.dart';
 import 'package:test_app/models/song.dart';
 import 'package:test_app/models/album.dart';

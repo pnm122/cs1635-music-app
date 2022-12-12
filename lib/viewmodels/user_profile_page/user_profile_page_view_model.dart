@@ -1,12 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:test_app/mock_data.dart';
-import 'package:test_app/models/artist.dart';
 import 'package:test_app/search_constants.dart';
-
-import '../../models/album.dart';
 import '../../models/post.dart';
-import '../../models/profile.dart';
-import '../../models/track.dart';
 import '../../models/user.dart';
 
 String countToString(int cnt) {
@@ -46,8 +41,8 @@ List<Post> _getUserPosts(User user) {
 
 class UserProfilePageViewModel with ChangeNotifier {
   late final User _user;
-  late final String _followersCnt;
-  late final String _followingCnt;
+  late String _followersCnt;
+  late String _followingCnt;
   late final bool _editAvailable;
   late List<Post> _posts;
 
@@ -95,6 +90,21 @@ class UserProfilePageViewModel with ChangeNotifier {
   void pinPress(Post post) {
     post.isPinned = !post.isPinned;
     _posts = _getUserPosts(user);
+    notifyListeners();
+  }
+
+  void follow(User user) {
+    if(currentUser.following.contains(user)) {
+      currentUser.following.remove(user);
+      user.followers.remove(currentUser);
+    } else {
+      currentUser.following.add(user);
+      user.followers.add(currentUser);
+    }
+
+    _followersCnt = countToString(_user.followers.length);
+    _followingCnt = countToString(_user.following.length);
+
     notifyListeners();
   }
 }

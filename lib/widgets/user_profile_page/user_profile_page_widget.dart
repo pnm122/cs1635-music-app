@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/widgets/common/misc_widgets.dart';
 import 'package:test_app/widgets/user_profile_page/user_profile_listening_page_widget.dart';
-
-import '../../models/artist.dart';
 import '../../models/user.dart';
 import '../../router_constants.dart';
 import '../../search_constants.dart';
@@ -11,7 +9,6 @@ import '../../user_profile_page_edit_arguments.dart';
 import '../../viewmodels/homepage/post_view_model.dart';
 import '../../viewmodels/user_profile_page/user_profile_page_view_model.dart';
 import '../common/post_widget.dart';
-import 'edit_profile_page_widget.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -25,8 +22,9 @@ class _UserProfilePage extends State<UserProfilePage> {
 
     var viewModel = context.watch<UserProfilePageViewModel>();
     final User user = context.watch<UserProfilePageViewModel>().user;
-    final String followersCnt = context.watch<UserProfilePageViewModel>().followersCnt;
-    final String followingCnt = context.watch<UserProfilePageViewModel>().followingCnt;
+    String followersCnt = context.watch<UserProfilePageViewModel>().followersCnt;
+    String followingCnt = context.watch<UserProfilePageViewModel>().followingCnt;
+    var currentUser = context.watch<UserProfilePageViewModel>().currentUser;
 
     return DefaultTabController(
       initialIndex: 0,
@@ -86,6 +84,44 @@ class _UserProfilePage extends State<UserProfilePage> {
                             icon: const Icon(Icons.edit, color: Colors.white),
                           ),
                         visible: viewModel.editAvailable,
+                      ),
+                      Visibility(
+                        child:
+                        // Following button
+                        OutlinedButton(
+                            style: currentUser.following.contains(user)
+                                ? ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.outline),
+                              foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
+                              side: MaterialStateProperty.all(
+                                BorderSide(
+                                  color: Theme.of(context).colorScheme.outline,
+                                  width: 1,
+                                ),
+                              ),
+                              textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
+                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 0, horizontal: 8)),
+                            )
+                                : ButtonStyle(
+                              // MaterialStateProperty.all means to use that style for all states of the button
+                              foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
+                              side: MaterialStateProperty.all(
+                                BorderSide(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  width: 1,
+                                ),
+                              ),
+                              textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium),
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                            ),
+                            onPressed: () {
+                              context.read<UserProfilePageViewModel>().follow(user);
+                            },
+                            child: currentUser.following.contains(user)
+                                ? const Text("Following")
+                                : const Text("Follow")
+                        ),
+                        visible: !viewModel.editAvailable,
                       ),
                       const Spacer(),
                       TextButton(
