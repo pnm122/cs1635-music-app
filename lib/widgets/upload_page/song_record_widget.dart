@@ -10,78 +10,86 @@ class SongRecordWidget extends StatefulWidget {
   State<SongRecordWidget> createState() => _SongRecordState();
 }
 
-late List<CameraDescription> _cameras;
-
 class _SongRecordState extends State<SongRecordWidget> {
-  late CameraController camCtrlr;
-  late bool _ready;
-
   @override
   void initState() {
+    startCam();
     super.initState();
-    _ready = false;
-    initCam();
-    camCtrlr = CameraController(_cameras[0], ResolutionPreset.max);
-    camCtrlr.initialize().then((_) {
-      if (!mounted) return;
-      setState(() {});
-    });
-  }
-
-  Future<void> initCam() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    _cameras = await availableCameras();
-    _ready = true;
   }
 
   @override
   void dispose() {
-    camCtrlr.dispose();
+    cameraController.dispose();
     super.dispose();
+  }
+
+  late List<CameraDescription> cameras;
+  late CameraController cameraController;
+  void startCam() async {
+    cameras = await availableCameras();
+    cameraController = CameraController(
+      cameras.first,
+      ResolutionPreset.max,
+      enableAudio: true,
+    );
+    await cameraController.initialize().then((value) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    }).catchError((e) {
+      return; // Error is caught in the code below
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Wait until camera is ready
-    if (!_ready) {
-      return const CircularProgressIndicator();
+    // Guard camera from the big-angry-red-screen
+    if (!cameraController.value.isInitialized) {
+      return const Scaffold(
+        body: Text("Something is wrong with Camera"),
+      );
     }
 
-    const double recButtonSize = 100;
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
-      body: Center(child: CameraPreview(camCtrlr)),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.transparent,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.insert_photo,
-              size: navBarIconSize,
-            ),
-            label: 'Select Video',
+    return Stack(
+      children: [
+        Center(child: CameraPreview(cameraController)),
+        Scaffold(
+          appBar: AppBar(
+            shadowColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.fiber_manual_record_outlined,
-              size: recButtonSize,
-            ),
-            label: 'Record',
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.transparent,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.insert_photo,
+                  size: navBarIconSize,
+                ),
+                label: 'Select Video',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.fiber_manual_record_outlined,
+                  size: 100,
+                ),
+                label: 'Record',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.flip_camera_ios,
+                  size: navBarIconSize,
+                ),
+                label: 'Flip Camera',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.flip_camera_ios,
-              size: navBarIconSize,
-            ),
-            label: 'Flip Camera',
-          ),
-        ],
-      ),
+          backgroundColor: Colors.transparent,
+        )
+      ],
     );
   }
 }
