@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/viewmodels/upload_page/song_record_view_model.dart';
-import 'package:test_app/viewmodels/upload_page/text_post_view_model.dart';
+import 'package:test_app/viewmodels/upload_page/song_data_view_model.dart';
+import 'package:test_app/viewmodels/upload_page/post_upload_view_model.dart';
 import 'package:test_app/widgets/upload_page/song_record_widget.dart';
 import 'package:test_app/widgets/upload_page/text_post_widget.dart';
 
@@ -38,9 +38,9 @@ class UploadPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ChangeNotifierProvider<SongRecordViewModel>(
+                  builder: (context) => ChangeNotifierProvider<SongDataViewModel>(
                     child: const SongRecordWidget(),
-                    create: (context) => SongRecordViewModel(),
+                    create: (context) => SongDataViewModel(),
                   ),
                 ),
               );
@@ -58,9 +58,9 @@ class UploadPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ChangeNotifierProvider<TextPostViewModel>(
+                  builder: (context) => ChangeNotifierProvider<PostUploadViewModel>(
                     child: const TextPostUpload(),
-                    create: (context) => TextPostViewModel(),
+                    create: (context) => PostUploadViewModel(),
                   ),
                 ),
               );

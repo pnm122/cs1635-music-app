@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
-import 'package:test_app/viewmodels/upload_page/text_post_view_model.dart';
+import 'package:test_app/viewmodels/upload_page/post_upload_view_model.dart';
 
 class TextPostUpload extends StatefulWidget {
   const TextPostUpload({super.key});
@@ -49,7 +49,7 @@ class _TextPostState extends State<TextPostUpload> {
           IconButton(
             onPressed: () {
               if (textFieldcharLen > 0) {
-                context.read<TextPostViewModel>().addPost(content);
+                context.read<PostUploadViewModel>().addPost(content);
 
                 // Notify user that the post is successfully uploaded
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Posted!')));

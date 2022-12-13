@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:test_app/viewmodels/upload_page/post_upload_view_model.dart';
+import 'package:test_app/viewmodels/upload_page/song_data_view_model.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
 
 class PostSongWidget extends StatefulWidget {
@@ -22,8 +25,10 @@ class _PostSongWidget extends State<PostSongWidget> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
-              // TODO:
+              // TODO: Route with search page
+              // Attach Song using search_tiles.dart
+              context.read<PostUploadViewModel>().addMedia(SongDataViewModel().controller.dataSource);
+              Navigator.popUntil(context, ModalRoute.withName('/'));
             },
             icon: const Icon(Icons.send),
           )
@@ -32,7 +37,10 @@ class _PostSongWidget extends State<PostSongWidget> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("This song is a ..."),
+          const Padding(
+            padding: EdgeInsets.all(12),
+            child: Text("This song is a ...", style: TextStyle(fontSize: 20)),
+          ),
           Row(
             children: [
               Checkbox(
@@ -50,9 +58,19 @@ class _PostSongWidget extends State<PostSongWidget> {
           Padding(
             padding: cmnTextFieldWidthLimit,
             child: TextField(
+              decoration: const InputDecoration(hintText: "Cover of ..."),
+              enabled: isCover,
               maxLines: 1,
               minLines: 1,
-              onChanged: (String value) => null, // TODO:
+            ),
+          ),
+          Padding(
+            padding: cmnTextFieldWidthLimit,
+            child: TextField(
+              decoration: const InputDecoration(hintText: "Cover artist"),
+              enabled: isCover,
+              maxLines: 1,
+              minLines: 1,
             ),
           ),
           Row(
@@ -72,9 +90,10 @@ class _PostSongWidget extends State<PostSongWidget> {
           Padding(
             padding: cmnTextFieldWidthLimit,
             child: TextField(
+              decoration: const InputDecoration(hintText: "Name your song"),
+              enabled: isOriginal,
               maxLines: 1,
               minLines: 1,
-              onChanged: (String value) => null, // TODO:
             ),
           ),
         ],
