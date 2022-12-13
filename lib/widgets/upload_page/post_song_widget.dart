@@ -16,6 +16,13 @@ class _PostSongWidget extends State<PostSongWidget> {
   bool isCover = true;
   bool isOriginal = false;
 
+  String content = "";
+  _textFieldStats(String value) {
+    setState(() {
+      content = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     EdgeInsets cmnTextFieldWidthLimit = EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05);
@@ -28,7 +35,11 @@ class _PostSongWidget extends State<PostSongWidget> {
             onPressed: () {
               // TODO: Route with search page
               // Attach Song using search_tiles.dart
-              context.read<PostUploadViewModel>().addMedia('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+              if (isCover) {
+                context.read<PostUploadViewModel>().addMedia('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+              } else {
+                context.read<PostUploadViewModel>().addOriginal('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4', content);
+              }
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Posted!')));
               Navigator.popUntil(context, ModalRoute.withName('/'));
             },
@@ -96,6 +107,7 @@ class _PostSongWidget extends State<PostSongWidget> {
               enabled: isOriginal,
               maxLines: 1,
               minLines: 1,
+              onChanged: (String value) => _textFieldStats(value),
             ),
           ),
         ],
