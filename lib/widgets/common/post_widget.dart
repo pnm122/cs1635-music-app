@@ -107,21 +107,23 @@ class _PosterInfoState extends State<PosterInfo> {
         const SizedBox(width: 5),
 
         // Following button
-        OutlinedButton(
-          style: currentUser.following.contains(user)
-            ? ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.outline),
-              foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
-              side: MaterialStateProperty.all(
-                BorderSide(
-                  color: Theme.of(context).colorScheme.outline,
-                  width: 1,
+        Visibility(
+          visible: user != currentUser,
+          child: OutlinedButton(
+              style: currentUser.following.contains(user)
+                  ? ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.outline),
+                foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
+                side: MaterialStateProperty.all(
+                  BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
+                    width: 1,
+                  ),
                 ),
-              ),
-              textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
-              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 0, horizontal: 8)),
-            )
-            : ButtonStyle(
+                textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
+                padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 0, horizontal: 8)),
+              )
+                  : ButtonStyle(
                 // MaterialStateProperty.all means to use that style for all states of the button
                 foregroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
                 side: MaterialStateProperty.all(
@@ -130,18 +132,19 @@ class _PosterInfoState extends State<PosterInfo> {
                     width: 1,
                   ),
                 ),
-              textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium),
-              padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
-            ),
-          onPressed: () { 
-            context.read<PostViewModel>().follow(user);
-            if(context.read<PostViewModel>().isHomepage) {
-              context.read<HomePageViewModel>().updateFollowingPosts();
-            }
-          },
-          child: currentUser.following.contains(user)
-            ? const Text("Following")
-            : const Text("Follow")
+                textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.labelMedium),
+                padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+              ),
+              onPressed: () {
+                context.read<PostViewModel>().follow(user);
+                if(context.read<PostViewModel>().isHomepage) {
+                  context.read<HomePageViewModel>().updateFollowingPosts();
+                }
+              },
+              child: currentUser.following.contains(user)
+                  ? const Text("Following")
+                  : const Text("Follow")
+          ),
         ),
         const Spacer(),
         // Allows for 3 cases:
