@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:test_app/viewmodels/upload_page/post_upload_view_model.dart';
 import 'package:test_app/viewmodels/upload_page/song_data_view_model.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
+import 'package:video_player/video_player.dart';
 
 class PostSongWidget extends StatefulWidget {
   const PostSongWidget({super.key});
@@ -27,7 +28,8 @@ class _PostSongWidget extends State<PostSongWidget> {
             onPressed: () {
               // TODO: Route with search page
               // Attach Song using search_tiles.dart
-              context.read<PostUploadViewModel>().addMedia(SongDataViewModel().controller.dataSource);
+              context.read<PostUploadViewModel>().addMedia('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Posted!')));
               Navigator.popUntil(context, ModalRoute.withName('/'));
             },
             icon: const Icon(Icons.send),

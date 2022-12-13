@@ -15,7 +15,7 @@ class PostUploadViewModel with ChangeNotifier {
       text: "",
       href: url,
       createdTime: DateTime.now().toUtc(),
-      song: MockData().songs.first,
+      song: MockData().songs[9],
     );
 
     // Add to poster's profile

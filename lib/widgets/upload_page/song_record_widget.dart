@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
 
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/viewmodels/upload_page/song_data_view_model.dart';
 import 'package:test_app/widgets/upload_page/song_edit_widget.dart';
-import 'package:video_player/video_player.dart';
 
 class SongRecordWidget extends StatefulWidget {
   const SongRecordWidget({super.key});
@@ -16,9 +16,7 @@ class SongRecordWidget extends StatefulWidget {
 class _SongRecordWidget extends State<SongRecordWidget> {
   @override
   Widget build(BuildContext context) {
-    SongDataViewModel contVM = context.read<SongDataViewModel>();
-    VideoPlayerController controller = contVM.controller;
-    contVM.initializedVideoPlayerFuture = controller.initialize();
+    VideoPlayerController controller = context.read<SongDataViewModel>().initialize();
 
     Icon record = const Icon(
       Icons.fiber_manual_record_outlined,
@@ -29,7 +27,7 @@ class _SongRecordWidget extends State<SongRecordWidget> {
       body: Stack(
         children: [
           FutureBuilder(
-            future: contVM.future,
+            future: controller.initialize(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Center(

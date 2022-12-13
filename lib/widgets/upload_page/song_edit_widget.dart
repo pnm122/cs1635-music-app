@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/viewmodels/upload_page/post_upload_view_model.dart';
+import 'package:video_player/video_player.dart';
 
 import 'package:test_app/global_styles.dart';
 import 'package:test_app/viewmodels/upload_page/song_data_view_model.dart';
 import 'package:test_app/widgets/upload_page/post_song_widget.dart';
 import 'package:test_app/widgets/upload_page/song_equalizer_widget.dart';
 import 'package:test_app/widgets/upload_page/song_trim_widget.dart';
-import 'package:video_player/video_player.dart';
 
 class SongEditWidget extends StatefulWidget {
   const SongEditWidget({super.key});
@@ -18,9 +19,7 @@ class SongEditWidget extends StatefulWidget {
 class _SongEditWidget extends State<SongEditWidget> {
   @override
   Widget build(BuildContext context) {
-    SongDataViewModel contVM = context.read<SongDataViewModel>();
-    VideoPlayerController controller = contVM.controller;
-    contVM.initializedVideoPlayerFuture = controller.initialize();
+    VideoPlayerController controller = context.read<SongDataViewModel>().initialize();
     controller.play();
     controller.setLooping(true);
 
@@ -28,7 +27,7 @@ class _SongEditWidget extends State<SongEditWidget> {
       body: Stack(
         children: [
           FutureBuilder(
-            future: contVM.future,
+            future: controller.initialize(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Center(
@@ -70,9 +69,9 @@ class _SongEditWidget extends State<SongEditWidget> {
                 controller.pause();
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ChangeNotifierProvider<SongDataViewModel>(
+                    builder: (context) => ChangeNotifierProvider<PostUploadViewModel>(
                       child: const PostSongWidget(),
-                      create: (context) => SongDataViewModel(),
+                      create: (context) => PostUploadViewModel(),
                     ),
                   ),
                 );
@@ -94,10 +93,13 @@ class _SongEditWidget extends State<SongEditWidget> {
                 onPressed: () {
                   controller.pause();
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SongTrimWidget(),
+                    builder: (context) => ChangeNotifierProvider<SongDataViewModel>(
+                      child: const SongTrimWidget(),
+                      create: (context) => SongDataViewModel(),
+                    ),
                   ));
-                }, // TODO:
-                heroTag: "Cut",
+                },
+                heroTag: "Trim",
                 child: const Icon(
                   Icons.content_cut,
                   size: navBarIconSize,
@@ -109,9 +111,12 @@ class _SongEditWidget extends State<SongEditWidget> {
                 elevation: 0,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SongEqualizerWidget(),
+                    builder: (context) => ChangeNotifierProvider<SongDataViewModel>(
+                      child: const SongEqualizerWidget(),
+                      create: (context) => SongDataViewModel(),
+                    ),
                   ));
-                }, // TODO:
+                },
                 heroTag: "Equalizer",
                 child: const Icon(
                   Icons.equalizer,
