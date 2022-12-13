@@ -139,6 +139,8 @@ class _PosterInfoState extends State<PosterInfo> {
                 context.read<PostViewModel>().follow(user);
                 if(context.read<PostViewModel>().isHomepage) {
                   context.read<HomePageViewModel>().updateFollowingPosts();
+                } else if (context.read<PostViewModel>().isProfilePage) {
+                  context.read<UserProfilePageViewModel>().updateUser();
                 }
               },
               child: currentUser.following.contains(user)

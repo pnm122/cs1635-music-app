@@ -107,4 +107,8 @@ class UserProfilePageViewModel with ChangeNotifier {
 
     notifyListeners();
   }
+
+  void updateUser() {
+    notifyListeners();
+  }
 }
