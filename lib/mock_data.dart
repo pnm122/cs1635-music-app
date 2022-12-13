@@ -156,12 +156,6 @@ List<Track> _tracks = List.from(
         covers: []
       ),
       Track(
-        name: "What Did I Do?/God As My Witness",
-        creator: _artists.where((x) => x.name == "Foo Fighters").first,
-        album: _albums.where((x) => x.name == "Sonic Highways").first,
-        covers: []
-      ),
-      Track(
         name: "Outside",
         creator: _artists.where((x) => x.name == "Foo Fighters").first,
         album: _albums.where((x) => x.name == "Sonic Highways").first,
