@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
 
 import 'package:test_app/global_styles.dart';
+import 'package:test_app/widgets/upload_page/song_edit_widget.dart';
 
 class SongRecordWidget extends StatefulWidget {
   const SongRecordWidget({super.key});
@@ -110,7 +111,11 @@ class _SongRecordState extends State<SongRecordWidget> {
             foregroundColor: Colors.white,
             backgroundColor: Colors.transparent,
             elevation: 0,
-            onPressed: () {}, // TODO:
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const SongEditWidget(),
+              ));
+            }, // TODO:
             child: const Icon(
               Icons.fiber_manual_record_outlined,
               size: 90,
