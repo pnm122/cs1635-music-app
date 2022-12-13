@@ -15,6 +15,7 @@ class UserProfileListeningPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    var currentUser = context.watch<UserProfilePageViewModel>().currentUser;
     var user = context.watch<UserProfilePageViewModel>().user;
     Song? favoriteSong = user.profile.favoriteSong;
     Album? favoriteAlbum = user.profile.favoriteAlbum;
@@ -39,10 +40,13 @@ class UserProfileListeningPage extends StatelessWidget {
                 Row(
                   children: [
                     const Text("Song"),
-                    IconButton(
-                        onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[songSearch], settingFavoriteBehavior, viewModel]); },
-                        icon: const Icon(Icons.edit, color: Colors.white)
-                    )
+                    Visibility(
+                        child: IconButton(
+                            onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[songSearch], settingFavoriteBehavior, viewModel]); },
+                            icon: const Icon(Icons.edit, color: Colors.white)
+                        ),
+                      visible: currentUser == user,
+                    ),
                   ],
                 ),
                 AlbumCoverOfSong(song: favoriteSong, size: 100),
@@ -76,9 +80,12 @@ class UserProfileListeningPage extends StatelessWidget {
                 Row(
                   children: [
                     const Text("Album"),
-                    IconButton(
-                        onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[albumSearch], settingFavoriteBehavior, viewModel]); },
-                        icon: const Icon(Icons.edit, color: Colors.white)
+                    Visibility(
+                        child: IconButton(
+                            onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[albumSearch], settingFavoriteBehavior, viewModel]); },
+                            icon: const Icon(Icons.edit, color: Colors.white)
+                        ),
+                      visible: currentUser == user,
                     )
                   ],
                 ),
@@ -113,9 +120,12 @@ class UserProfileListeningPage extends StatelessWidget {
                 Row(
                   children: [
                     const Text("Artist"),
-                    IconButton(
-                        onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[artistSearch], settingFavoriteBehavior, viewModel]); },
-                        icon: const Icon(Icons.edit, color: Colors.white)
+                    Visibility(
+                        child: IconButton(
+                            onPressed: (){ Navigator.pushNamed(context, searchRoute, arguments: [[artistSearch], settingFavoriteBehavior, viewModel]); },
+                            icon: const Icon(Icons.edit, color: Colors.white)
+                        ),
+                      visible: currentUser == user,
                     )
                   ],
                 ),
