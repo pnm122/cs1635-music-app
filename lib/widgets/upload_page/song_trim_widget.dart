@@ -16,6 +16,8 @@ class _SongTrimWidget extends State<SongTrimWidget> {
   @override
   Widget build(BuildContext context) {
     VideoPlayerController controller = context.read<SongDataViewModel>().initialize();
+    controller.play();
+    controller.setLooping(true);
 
     return Scaffold(
       appBar: CustomAppBar(

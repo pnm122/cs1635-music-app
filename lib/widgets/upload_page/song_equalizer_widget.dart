@@ -4,7 +4,6 @@ import 'package:video_player/video_player.dart';
 
 import 'package:test_app/viewmodels/upload_page/song_data_view_model.dart';
 import 'package:test_app/widgets/common/custom_app_bar.dart';
-import 'package:test_app/global_styles.dart';
 
 class SongEqualizerWidget extends StatefulWidget {
   const SongEqualizerWidget({super.key});
@@ -17,6 +16,8 @@ class _SongEqualizerWidget extends State<SongEqualizerWidget> {
   @override
   Widget build(BuildContext context) {
     VideoPlayerController controller = context.read<SongDataViewModel>().initialize();
+    controller.play();
+    controller.setLooping(true);
 
     Color foreground = Theme.of(context).colorScheme.primary;
     const Size cmnMinSize = Size(150, 90);
