@@ -8,7 +8,7 @@ import 'package:test_app/models/track.dart';
 import 'package:test_app/models/user.dart';
 
 class PostUploadViewModel with ChangeNotifier {
-  void addMedia(String url) {
+  void addMedia(String url, String songName) {
     User poster = MockData().currentUser;
 
     // Create the post
@@ -18,7 +18,7 @@ class PostUploadViewModel with ChangeNotifier {
       text: "",
       href: url,
       createdTime: DateTime.now().toUtc(),
-      song: MockData().songs[9],
+      song: MockData().songs.where((x) => x.name == songName).first,
     );
 
     // Add to poster's profile

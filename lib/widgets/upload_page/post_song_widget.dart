@@ -36,7 +36,7 @@ class _PostSongWidget extends State<PostSongWidget> {
               // TODO: Route with search page
               // Attach Song using search_tiles.dart
               if (isCover) {
-                context.read<PostUploadViewModel>().addMedia('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+                context.read<PostUploadViewModel>().addMedia('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4', content);
               } else {
                 context.read<PostUploadViewModel>().addOriginal('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4', content);
               }
@@ -75,6 +75,7 @@ class _PostSongWidget extends State<PostSongWidget> {
               enabled: isCover,
               maxLines: 1,
               minLines: 1,
+              onChanged: (String value) => _textFieldStats(value),
             ),
           ),
           Padding(
